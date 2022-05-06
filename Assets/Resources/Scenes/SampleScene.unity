@@ -391,8 +391,9 @@ MonoBehaviour:
     canUpdate: 0
     DrawGizmos: 0
   parentManagers: {fileID: 1160605488}
-  managers: []
-  entities: []
+  managers:
+  - {fileID: 815516150}
+  - {fileID: 30954023}
   getManagers: 0
 --- !u!4 &1160605488
 Transform:

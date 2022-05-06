@@ -127,6 +127,7 @@ namespace StardropTools.Pool
 
                 pooled.OnSpawn();
 
+                // Add support for async task
                 if (lifeTime > 0)
                     pooled.LifeTime(this, lifeTime);
 

@@ -8,6 +8,9 @@ public static class MathUtility
     public static float RoundDecimals(float value, int decimalAmount)
         => (float)System.Math.Round(value, decimalAmount);
 
+    public static int ConvertToMiliseconds(float seconds)
+        => (int)(seconds * 0.001f);
+
     public static bool IsValueBetween(float value, float min, float max, bool inclusive = false)
     {
         if (inclusive == false)

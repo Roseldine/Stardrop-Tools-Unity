@@ -1,4 +1,5 @@
 
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace StardropTools.Pool
@@ -30,7 +31,7 @@ namespace StardropTools.Pool
             this.clusterName = clusterName;
             this.poolID = poolID;
             this.poolName = poolName;
-            itemID = itemID;
+            this.itemID = itemID;
 
             SetActive(setActive);
             Initialize();
@@ -49,6 +50,16 @@ namespace StardropTools.Pool
         System.Collections.IEnumerator LifetimeCR(Pool pool, float time)
         {
             yield return pool.GetWait(time);
+            pool.Despawn(this);
+        }
+
+        public async void LifeTimeAsync(Pool pool, float time)
+            => await LifetimeSync(pool, time);
+
+        private async Task LifetimeSync(Pool pool, float time)
+        {
+            int milisenconds = MathUtility.ConvertToMiliseconds(time);
+            await Task.Delay(milisenconds);
             pool.Despawn(this);
         }
     }

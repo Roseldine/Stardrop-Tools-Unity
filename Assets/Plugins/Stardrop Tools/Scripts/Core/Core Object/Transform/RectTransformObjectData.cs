@@ -36,6 +36,7 @@ namespace StardropTools
         [Space]
         [SerializeField] float targetWidth;
         [SerializeField] float targetHeight;
+        public bool UseTargetSize;
         [Space]
         public bool resetCenter;
 

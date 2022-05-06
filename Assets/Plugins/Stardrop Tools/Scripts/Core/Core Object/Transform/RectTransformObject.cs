@@ -412,7 +412,10 @@ namespace StardropTools
             => Height = height;
 
         public void SetTargetSize()
-            => SetSize(new Vector2(TargetWidth, TargetHeight));
+        {
+            if (rectData.UseTargetSize)
+                SetSize(new Vector2(TargetWidth, TargetHeight));
+        }
         public void SetTargetWidth()
             => SetWidth(TargetWidth);
         public void SetTargetHeight()

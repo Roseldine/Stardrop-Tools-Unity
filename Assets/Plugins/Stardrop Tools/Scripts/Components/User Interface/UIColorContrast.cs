@@ -12,7 +12,7 @@ namespace StardropTools.UI
         [SerializeField] UnityEngine.UI.Image[] imgsLight;
         [SerializeField] UnityEngine.UI.Image[] imgsDark;
         [Space]
-        [SerializeField] float pixelPerUnit = 32;
+        [Min(0)][SerializeField] float pixelPerUnit = 32;
         [SerializeField] bool validate = true;
 
         // light
@@ -21,7 +21,10 @@ namespace StardropTools.UI
             if (imgsLight != null && imgsLight.Length > 0)
                 for (int i = 0; i < imgsLight.Length; i++)
                     if (imgsLight[i] != null)
+                    {
                         imgsLight[i].color = colorLight;
+                        imgsLight[i].pixelsPerUnitMultiplier = pixelPerUnit;
+                    }
         }
 
         // dark
@@ -30,7 +33,10 @@ namespace StardropTools.UI
             if (imgsDark != null && imgsDark.Length > 0)
                 for (int i = 0; i < imgsDark.Length; i++)
                     if (imgsDark[i] != null)
+                    {
                         imgsDark[i].color = colorDark;
+                        imgsDark[i].pixelsPerUnitMultiplier = pixelPerUnit;
+                    }
         }
 
         private void OnValidate()

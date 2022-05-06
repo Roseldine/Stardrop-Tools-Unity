@@ -7,7 +7,6 @@ public class LoopManager : StardropTools.Singletons.SingletonManager<LoopManager
     [Header("Managers")]
     [SerializeField] Transform parentManagers;
     [SerializeField] Manager[] managers;
-    [SerializeField] CoreObject[] entities;
     [SerializeField] bool getManagers;
 
     public static readonly CoreEvent OnInitialize = new CoreEvent();
@@ -20,6 +19,7 @@ public class LoopManager : StardropTools.Singletons.SingletonManager<LoopManager
         Initialize();
     }
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public override void Initialize()
     {
         base.Initialize();
@@ -60,16 +60,12 @@ public class LoopManager : StardropTools.Singletons.SingletonManager<LoopManager
     void GetManagers()
     {
         managers = GetItems<Manager>(parentManagers);
-        entities = GetItems<CoreObject>(parentManagers);
     }
 
     void InitializeManagers()
     {
         for (int i = 0; i < managers.Length; i++)
             managers[i].Initialize();
-
-        for (int i = 0; i < entities.Length; i++)
-            entities[i].Initialize();
     }
 
     void LateInitializeManagers()
@@ -77,10 +73,6 @@ public class LoopManager : StardropTools.Singletons.SingletonManager<LoopManager
         for (int i = 0; i < managers.Length; i++)
             if (managers[i].IsInitialized)
                 managers[i].LateInitialize();
-
-        for (int i = 0; i < entities.Length; i++)
-            if (entities[i].IsInitialized)
-                entities[i].LateInitialize();
     }
 
     void UpdateManagers()
@@ -88,10 +80,6 @@ public class LoopManager : StardropTools.Singletons.SingletonManager<LoopManager
         for (int i = 0; i < managers.Length; i++)
             if (managers[i].CanUpdate)
                 managers[i].UpdateResource();
-
-        for (int i = 0; i < entities.Length; i++)
-            if (entities[i].CanUpdate)
-                entities[i].UpdateResource();
     }
 
     void FixedUpdateManagers()
@@ -99,10 +87,6 @@ public class LoopManager : StardropTools.Singletons.SingletonManager<LoopManager
         for (int i = 0; i < managers.Length; i++)
             if (managers[i].CanUpdate)
                 managers[i].FixedUpdateResource();
-        
-        for (int i = 0; i < entities.Length; i++)
-            if (entities[i].CanUpdate)
-                entities[i].FixedUpdateResource();
     }
     #endregion // Managers
 

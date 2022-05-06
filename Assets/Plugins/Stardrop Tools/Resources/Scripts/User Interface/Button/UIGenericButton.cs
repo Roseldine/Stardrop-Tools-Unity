@@ -9,17 +9,102 @@ namespace StardropTools.UI.GenericButton
         public enum GraphicOptions { icon, text, both }
 
         [Header("Generic Buttons")]
+        [SerializeField] UIGenericButtonComponentData componentData;
         [SerializeField] RectTransformObjectData.OrientationEnum orientation;
         [SerializeField] GraphicOptions graphicOptions;
         [Space]
-        [SerializeField] UIGenericButtonComponentData componentData;
-        [SerializeField] UIGenericButtonGraphicData graphicData;
+        [SerializeField] Sprite icon;
+        [SerializeField] string text;
+        //[Min(0)][SerializeField] float roundCornerMultiplier = 32f;
         [Space]
-        [SerializeField] UIGenericButtonStyleDBSO[] spriteDB;
         [SerializeField] int styleID;
+        [SerializeField] UIGenericButtonStyleDBSO[] spriteDB;
+
+        protected UIGenericButtonStyleDBSO style;
+        protected UIGenericButtonGraphicCollection graphics;
+
+        protected void ValidateStyle()
+        {
+            if (spriteDB.Exists() == false)
+                return;
+
+            if (style != spriteDB[styleID])
+                style = spriteDB[styleID];
+
+            switch (DataOrientation)
+            {
+                case RectTransformObjectData.OrientationEnum.center:
+                    graphics = style.center;
+                    break;
+
+                case RectTransformObjectData.OrientationEnum.top:
+                    graphics = style.top;
+                    break;
+
+                case RectTransformObjectData.OrientationEnum.left:
+                    graphics = style.left;
+                    break;
+
+                case RectTransformObjectData.OrientationEnum.right:
+                    graphics = style.right;
+                    break;
+
+                case RectTransformObjectData.OrientationEnum.bottom:
+                    graphics = style.bottom;
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        protected void ValidateGraphics()
+        {
+            if (spriteDB.Exists() == false || graphics == null)
+                return;
+
+            // set component data
+            if (componentData.background != null)
+                componentData.SetBackground(graphics.background);
+
+            if (componentData.gradient != null)
+                componentData.SetGradient(graphics.gradient);
+
+            if (componentData.shade != null)
+                componentData.SetShade(graphics.shade);
+
+            if (componentData.outline != null)
+                componentData.SetOutline(graphics.outline);
+
+            // icon & text
+            if (componentData.icon != null)
+                componentData.SetIcon(icon);
+
+            if (componentData.text != null)
+                componentData.SetText(text);
+
+            if (componentData.text != null)
+                componentData.SetTextFont(style.font);
+
+            //componentData.SetPixelPerUnityMultiplier(roundCornerMultiplier);
+        }
+
+        protected void ValidateOutline()
+        {
+            if (componentData.outline == null || componentData.outlineRect == null)
+                return;
+
+            RectTransform outlineRect = componentData.outlineRect;
+            float pixels = componentData.outline.pixelsPerUnitMultiplier;
+            outlineRect.sizeDelta = new Vector2(0, Size.y - pixels * .25f * 4 * .25f * 4);
+        }
 
         protected void ValidateData()
         {
+            ValidateStyle();
+            ValidateGraphics();
+            ValidateOutline();
+
             // orientation
             if (orientation != RectTransformObjectData.OrientationEnum.none && DataLayout != RectTransformObjectData.LayoutOptions.orientation)
                 DataLayout = RectTransformObjectData.LayoutOptions.orientation;
@@ -45,27 +130,9 @@ namespace StardropTools.UI.GenericButton
                 componentData.SetIconActive(true);
                 componentData.SetTextActive(true);
             }
-
-
-            // set component data
-            if (componentData.background != null)
-                componentData.SetBackground(graphicData.background);
-
-            if (componentData.gradient != null)
-                componentData.SetGradient(graphicData.gradient);
-
-            if (componentData.shade != null)
-                componentData.SetShade(graphicData.shade);
-
-            if (componentData.outline != null)
-                componentData.SetOutline(graphicData.outline);
-
-            if (componentData.icon != null)
-                componentData.SetIcon(graphicData.icon);
-
-            if (componentData.text != null)
-                componentData.SetText(graphicData.text);
         }
+
+        
 
         protected override void OnValidate()
         {
@@ -82,6 +149,8 @@ namespace StardropTools.UI.GenericButton
         public Image gradient;
         public Image shade;
         public Image outline;
+        public RectTransform outlineRect;
+        [Space]
         public Image icon;
         public TMPro.TextMeshProUGUI text;
 
@@ -123,6 +192,12 @@ namespace StardropTools.UI.GenericButton
                 text.text = value;
         }
 
+        public void SetTextFont(TMPro.TMP_FontAsset font)
+        {
+            if (font != null && text != null && text.font != font)
+                text.font = font;
+        }
+
         public void SetIconActive(bool value)
         {
             if (icon == null)
@@ -143,6 +218,19 @@ namespace StardropTools.UI.GenericButton
                 textObj = text.gameObject;
 
             textObj.SetActive(value);
+        }
+
+        public void SetPixelPerUnityMultiplier(float value)
+        {
+            var imgs = new Image[4];
+            imgs[0] = background;
+            imgs[1] = gradient;
+            imgs[2] = shade;
+            imgs[3] = outline;
+
+            for (int i = 0; i < imgs.Length; i++)
+                if (imgs[i] != null)
+                    imgs[i].pixelsPerUnitMultiplier = value;
         }
     }
 

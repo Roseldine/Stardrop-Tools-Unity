@@ -10,9 +10,9 @@ namespace StardropTools.Tween
         public TweenLocalRotationEuler(Transform transform, int tweenID, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector3> updateEvent = null)
                       : base(tweenID, targetVector, targetVector, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
-            this.transform = transform;
             start = transform.localEulerAngles; // local
             target = targetVector;
+            this.transform = transform;
 
             SetBaseValues(Tween.TweenType.LocalRotationEuler, tweenID, duration, delay, ignoreTimeScale, curve, loop);
 

@@ -40,6 +40,8 @@ namespace StardropTools.Tween
             lerped.y = amount.y + start.y;
             lerped.z = amount.z + start.z;
             lerped.w = amount.w + start.w;
+
+            OnUpdate?.Invoke(lerped);
         }
     }
 }

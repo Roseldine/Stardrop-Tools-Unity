@@ -36,6 +36,8 @@ namespace StardropTools.Tween
             amount.z = Random.Range(-amount.z, amount.z);
 
             lerped = start + amount;
+
+            OnUpdate?.Invoke(lerped);
         }
     }
 }

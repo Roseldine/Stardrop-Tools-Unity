@@ -15,3 +15,5 @@ public static AnimationCurve WavePositive{ get { return new AnimationCurve (new 
 public static AnimationCurve WaveNegative{ get { return new AnimationCurve (new Keyframe (0f, 0f, 0f, 0f), new Keyframe (0.5f, -1f, 0f, 0f), new Keyframe (1f, 0f, 0f, 0f)); } }
 public static AnimationCurve WaveStrongPositive{ get { return new AnimationCurve (new Keyframe (0f, 0f, 4.722973f, 4.722973f), new Keyframe (0.5f, 1f, 0f, 0f), new Keyframe (1f, 0f, -5.247751f, -5.247751f)); } }
 public static AnimationCurve WaveStrongNegative{ get { return new AnimationCurve (new Keyframe (0f, 0f, -5.086275f, -5.086275f), new Keyframe (0.5f, -1f, 0f, 0f), new Keyframe (1f, 0f, 4.722971f, 4.722971f)); } }
+public static AnimationCurve WavePeakPositive{ get { return new AnimationCurve (new Keyframe (0f, 0f, 0.02668267f, 0.02668267f), new Keyframe (0.5f, 1f, 4.254927f, -4.304457f), new Keyframe (1f, 0f, -0.009783249f, -0.009783249f)); } }
+public static AnimationCurve WavePeakNegative{ get { return new AnimationCurve (new Keyframe (0f, 1f, -0.02668267f, -0.02668267f), new Keyframe (0.5f, 0f, -4.254927f, 4.304457f), new Keyframe (1f, 1f, 0.009783249f, 0.009783249f)); } }

@@ -28,8 +28,6 @@ namespace StardropTools.Tween
             base.TweenUpdate(percent);
 
             transform.localPosition = lerped;
-
-            OnUpdate?.Invoke(lerped);
         }
     }
     

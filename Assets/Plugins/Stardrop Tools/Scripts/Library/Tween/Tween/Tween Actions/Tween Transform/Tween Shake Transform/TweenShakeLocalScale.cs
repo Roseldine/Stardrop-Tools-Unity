@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace StardropTools.Tween
 {
-    public class TweenShakePosition : TweenShakeVector3
+    public class TweenShakeLocalScale : TweenShakeVector3
     {
         Transform transform;
 
-        public TweenShakePosition(Transform transform, int tweenID, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector3> updateEvent = null)
-                      : base(tweenID, transform.position, intensity, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
+        public TweenShakeLocalScale(Transform transform, int tweenID, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector3> updateEvent = null)
+                      : base(tweenID, transform.localScale, intensity, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             this.transform = transform;
-            start = transform.position;
+            start = transform.localScale;
 
             SetBaseValues(Tween.TweenType.ShakePosition, tweenID, duration, delay, ignoreTimeScale, curve, loop);
 
@@ -27,7 +27,7 @@ namespace StardropTools.Tween
         {
             base.TweenUpdate(percent);
 
-            transform.position = lerped;
+            transform.localScale = lerped;
         }
     }
     

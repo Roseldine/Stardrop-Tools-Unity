@@ -10,9 +10,9 @@ namespace StardropTools.Tween
         public TweenPosition(Transform transform, int tweenID, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector3> updateEvent = null)
                       : base(tweenID, targetVector, targetVector, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
-            this.transform = transform;
             start = transform.position;
             target = targetVector;
+            this.transform = transform;
 
             SetBaseValues(Tween.TweenType.Position, tweenID, duration, delay, ignoreTimeScale, curve, loop);
 

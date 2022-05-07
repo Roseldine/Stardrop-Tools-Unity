@@ -11,9 +11,9 @@ namespace StardropTools.Tween
         public TweenAnchoredPosition(RectTransform rectTransform, int tweenID, Vector2 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector2> updateEvent = null)
                       : base(tweenID, targetVector, targetVector, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
-            this.rectTransform = rectTransform;
             start = rectTransform.anchoredPosition;
             target = targetVector;
+            this.rectTransform = rectTransform;
 
             SetBaseValues(Tween.TweenType.AnchoredPosition, tweenID, duration, delay, ignoreTimeScale, curve, loop);
 

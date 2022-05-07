@@ -40,7 +40,8 @@ public class CubeTween : MonoBehaviour
 
             //Tween.RotationEuler(transform, startRot, targetRot, duration, delay, false, Tween.EaseInBack, loop, -1, tweenEvent);
             //Tween.Vector3(startPos, targetPos, duration, delay, false, Tween.EaseInBounce, loop, -1, tweenEvent);
-            Tween.ShakePosition(transform, intensity, duration, delay, false, curve, loop, -1, tweenEvent);
+            //Tween.ShakePosition(transform, intensity, duration, delay, false, curve, loop);
+            Tween.Position(transform, targetPos, duration, delay, false, curve, loop);
         }
     }
 

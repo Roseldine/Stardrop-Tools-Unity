@@ -1,6 +1,6 @@
 ﻿
 using UnityEngine;
-using StardropTools.EventFSM;
+using StardropTools.FiniteStateMachine.EventFiniteStateMachine;
 
 namespace StardropTools
 {

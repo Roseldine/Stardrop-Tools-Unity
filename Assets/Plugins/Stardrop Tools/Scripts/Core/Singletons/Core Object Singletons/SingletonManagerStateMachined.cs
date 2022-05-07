@@ -1,11 +1,11 @@
 ﻿
 using UnityEngine;
-using StardropTools.EventFSM;
+using StardropTools.FiniteStateMachine.EventFiniteStateMachine;
 
 namespace StardropTools.Singletons
 {
 	[RequireComponent(typeof(EventStateMachine))]
-	public abstract class SingletonManagerStateMachined<T> : ManagerStateMachined where T : Component
+	public abstract class SingletonManagerStateMachined<T> : CoreManagerStateMachined where T : Component
 	{
 		//public static CustomEvent OnEnter { get; private set; }
 		//public static CustomEvent OnExit { get; private set; }

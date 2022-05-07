@@ -20,6 +20,8 @@ namespace StardropTools
         [Space]
         [SerializeField] protected bool isActive;
         [SerializeField] protected bool canUpdate;
+        [Space]
+        public bool Debug;
         public bool DrawGizmos;
 
 

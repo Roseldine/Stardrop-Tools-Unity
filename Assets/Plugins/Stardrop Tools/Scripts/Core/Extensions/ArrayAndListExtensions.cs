@@ -101,6 +101,18 @@ public static class ArrayAndListExtensions
             return false;
     }
 
+    public static bool RemoveSafe<T>(this List<T> list, T element)
+    {
+        if (list.Exists() && list.Contains(element))
+        {
+            list.Remove(element);
+            return true;
+        }
+
+        else
+            return false;
+    }
+
     public static void AddArrayToList<T>(this List<T> listToAdd, T[] array)
     {
         foreach (T item in array)

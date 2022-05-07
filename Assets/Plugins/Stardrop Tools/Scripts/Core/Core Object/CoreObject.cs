@@ -8,14 +8,17 @@ namespace StardropTools
         [Header("Initialization")]
         [SerializeField] protected CoreObjectData coreData;
 
+
         public bool IsInitialized { get => coreData.IsInitialized; }
         public bool IsLateInitialized { get => coreData.IsLateInitialized; }
-        public bool IsActive { get => coreData.IsActive; set => coreData.SetActive(value); }
+        public bool IsActive { get => coreData.IsActive; set => SetActive(value); }
         public bool CanUpdate { get => coreData.CanUpdate; set => coreData.SetUpdate(value); }
+        public bool CanDebug { get => coreData.Debug; }
         public bool DrawGizmos { get => coreData.DrawGizmos; }
 
         public GameObject GameObject { get => coreData.GameObject; }
         public Transform Transform { get => coreData.Transform; }
+        public Transform Parent { get => Transform.parent; set => SetParent(value); }
 
         public Vector3 Position { get => Transform.position; set => Transform.position = value; }
         public Vector3 LocalPosition { get => Transform.localPosition; set => Transform.localPosition = value; }
@@ -27,6 +30,10 @@ namespace StardropTools
         public Vector3 LocalEulerRotation { get => Transform.localEulerAngles; set => Transform.localEulerAngles = value; }
 
         public Vector3 Scale { get => Transform.localScale; set => Transform.localScale = value; }
+
+        public Vector3 InitialPosition { get; private set; }
+        public Vector3 EnabledPosition { get; private set; }
+        public Vector3 DisabledPosition { get; private set; }
 
 
         #region Print & Debug.log
@@ -41,6 +48,24 @@ namespace StardropTools
         public static void PrintWarning(object message) => Debug.LogWarning(message);
         #endregion // print
 
+        #region Events
+        public static readonly CoreEvent OnEnableObject = new CoreEvent();
+        public static readonly CoreEvent OnDisableObject = new CoreEvent();
+
+        public static readonly CoreEvent OnAwakeObject = new CoreEvent();
+        public static readonly CoreEvent OnStartObject = new CoreEvent();
+
+        public static readonly CoreEvent OnDestroyObject = new CoreEvent();
+
+        public static readonly CoreEvent OnInitialize = new CoreEvent();
+        public static readonly CoreEvent OnLateInitialize = new CoreEvent();
+
+        public static readonly CoreEvent OnSetParent = new CoreEvent();
+        public static readonly CoreEvent OnAddChild = new CoreEvent();
+        public static readonly CoreEvent OnRemoveChild = new CoreEvent();
+        #endregion // events
+
+
         protected virtual void Awake()
         {
             DataCheck();
@@ -50,6 +75,8 @@ namespace StardropTools
 
             if (coreData.LateInitialization == CoreObjectData.InitializationType.awake)
                 LateInitialize();
+
+            OnAwakeObject?.Invoke();
         }
 
         protected virtual void Start()
@@ -61,6 +88,8 @@ namespace StardropTools
 
             if (coreData.LateInitialization == CoreObjectData.InitializationType.start)
                 LateInitialize();
+
+            OnStartObject?.Invoke();
         }
 
         public virtual void Initialize()
@@ -68,15 +97,24 @@ namespace StardropTools
             if (IsInitialized)
                 return;
 
+            InitialPosition = Transform.position;
+
             DataCheck();
             coreData.Initialize();
+
+            OnInitialize?.Invoke();
         }
 
 
         public virtual void Initialize(bool canUpdate)
         {
             if (IsInitialized)
+            {
+                if (CanDebug)
+                    Print(name + "is already Initialized");
+
                 return;
+            }
 
             SetCanUpdate(canUpdate);
             Initialize();
@@ -85,10 +123,17 @@ namespace StardropTools
         public virtual void LateInitialize()
         {
             if (IsLateInitialized)
+            {
+                if (CanDebug)
+                    Print(name + "is already LateInitialized");
+
                 return;
+            }
 
             DataCheck();
             coreData.LateInitialize();
+
+            OnLateInitialize?.Invoke();
         }
 
         public virtual void SubscribeToEvents() { }
@@ -97,25 +142,48 @@ namespace StardropTools
 
         public virtual void UnsubscribeFromEventsOnDisable() { }
 
-        public virtual void UpdateResource()
+        protected bool UpdateCheck()
         {
             if (IsInitialized == false || CanUpdate == false)
+            {
+                if (CanDebug && IsInitialized == false)
+                    Print(name + " isn't Initialized");
+
+                if (CanDebug && CanUpdate == false)
+                    Print(name + " can't Update");
+
+                return false;
+            }
+
+            else
+                return true;
+        }
+
+        public virtual void UpdateObject()
+        {
+            if (UpdateCheck() == false)
                 return;
         }
 
-        public virtual void LateUpdateResource()
+        public virtual void LateUpdateObject()
         {
-            if (IsInitialized == false || CanUpdate == false)
+            if (UpdateCheck() == false)
                 return;
         }
 
-        public virtual void FixedUpdateResource()
+        public virtual void FixedUpdateObject()
         {
-            if (IsInitialized == false || CanUpdate == false)
+            if (UpdateCheck() == false)
                 return;
         }
 
-        public virtual void ResetResource()
+        public virtual void HandleInput()
+        {
+            if (UpdateCheck() == false)
+                return;
+        }
+
+        public virtual void ResetObject()
         {
             if (IsInitialized == false)
                 return;
@@ -123,11 +191,26 @@ namespace StardropTools
 
         public virtual void SetCanDrawGizmos(bool value) => coreData.DrawGizmos = value;
 
-        protected virtual void OnEnable() { }
+        protected virtual void OnEnable()
+        {
+            EnabledPosition = Transform.position;
+
+            OnEnableObject?.Invoke();
+        }
+
         protected virtual void OnDisable()
         {
+            DisabledPosition = Transform.position;
+
             UnsubscribeFromEvents();
             UnsubscribeFromEventsOnDisable();
+
+            OnDisableObject?.Invoke();
+        }
+
+        protected virtual void OnDestroy()
+        {
+            OnDestroyObject?.Invoke();
         }
 
 
@@ -168,7 +251,7 @@ namespace StardropTools
 
             if (GameObject != null)
                 GameObject.SetActive(value);
-            else
+            else if (CanDebug)
                 Print("Object unassigned");
         }
 
@@ -177,16 +260,24 @@ namespace StardropTools
         public void SetParent(Transform parent)
         {
             if (Transform.parent != parent)
+            {
                 Transform.parent = parent;
-            else
+                OnSetParent?.Invoke();
+            }
+
+            else if (CanDebug)
                 Print(name + " is already child of " + parent);
         }
 
         public void SetChild(Transform child)
         {
             if (child.parent != Transform)
+            {
                 child.parent = Transform;
-            else
+                OnAddChild?.Invoke();
+            }
+
+            else if (CanDebug)
                 Print(name + "is already parent of " + child);
         }
 

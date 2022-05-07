@@ -1,6 +1,6 @@
 ﻿
 using UnityEngine;
-using StardropTools.EventFSM;
+using StardropTools.FiniteStateMachine.EventFiniteStateMachine;
 
 [RequireComponent(typeof(EventStateMachine))]
 public abstract class SingletonStateMachined<T> : MonoBehaviour where T : MonoBehaviour, IStateMachined

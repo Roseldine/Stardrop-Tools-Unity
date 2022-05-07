@@ -1,6 +1,11 @@
 ﻿
 using System;
 
+namespace StardropTools
+{
+
+}
+
 public class CoreEvent
 {
     private event Action action = delegate { };
@@ -15,11 +20,14 @@ public class CoreEvent
 
     public void RemoveListener(Action listener) => action -= listener;
 
-    public void RemoveAllListeners(CoreEvent evt)
+    public void RemoveAllListeners()
     {
-        Delegate[] eventListeners = evt.action.GetInvocationList();
+        if (action == null)
+            return;
+
+        Delegate[] eventListeners = action.GetInvocationList();
         foreach (Delegate del in eventListeners)
-            evt.action -= del as Action;
+            action -= del as Action;
     }
 }
 
@@ -37,10 +45,10 @@ public class CoreEvent<T>
 
     public void RemoveListener(Action<T> listener) => action -= listener;
 
-    public void RemoveAllListeners(CoreEvent<T> evt)
+    public void RemoveAllListeners()
     {
-        Delegate[] eventListeners = evt.action.GetInvocationList();
+        Delegate[] eventListeners = action.GetInvocationList();
         foreach (Delegate del in eventListeners)
-            evt.action -= del as Action<T>;
+            action -= del as Action<T>;
     }
 }

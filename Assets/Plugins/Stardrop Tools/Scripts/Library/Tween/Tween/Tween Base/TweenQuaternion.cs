@@ -3,20 +3,20 @@ using UnityEngine;
 
 namespace StardropTools.Tween
 {
-    public class TweenVector4 : TweenBase
+    public class TweenQuaternion : TweenBase
     {
-        public Vector4 start;
-        public Vector4 target;
-        public Vector4 lerped;
+        protected Quaternion start;
+        protected Quaternion target;
+        protected Quaternion lerped;
 
-        public static CoreEvent<Vector4> OnUpdate = new CoreEvent<Vector4>();
+        public static CoreEvent<Quaternion> OnUpdate = new CoreEvent<Quaternion>();
 
-        public TweenVector4(int tweenID, Vector4 startVector, Vector4 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector4> updateEvent = null)
+        public TweenQuaternion(int tweenID, Quaternion startVector, Quaternion targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Quaternion> updateEvent = null)
         {
             start = startVector;
             target = targetVector;
 
-            SetBaseValues(Tween.TweenType.Vector4, tweenID, duration, delay, ignoreTimeScale, curve, loop);
+            SetBaseValues(Tween.TweenType.Quaternion, tweenID, duration, delay, ignoreTimeScale, curve, loop);
 
             this.delay = delay;
             this.duration = duration;
@@ -27,7 +27,7 @@ namespace StardropTools.Tween
 
         protected override void TweenUpdate(float percent)
         {
-            lerped = Vector4.LerpUnclamped(start, target, curve.Evaluate(percent));
+            lerped = Quaternion.LerpUnclamped(start, target, curve.Evaluate(percent));
             OnUpdate?.Invoke(lerped);
         }
 
@@ -39,7 +39,7 @@ namespace StardropTools.Tween
 
         protected override void PingPong()
         {
-            Vector4 temp = start;
+            Quaternion temp = start;
             start = target;
             target = temp;
 

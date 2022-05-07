@@ -43,7 +43,7 @@ namespace StardropTools.Tween
             AddTween(tween);
         }
 
-        void FilterTween(Tween.TweenTarget type, int tweenID)
+        void FilterTween(Tween.TweenType type, int tweenID)
         {
             for (int i = tweens.Count - 1; i >= 0; i--)
             {

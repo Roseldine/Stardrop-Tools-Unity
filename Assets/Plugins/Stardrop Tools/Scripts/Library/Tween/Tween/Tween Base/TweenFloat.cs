@@ -5,18 +5,18 @@ namespace StardropTools.Tween
 {
     public class TweenFloat : TweenBase
     {
-        protected float start;
-        protected float target;
-        protected float lerped;
+        public float start;
+        public float target;
+        public float lerped;
 
         public static CoreEvent<float> OnUpdate = new CoreEvent<float>();
 
-        public TweenFloat(Tween.TweenTarget type, int tweenID, float startFloat, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<float> updateEvent = null)
+        public TweenFloat(int tweenID, float startFloat, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<float> updateEvent = null)
         {
             start = startFloat;
             target = targetFloat;
 
-            SetBaseValues(type, tweenID, duration, delay, ignoreTimeScale, curve, loop);
+            SetBaseValues(Tween.TweenType.Float, tweenID, duration, delay, ignoreTimeScale, curve, loop);
 
             this.delay = delay;
             this.duration = duration;

@@ -5,7 +5,7 @@ namespace StardropTools.Tween
 {
     public abstract class TweenBase
     {
-        public Tween.TweenTarget tweenType;
+        public Tween.TweenType tweenType;
         public Tween.LoopType loopType;
         public Tween.TweenState tweenState;
 
@@ -29,7 +29,7 @@ namespace StardropTools.Tween
         public static readonly CoreEvent OnDelayStart = new CoreEvent();
         public static readonly CoreEvent OnDelayComplete = new CoreEvent();
 
-        protected void SetBaseValues(Tween.TweenTarget type, int tweenID, float duration, float delay, bool ignoreTimeScale, UnityEngine.AnimationCurve curve, Tween.LoopType loop)
+        protected void SetBaseValues(Tween.TweenType type, int tweenID, float duration, float delay, bool ignoreTimeScale, UnityEngine.AnimationCurve curve, Tween.LoopType loop)
         {
             tweenType = type;
             this.tweenID = tweenID;

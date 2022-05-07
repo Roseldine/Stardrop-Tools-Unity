@@ -5,18 +5,18 @@ namespace StardropTools.Tween
 {
     public class TweenColor : TweenBase
     {
-        protected Color start;
-        protected Color target;
-        protected Color lerped;
+        public Color start;
+        public Color target;
+        public Color lerped;
 
         public static CoreEvent<Color> OnUpdate = new CoreEvent<Color>();
 
-        public TweenColor(Tween.TweenTarget type, int tweenID, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Color> updateEvent = null)
+        public TweenColor(int tweenID, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Color> updateEvent = null)
         {
             start = startColor;
             target = targetColor;
 
-            SetBaseValues(type, tweenID, duration, delay, ignoreTimeScale, curve, loop);
+            SetBaseValues(Tween.TweenType.Color, tweenID, duration, delay, ignoreTimeScale, curve, loop);
 
             this.delay = delay;
             this.duration = duration;

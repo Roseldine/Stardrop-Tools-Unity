@@ -447,9 +447,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f399b2e5a515e7d42b7ddc6915d0d365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loop: 0
+  ease: 2
   startPos: {x: 0, y: 0, z: 0}
   targetPos: {x: 0, y: 0, z: 0}
-  loop: 0
+  intensity: {x: 1, y: 2, z: 3}
+  startRot: {x: 0, y: 0, z: 0}
+  targetRot: {x: 0, y: 0, z: 0}
   duration: 1
   delay: 0
 --- !u!65 &1252759707
@@ -780,18 +784,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2cb62c3971317a4bb88602fe1895655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coreData:
-    initializationAt: 0
-    lateInitializationAt: 0
-    selfObject: {fileID: 1787099549}
-    selfTransform: {fileID: 1787099550}
-    isInitialized: 0
-    isLateInitialized: 0
-    isSubscribed: 0
-    isActive: 0
-    canUpdate: 0
-    DrawGizmos: 0
-  rectData: {rectTransform: {fileID: 1787099550}, layoutOption: 0, orientation: 0, stretch: 4, anchor: 11, pivot: 7, targetWidth: 68.7, targetHeight: 61.36, UseTargetSize: 0, resetCenter: 0, <IsStretching>k__BackingField: 0}
 --- !u!1 &2056571465
 GameObject:
   m_ObjectHideFlags: 0

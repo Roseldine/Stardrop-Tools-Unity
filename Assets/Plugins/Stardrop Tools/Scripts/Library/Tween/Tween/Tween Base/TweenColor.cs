@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace StardropTools.Tween
 {
+    [System.Serializable]
     public class TweenColor : TweenBase
     {
         public Color start;

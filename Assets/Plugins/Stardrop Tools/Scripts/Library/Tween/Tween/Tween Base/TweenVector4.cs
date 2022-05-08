@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace StardropTools.Tween
 {
+    [System.Serializable]
     public class TweenVector4 : TweenBase
     {
         public Vector4 start;

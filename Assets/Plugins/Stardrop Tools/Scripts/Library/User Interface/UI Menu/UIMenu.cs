@@ -4,7 +4,7 @@ using UnityEngine;
 namespace StardropTools.UI
 {
     [RequireComponent(typeof(Canvas))]
-    public class UIMenu : UIAnimatedPanel
+    public class UIMenu : CoreRectTransform
     {
         
     }

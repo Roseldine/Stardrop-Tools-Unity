@@ -1,8 +1,7 @@
 
 namespace StardropTools.Tween
 {
-    [System.Serializable]
-    public abstract class TweenComponentColor : TweenComponentBase
+    public class TweenComponentColor : TweenComponentValue
     {
         [UnityEngine.Space]
         public UnityEngine.Color startValue = UnityEngine.Color.white;
@@ -14,6 +13,12 @@ namespace StardropTools.Tween
         {
             curve = Tween.GetEaseCurve(Ease);
             tween = Tween.Color(startValue, targetValue, Duration, Delay, IgnoreTimeScale, curve, Loop, tweenID, OnTween);
+        }
+
+        public void InitializeTween(CoreEvent<UnityEngine.Color> EventToUpdate)
+        {
+            base.InitializeTween();
+            tween = Tween.Color(startValue, targetValue, Duration, Delay, IgnoreTimeScale, curve, Loop, tweenID, EventToUpdate);
         }
     }
 }

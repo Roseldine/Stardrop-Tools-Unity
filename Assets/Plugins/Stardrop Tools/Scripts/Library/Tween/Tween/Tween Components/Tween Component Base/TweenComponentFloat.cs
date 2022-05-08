@@ -1,8 +1,7 @@
 
 namespace StardropTools.Tween
 {
-    [System.Serializable]
-    public abstract class TweenComponentFloat : TweenComponentBase
+    public class TweenComponentFloat : TweenComponentValue
     {
         [UnityEngine.Space]
         public float startValue;
@@ -12,7 +11,7 @@ namespace StardropTools.Tween
 
         public override void InitializeTween()
         {
-            curve = Tween.GetEaseCurve(Ease);
+            base.InitializeTween();
             tween = Tween.Float(startValue, targetValue, Duration, Delay, IgnoreTimeScale, curve, Loop, tweenID, OnTween);
         }
     }

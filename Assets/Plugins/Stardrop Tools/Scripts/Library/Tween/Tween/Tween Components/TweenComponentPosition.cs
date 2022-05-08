@@ -1,77 +1,58 @@
 ﻿
 namespace StardropTools.Tween
 {
-    public class TweenComponentPosition : TweenComponentTransformVector3
+    [UnityEngine.RequireComponent(typeof(TweenComponentVector3))]
+    public class TweenComponentPosition : TweenComponentTransform
     {
-        public enum PositionTweens
-        {
-            Position, LocalPosition,
-            ShakePosition, ShakeLocalPosition,
-        }
-
         [UnityEngine.Space]
-        public PositionTweens tweenTarget;
+        public TweenComponentVector3 tween;
 
         public override void InitializeTween()
         {
-            base.InitializeTween();
-
-            switch (tweenTarget)
-            {
-                case PositionTweens.Position:
-                    if (HasStart)
-                        tween = Tween.Position(target, startValue, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                        tween = Tween.Position(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-
-                case PositionTweens.LocalPosition:
-                    if (HasStart)
-                        tween = Tween.LocalPosition(target, startValue, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                        tween =Tween.LocalPosition(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-
-                case PositionTweens.ShakePosition:
-                    tween = Tween.ShakePosition(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-
-                case PositionTweens.ShakeLocalPosition:
-                    tween = Tween.ShakeLocalPosition(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-            }
+            tween.InitializeTween();
+            tween.OnTween.AddListener(UpdateValue);
         }
 
-        protected override void OnValidate()
+        public override void SetTweenID(int value)
         {
-            base.OnValidate();
+            base.SetTweenID(value);
+            tween.tweenID = value;
+            tween.tweenData = data;
+        }
 
-            if (target == null)
-                return;
+        public override void PauseTween() => tween.PauseTween();
+        public override void CancelTween() => tween.CancelTween();
 
-            if (copyStartValues == false)
-                return;
+        void UpdateValue(UnityEngine.Vector3 value)
+        {
+            if (globalOrLocal == ITweenComponent.GlobalOrLocal.global)
+                target.position = value;
+            else
+                target.localPosition = value;
+        }
 
-            switch (tweenTarget)
+        protected void OnValidate()
+        {
+            if (tween == null)
+                tween = GetComponent<TweenComponentVector3>();
+
+            tween.tweenData = data;
+
+            if (copyValues)
             {
-                case PositionTweens.Position:
-                    startValue = target.position;
-                    targetValue = target.position;
-                    break;
+                if (globalOrLocal == ITweenComponent.GlobalOrLocal.global)
+                {
+                    tween.startValue = target.position;
+                    tween.targetValue = target.position;
+                }
+                else
+                {
+                    tween.startValue = target.localPosition;
+                    tween.targetValue = target.localPosition;
+                }
 
-                case PositionTweens.LocalPosition:
-                    startValue = target.localPosition;
-                    targetValue = target.localPosition;
-                    break;
-
-                case PositionTweens.ShakePosition:
-                    targetValue = target.position;
-                    break;
-
-                case PositionTweens.ShakeLocalPosition:
-                    targetValue = target.localPosition;
-                    break;
+                copyValues = false;
             }
-
-            copyStartValues = false;
         }
     }
 }

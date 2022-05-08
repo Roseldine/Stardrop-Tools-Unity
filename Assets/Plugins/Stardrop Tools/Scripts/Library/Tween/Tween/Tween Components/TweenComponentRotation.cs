@@ -1,62 +1,58 @@
 ﻿
-
 namespace StardropTools.Tween
 {
-    public class TweenComponentRotation : TweenComponentTransformQuaternion
+    [UnityEngine.RequireComponent(typeof(TweenComponentQuaternion))]
+    public class TweenComponentRotation : TweenComponentTransform
     {
-        public enum RotationTweens
-        {
-            Rotation,
-            LocalRotation,
-        }
-
         [UnityEngine.Space]
-        public RotationTweens tweenTarget;
+        public TweenComponentQuaternion tween;
 
         public override void InitializeTween()
         {
-            base.InitializeTween();
-
-            switch (tweenTarget)
-            {
-                case RotationTweens.Rotation:
-                    if (HasStart)
-                        tween = Tween.Rotation(target, startValue, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                        tween = Tween.Rotation(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-
-                case RotationTweens.LocalRotation:
-                    if (HasStart)
-                        tween = Tween.LocalRotation(target, startValue, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                        tween = Tween.LocalRotation(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-            }
+            tween.OnTween.AddListener(UpdateValue);
+            tween.InitializeTween();
         }
 
-        protected override void OnValidate()
+        public override void PauseTween() => tween.PauseTween();
+        public override void CancelTween() => tween.CancelTween();
+
+        public override void SetTweenID(int value)
         {
-            base.OnValidate();
+            base.SetTweenID(value);
+            tween.tweenID = value;
+            tween.tweenData = data;
+        }
 
-            if (target == null)
-                return;
+        void UpdateValue(UnityEngine.Quaternion value)
+        {
+            if (globalOrLocal == ITweenComponent.GlobalOrLocal.global)
+                target.rotation = value;
+            else
+                target.localRotation = value;
+        }
 
-            if (copyStartValues == false)
-                return;
+        protected void OnValidate()
+        {
+            if (tween == null)
+                tween = GetComponent<TweenComponentQuaternion>();
 
-            switch (tweenTarget)
+            tween.tweenData = data;
+
+            if (copyValues)
             {
-                case RotationTweens.Rotation:
-                    startValue = target.rotation;
-                    targetValue = target.rotation;
-                    break;
+                if (globalOrLocal == ITweenComponent.GlobalOrLocal.global)
+                {
+                    tween.startValue = target.rotation;
+                    tween.targetValue = target.rotation;
+                }
+                else
+                {
+                    tween.startValue = target.localRotation;
+                    tween.targetValue = target.localRotation;
+                }
 
-                case RotationTweens.LocalRotation:
-                    startValue = target.localRotation;
-                    targetValue = target.localRotation;
-                    break;
+                copyValues = false;
             }
-
-            copyStartValues = false;
         }
     }
 }

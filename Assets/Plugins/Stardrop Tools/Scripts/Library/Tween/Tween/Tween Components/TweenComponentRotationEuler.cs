@@ -1,80 +1,58 @@
 ﻿
 namespace StardropTools.Tween
 {
-    public class TweenComponentRotationEuler : TweenComponentTransformVector3
+    [UnityEngine.RequireComponent(typeof(TweenComponentVector3))]
+    public class TweenComponentRotationEuler : TweenComponentTransform
     {
-        public enum RotationEulerTweens
-        {
-            RotationEuler, LocalRotationEuler,
-            ShakeRotationEuler, ShakeLocalRotationEuler,
-
-        }
-
         [UnityEngine.Space]
-        public RotationEulerTweens tweenTarget;
-
-        public readonly CoreEvent<UnityEngine.Quaternion> OnTweenQuaternion = new CoreEvent<UnityEngine.Quaternion>();
+        public TweenComponentVector3 tween;
 
         public override void InitializeTween()
         {
-            base.InitializeTween();
-
-            switch (tweenTarget)
-            {
-                case RotationEulerTweens.RotationEuler:
-                    if (HasStart)
-                        tween = Tween.RotationEuler(target, startValue, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                        tween = Tween.RotationEuler(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-
-                case RotationEulerTweens.LocalRotationEuler:
-                    if (HasStart)
-                        tween = Tween.LocalRotationEuler(target, startValue, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                        tween = Tween.LocalRotationEuler(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-
-                case RotationEulerTweens.ShakeRotationEuler:
-                    tween = Tween.ShakeRotation(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTweenQuaternion);
-                    break;
-
-                case RotationEulerTweens.ShakeLocalRotationEuler:
-                    tween = Tween.ShakeLocalRotation(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTweenQuaternion);
-                    break;
-            }
+            tween.OnTween.AddListener(UpdateValue);
+            tween.InitializeTween();
         }
 
-        protected override void OnValidate()
+        public override void PauseTween() => tween.PauseTween();
+        public override void CancelTween() => tween.CancelTween();
+
+        public override void SetTweenID(int value)
         {
-            base.OnValidate();
+            base.SetTweenID(value);
+            tween.tweenID = value;
+            tween.tweenData = data;
+        }
 
-            if (target == null)
-                return;
+        void UpdateValue(UnityEngine.Vector3 value)
+        {
+            if (globalOrLocal == ITweenComponent.GlobalOrLocal.global)
+                target.eulerAngles = value;
+            else
+                target.localEulerAngles = value;
+        }
 
-            if (copyStartValues == false)
-                return;
+        protected void OnValidate()
+        {
+            if (tween == null)
+                tween = GetComponent<TweenComponentVector3>();
 
-            switch (tweenTarget)
+            tween.tweenData = data;
+
+            if (copyValues)
             {
-                case RotationEulerTweens.RotationEuler:
-                    startValue = target.eulerAngles;
-                    targetValue = target.eulerAngles;
-                    break;
+                if (globalOrLocal == ITweenComponent.GlobalOrLocal.global)
+                {
+                    tween.startValue = target.eulerAngles;
+                    tween.targetValue = target.eulerAngles;
+                }
+                else
+                {
+                    tween.startValue = target.localEulerAngles;
+                    tween.targetValue = target.localEulerAngles;
+                }
 
-                case RotationEulerTweens.LocalRotationEuler:
-                    startValue = target.localEulerAngles;
-                    targetValue = target.localEulerAngles;
-                    break;
-
-                case RotationEulerTweens.ShakeRotationEuler:
-                    targetValue = target.eulerAngles;
-                    break;
-
-                case RotationEulerTweens.ShakeLocalRotationEuler:
-                    targetValue = target.localEulerAngles;
-                    break;
+                copyValues = false;
             }
-
-            copyStartValues = false;
         }
     }
 }

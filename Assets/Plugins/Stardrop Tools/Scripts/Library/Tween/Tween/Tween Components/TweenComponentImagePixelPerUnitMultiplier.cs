@@ -1,44 +1,36 @@
 ﻿
 namespace StardropTools.Tween
 {
-    public class TweenComponentImagePixelPerUnitMultiplier : TweenComponentImageFloat
+    [UnityEngine.RequireComponent(typeof(TweenComponentFloat))]
+    public class TweenComponentImagePixelPerUnitMultiplier : TweenComponentImage
     {
-        public enum ImagePixelPerUnitMultiplierTweens
-        {
-            PixelsPerUnitMultiplier,
-        }
-
         [UnityEngine.Space]
-        public ImagePixelPerUnitMultiplierTweens tweenTarget;
+        public TweenComponentFloat tween;
 
         public override void InitializeTween()
         {
-            curve = Tween.GetEaseCurve(Ease);
-
-            switch (tweenTarget)
-            {
-                case ImagePixelPerUnitMultiplierTweens.PixelsPerUnitMultiplier:
-                    if (HasStart)
-                        tween = Tween.ImagePixelsPerUnitMultiplier(target, startValue, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                        tween = Tween.ImagePixelsPerUnitMultiplier(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-            }
+            tween.OnTween.AddListener(UpdateValue);
+            tween.InitializeTween();
         }
 
-        protected override void OnValidate()
+        public override void PauseTween() => tween.PauseTween();
+        public override void CancelTween() => tween.CancelTween();
+
+        public override void SetTweenID(int value)
         {
-            base.OnValidate();
+            base.SetTweenID(value);
+            tween.tweenID = value;
+            tween.tweenData = data;
+        }
 
-            if (target == null)
-                return;
+        void UpdateValue(float value) => target.pixelsPerUnitMultiplier = value;
 
-            if (copyStartValues == false)
-                return;
+        protected void OnValidate()
+        {
+            if (tween == null)
+                tween = GetComponent<TweenComponentFloat>();
 
-            startValue = target.pixelsPerUnitMultiplier;
-            targetValue = target.pixelsPerUnitMultiplier;
-
-            copyStartValues = false;
+            tween.tweenData = data;
         }
     }
 }

@@ -1,8 +1,7 @@
 
 namespace StardropTools.Tween
 {
-    [System.Serializable]
-    public abstract class TweenComponentVector3 : TweenComponentBase
+    public class TweenComponentVector3 : TweenComponentValue
     {
         [UnityEngine.Space]
         public UnityEngine.Vector3 startValue;
@@ -12,7 +11,7 @@ namespace StardropTools.Tween
 
         public override void InitializeTween()
         {
-            curve = Tween.GetEaseCurve(Ease);
+            base.InitializeTween();
             tween = Tween.Vector3(startValue, targetValue, Duration, Delay, IgnoreTimeScale, curve, Loop, tweenID, OnTween);
         }
     }

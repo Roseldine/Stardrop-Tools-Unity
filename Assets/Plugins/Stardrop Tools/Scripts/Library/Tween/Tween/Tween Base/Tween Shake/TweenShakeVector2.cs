@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace StardropTools.Tween
 {
+    [System.Serializable]
     public class TweenShakeVector2 : TweenVector2
     {
         protected Vector2 intensity;

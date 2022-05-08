@@ -1,46 +1,36 @@
 ﻿
 namespace StardropTools.Tween
 {
-    public class TweenComponentImageColor : TweenComponentColor
+    [UnityEngine.RequireComponent(typeof(TweenComponentColor))]
+    public class TweenComponentImageColor : TweenComponentImage
     {
-        public UnityEngine.UI.Image target;
-
-        public enum ImageColorTweens
-        {
-            ImageColor,
-        }
-
         [UnityEngine.Space]
-        public ImageColorTweens tweenTarget;
+        public TweenComponentColor tween;
 
         public override void InitializeTween()
         {
-            curve = Tween.GetEaseCurve(Ease);
-
-            switch (tweenTarget)
-            {
-                case ImageColorTweens.ImageColor:
-                    if (HasStart)
-                        tween = Tween.ImageColor(target, startValue, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                        tween = Tween.ImageColor(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-            }
+            tween.OnTween.AddListener(UpdateValue);
+            tween.InitializeTween();
         }
 
-        protected override void OnValidate()
+        public override void PauseTween() => tween.PauseTween();
+        public override void CancelTween() => tween.CancelTween();
+
+        public override void SetTweenID(int value)
         {
-            base.OnValidate();
+            base.SetTweenID(value);
+            tween.tweenID = value;
+            tween.tweenData = data;
+        }
 
-            if (target == null)
-                return;
+        void UpdateValue(UnityEngine.Color value) => target.color = value;
 
-            if (copyStartValues == false)
-                return;
+        protected void OnValidate()
+        {
+            if (tween == null)
+                tween = GetComponent<TweenComponentColor>();
 
-            startValue = target.color;
-            targetValue = target.color;
-
-            copyStartValues = false;
+            tween.tweenData = data;
         }
     }
 }

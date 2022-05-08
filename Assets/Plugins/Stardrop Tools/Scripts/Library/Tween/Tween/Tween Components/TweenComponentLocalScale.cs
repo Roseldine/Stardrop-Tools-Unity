@@ -1,49 +1,44 @@
 ﻿
 namespace StardropTools.Tween
 {
-    public class TweenComponentLocalScale : TweenComponentTransformVector3
+    [UnityEngine.RequireComponent(typeof(TweenComponentVector3))]
+    public class TweenComponentLocalScale : TweenComponentTransform
     {
-        public enum LocalScaleTweens
-        {
-            LocalScale,
-            ShakeLocalScale,
-        }
-
         [UnityEngine.Space]
-        public LocalScaleTweens tweenTarget;
+        public TweenComponentVector3 tween;
 
         public override void InitializeTween()
         {
-            base.InitializeTween();
-
-            switch (tweenTarget)
-            {
-                case LocalScaleTweens.LocalScale:
-                    if (HasStart)
-                        tween = Tween.LocalScale(target, startValue, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                        tween = Tween.LocalScale(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-
-                case LocalScaleTweens.ShakeLocalScale:
-                        tween = Tween.ShakeLocalScale(target, targetValue, Duration, Delay, true, curve, Loop, tweenID, OnTween);
-                    break;
-            }
+            tween.OnTween.AddListener(UpdateValue);
+            tween.InitializeTween();
         }
 
-        protected override void OnValidate()
+        public override void SetTweenID(int value)
         {
-            base.OnValidate();
+            base.SetTweenID(value);
+            tween.tweenID = value;
+            tween.tweenData = data;
+        }
 
-            if (target == null)
-                return;
+        public override void PauseTween() => tween.PauseTween();
+        public override void CancelTween() => tween.CancelTween();
 
-            if (copyStartValues == false)
-                return;
+        void UpdateValue(UnityEngine.Vector3 value) => target.localScale = value;
 
-            startValue = target.localScale;
-            targetValue = target.localScale;
+        protected void OnValidate()
+        {
+            if (tween == null)
+                tween = GetComponent<TweenComponentVector3>();
 
-            copyStartValues = false;
+            tween.tweenData = data;
+
+            if (copyValues)
+            {
+                tween.startValue = target.localScale;
+                tween.targetValue = target.localScale;
+
+                copyValues = false;
+            }
         }
     }
 }

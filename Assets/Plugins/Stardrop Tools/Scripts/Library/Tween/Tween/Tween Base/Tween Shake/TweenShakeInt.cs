@@ -3,6 +3,7 @@
 
 namespace StardropTools.Tween
 {
+    [System.Serializable]
     public class TweenShakeInt : TweenInt
     {
         protected int intensity;

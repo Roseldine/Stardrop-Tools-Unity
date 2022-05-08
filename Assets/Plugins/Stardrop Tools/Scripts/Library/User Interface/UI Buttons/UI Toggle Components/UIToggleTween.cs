@@ -1,13 +1,13 @@
 
 using UnityEngine;
-using StardropTools.TweenSurge;
+using StardropTools.Tween;
 
 namespace StardropTools.UI
 {
     public class UIToggleTween : UIToggleComponent
     {
         [Tooltip("0-false, 1-true")]
-        [SerializeField] protected TweenSurgeCluster[] sequences;
+        [SerializeField] protected TweenComponentCluster[] sequences;
         [SerializeField] bool getSequences;
 
         public override void SubscribeToToggle(UIToggle target)
@@ -28,7 +28,7 @@ namespace StardropTools.UI
         {
             if (getSequences)
             {
-                sequences = Utilities.GetItems<TweenSurgeCluster>(transform);
+                sequences = Utilities.GetItems<TweenComponentCluster>(transform);
                 getSequences = false;
             }
         }

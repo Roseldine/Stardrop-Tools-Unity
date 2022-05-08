@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace StardropTools.Tween
 {
+    [System.Serializable]
     public class TweenQuaternion : TweenBase
     {
         protected Quaternion start;
@@ -27,7 +28,7 @@ namespace StardropTools.Tween
 
         protected override void TweenUpdate(float percent)
         {
-            lerped = Quaternion.LerpUnclamped(start, target, curve.Evaluate(percent));
+            lerped = Quaternion.SlerpUnclamped(start, target, curve.Evaluate(percent));
             OnUpdate?.Invoke(lerped);
         }
 

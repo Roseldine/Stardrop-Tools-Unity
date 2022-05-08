@@ -1,15 +1,13 @@
 
 namespace StardropTools.Tween
 {
-    public abstract class TweenComponentBase : UnityEngine.MonoBehaviour
+    public abstract class TweenComponentValue : UnityEngine.MonoBehaviour, ITweenComponent
     {
         public int tweenID;
-        [UnityEngine.SerializeField] TweenComponentBaseData tweenData;
+        public TweenComponentBaseData tweenData;
         [UnityEngine.SerializeField] protected bool copyStartValues = true;
 
         #region Properties
-        public TweenComponentBaseData.Initalization initalization { get => tweenData.initalization; set => tweenData.initalization = value; }
-
         public Tween.LoopType Loop { get => tweenData.loop; set => tweenData.loop = value; }
         public Tween.EaseCurve Ease { get => tweenData.ease; set => tweenData.ease = value; }
 
@@ -23,25 +21,13 @@ namespace StardropTools.Tween
         protected UnityEngine.AnimationCurve curve;
         protected TweenBase tween;
 
-        private void Awake()
-        {
-            if (initalization == TweenComponentBaseData.Initalization.Awake)
-                InitializeTween();
-        }
-
-        private void Start()
-        {
-            if (initalization == TweenComponentBaseData.Initalization.Start)
-                InitializeTween();
-        }
-
         public virtual void InitializeTween()
         {
             curve = Tween.GetEaseCurve(Ease);
         }
 
         public void PauseTween() => tween.Pause();
-        public void StopTween() => tween.Cancel();
+        public void CancelTween() => tween.Cancel();
 
         protected virtual void OnValidate() { }
     }

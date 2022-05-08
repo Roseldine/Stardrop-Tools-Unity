@@ -3,6 +3,7 @@
 
 namespace StardropTools.Tween
 {
+    [System.Serializable]
     public abstract class TweenBase
     {
         public Tween.TweenType tweenType;

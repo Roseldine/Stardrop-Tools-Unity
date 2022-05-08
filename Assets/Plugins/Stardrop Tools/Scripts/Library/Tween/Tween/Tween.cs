@@ -507,6 +507,19 @@ namespace StardropTools.Tween
 
         #endregion // image
 
+        public static TweenBase MaterialColor(Material material, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        {
+            TweenBase tween = new TweenMaterialColor(material, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            return ProcessTween(tween);
+        }
+
+        public static TweenBase MaterialColor(Material material, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        {
+            material.color = startColor;
+            TweenBase tween = new TweenMaterialColor(material, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            return ProcessTween(tween);
+        }
+
         #endregion Actions
     }
 }

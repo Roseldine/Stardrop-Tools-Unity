@@ -525,6 +525,8 @@ GameObject:
   - component: {fileID: 1252759706}
   - component: {fileID: 1252759712}
   - component: {fileID: 1252759711}
+  - component: {fileID: 1252759714}
+  - component: {fileID: 1252759713}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -586,7 +588,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 94c1cfc7ac6aad74e99ba1b2bfb8cad4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -645,7 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     loop: 2
-    ease: 17
+    ease: 6
     duration: 3
     delay: 0
     ignoreTimeScale: 1
@@ -671,7 +673,7 @@ MonoBehaviour:
   tweenID: 0
   tweenData:
     loop: 2
-    ease: 17
+    ease: 6
     duration: 3
     delay: 0
     ignoreTimeScale: 1
@@ -679,6 +681,53 @@ MonoBehaviour:
   copyStartValues: 1
   startValue: {x: -0, y: 0, z: 0}
   targetValue: {x: -0, y: 720, z: 0}
+--- !u!114 &1252759713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252759705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51bb082e5c1e0e74e98bbca3526fd6d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    loop: 2
+    ease: 2
+    duration: 2
+    delay: 0
+    ignoreTimeScale: 1
+    hasStart: 1
+  tweenID: 0
+  initalization: 1
+  target: {fileID: 2100000, guid: 94c1cfc7ac6aad74e99ba1b2bfb8cad4, type: 2}
+  copyValues: 0
+  tween: {fileID: 1252759714}
+--- !u!114 &1252759714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252759705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057bc42bb026da9409860c1bde192fe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenID: 0
+  tweenData:
+    loop: 2
+    ease: 2
+    duration: 2
+    delay: 0
+    ignoreTimeScale: 1
+    hasStart: 1
+  copyStartValues: 1
+  startValue: {r: 1, g: 1, b: 1, a: 1}
+  targetValue: {r: 0.7735849, g: 0.14960839, b: 0.14960839, a: 1}
 --- !u!1 &1511497383
 GameObject:
   m_ObjectHideFlags: 0

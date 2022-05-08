@@ -2,7 +2,7 @@
 
 namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
 {
-    public interface IStateMachined
+    public interface IEventStateMachined
     {
 		CoreEvent SyncEventEnter(int stateIndex);
 		CoreEvent SyncEventExit(int stateIndex);

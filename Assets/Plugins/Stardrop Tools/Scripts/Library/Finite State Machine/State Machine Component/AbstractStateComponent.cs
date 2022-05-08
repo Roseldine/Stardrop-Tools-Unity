@@ -1,22 +1,56 @@
 ﻿
 
-namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
+namespace StardropTools.FiniteStateMachine.StateMachineComponent
 {
-    [System.Serializable]
-    public class EventState : IState
+    #region Copy Body
+    /*
+    public override bool EnterState()
     {
-        [UnityEngine.SerializeField]                      protected string stateName;
+        base.EnterState();
+    
+        return true;
+    }
+    
+    
+    public override bool ExitState()
+    {
+        base.ExitState();
+    
+        return true;
+    }
+    
+    
+    public override void HandleInput()
+    {
+        base.HandleInput();
+    }
+    
+    public override void UpdateState()
+    {
+        base.UpdateState();
+    }
+    
+    
+    public override void PauseState()
+    {
+        base.PauseState();
+    }
+    */
+    #endregion // copy body
+
+    //[CreateAssetMenu(fileName = "New State", menuName = "Finite State Machine / Create New State")]
+    public abstract class AbstractStateComponent : UnityEngine.MonoBehaviour, IState
+    {
         [UnityEngine.Min(0)] [UnityEngine.SerializeField] protected int stateID;
         [UnityEngine.Space]
-        [UnityEngine.SerializeField]                      protected float timeInState;
+        [UnityEngine.SerializeField] protected float timeInState;
         [UnityEngine.Min(0)] [UnityEngine.SerializeField] protected float maxTime;
         [UnityEngine.Space]
         [UnityEngine.Min(0)] [UnityEngine.SerializeField] protected int nextStateID = -1;
 
-        EventStateMachine stateMachine;
+        FiniteStateMachineComponent stateMachine;
         IState.ExecutionPhaseEnum prevExecutionState;
 
-        public string StateName { get => stateName; set => stateName = value; }
         public int StateID { get => stateID; set => stateID = value; }
         public float MaxTime { get => maxTime; set => maxTime = value; }
         public int NextStateID { get => nextStateID; set => nextStateID = value; }
@@ -35,37 +69,7 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
         public readonly CoreEvent OnStatePause = new CoreEvent();
         public readonly CoreEvent OnStateComplete = new CoreEvent();
 
-        #region Constructor
-        public EventState() { nextStateID = -1; }
-
-        public EventState(int id)
-        {
-            stateID = id;
-            nextStateID = -1;
-        }
-
-        public EventState(string name)
-        {
-            stateName = name;
-            nextStateID = -1;
-        }
-
-        public EventState(int id, string name)
-        {
-            stateID = id;
-            stateName = name;
-            nextStateID = -1;
-        }
-
-        public EventState(int id, string name, int nextStateID)
-        {
-            stateID = id;
-            stateName = name;
-            this.nextStateID = nextStateID;
-        }
-        #endregion // constructor
-
-        public virtual void Initialize(EventStateMachine fsm, int id)
+        public virtual void Initialize(FiniteStateMachineComponent fsm, int id)
         {
             if (IsInitialized)
                 return;

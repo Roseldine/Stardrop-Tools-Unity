@@ -152,6 +152,12 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.wwrzal.colorfulfolders": {
+      "version": "file:C:/Users/Kroenheim/Documents/Unity Packages/ColorfulFolders-main",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,

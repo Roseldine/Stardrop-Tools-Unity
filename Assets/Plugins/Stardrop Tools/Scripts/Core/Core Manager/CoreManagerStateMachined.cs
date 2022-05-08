@@ -8,7 +8,7 @@ namespace StardropTools
     /// Variant of the CoreManager, that has an Event State Machine
     /// </summary>
     [RequireComponent(typeof(EventStateMachine))]
-    public abstract class CoreManagerStateMachined : CoreManager, IStateMachined
+    public abstract class CoreManagerStateMachined : CoreManager, IEventStateMachined
     {
         [SerializeField] protected EventStateMachine eStateMachine;
         public EventState CurrentState { get => eStateMachine.CurrentState; }

@@ -1,35 +1,35 @@
 ﻿
 
-namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
+namespace StardropTools.FiniteStateMachine.StateMachineComponent
 {
-    [System.Serializable]
-    public class EventStateMachine : IStateMachine
+    public class FiniteStateMachineComponent : UnityEngine.MonoBehaviour, IStateMachine
     {
         public int fsmID = 0;
         [UnityEngine.SerializeField] int startStateID = 0;
-        [UnityEngine.SerializeField] EventState currentState;
-        [UnityEngine.SerializeField] EventState previousState;
-        [UnityEngine.SerializeField] System.Collections.Generic.List<EventState> states;
+        [UnityEngine.SerializeField] AbstractStateComponent startState;
+        [UnityEngine.SerializeField] AbstractStateComponent currentState;
+        [UnityEngine.SerializeField] AbstractStateComponent previousState;
+        [UnityEngine.SerializeField] System.Collections.Generic.List<AbstractStateComponent> states;
         [UnityEngine.Space]
         [UnityEngine.SerializeField] bool log;
 
         public bool IsInitialized { get; private set; }
-        public EventState CurrentState { get => currentState; }
+        public AbstractStateComponent CurrentState { get => currentState; }
         public float TimeInCurrentState { get => currentState.TimeInState; }
-        public EventState GetState(int stateIndex) => states[stateIndex];
+        public AbstractStateComponent GetState(int stateIndex) => states[stateIndex];
 
-        public readonly CoreEvent<int> OnStateEnter = new CoreEvent<int>();
-        public readonly CoreEvent<int> OnStateExit = new CoreEvent<int>();
-        public readonly CoreEvent<int> OnStateUpdate = new CoreEvent<int>();
-        public readonly CoreEvent<int> OnStatePause = new CoreEvent<int>();
-        public readonly CoreEvent<int> OnStateResume = new CoreEvent<int>();
+        public readonly CoreEvent<AbstractStateComponent> OnStateEnter = new CoreEvent<AbstractStateComponent>();
+        public readonly CoreEvent<AbstractStateComponent> OnStateExit = new CoreEvent<AbstractStateComponent>();
+        public readonly CoreEvent<AbstractStateComponent> OnStateUpdate = new CoreEvent<AbstractStateComponent>();
+        public readonly CoreEvent<AbstractStateComponent> OnStatePause = new CoreEvent<AbstractStateComponent>();
+        public readonly CoreEvent<AbstractStateComponent> OnStateResume = new CoreEvent<AbstractStateComponent>();
 
         public void Initialize()
         {
             if (IsInitialized)
                 return;
 
-            currentState = new EventState();
+            ChangeState(startState);
             InitializeStates();
 
             ChangeState(startStateID);
@@ -43,7 +43,7 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
                 currentState.HandleInput();
                 currentState.UpdateState();
 
-                OnStateUpdate?.Invoke(currentState.StateID);
+                OnStateUpdate?.Invoke(currentState);
             }
         }
 
@@ -57,25 +57,8 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
             ChangeState(state);
         }
 
-        public virtual void ChangeState(string nextStateName)
-        {
-            if (currentState.StateName == nextStateName)
-                return;
 
-            for (int i = 0; i < states.Count; i++)
-            {
-                if (states[i].StateName == nextStateName)
-                {
-                    ChangeState(i);
-                    return;
-                }
-            }
-
-            UnityEngine.Debug.Log("No state found with the name: " + nextStateName);
-        }
-
-
-        public void ChangeState(EventState nextState)
+        public void ChangeState(AbstractStateComponent nextState)
         {
             if (currentState == nextState)
                 return;
@@ -84,15 +67,15 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
             {
                 currentState.ExitState();
                 previousState = currentState;
-                OnStateExit?.Invoke(currentState.StateID);
+                OnStateExit?.Invoke(currentState);
             }
 
             currentState = nextState;
             currentState.EnterState();
-            OnStateEnter?.Invoke(currentState.StateID);
+            OnStateEnter?.Invoke(currentState);
 
             if (log == true)
-                UnityEngine.Debug.Log("<color=yellow> Changed to state: </color> <color=cyan>" + currentState.StateName + " (" + currentState.StateID + ")" + "</color>");
+                UnityEngine.Debug.Log("<color=yellow> Changed to state: </color> <color=cyan>" + currentState.name + " (id: " + currentState.StateID + ")" + "</color>");
         }
 
         public void NextState() => ChangeState(currentState.NextStateID);
@@ -106,13 +89,13 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
         public void PauseState()
         {
             currentState.PauseState();
-            OnStatePause?.Invoke(currentState.StateID);
+            OnStatePause?.Invoke(currentState);
         }
 
         public void ResumeState()
         {
             currentState.ResumeState();
-            OnStateResume?.Invoke(currentState.StateID);
+            OnStateResume?.Invoke(currentState);
         }
 
         public void InitializeStates()
@@ -135,17 +118,10 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
 
         public void AddState()
         {
-            states.Add(new EventState());
-            UpdateStateIDs();
+            return;
         }
 
-        public void AddState(string stateName)
-        {
-            states.Add(new EventState(stateName));
-            UpdateStateIDs();
-        }
-
-        public void AddState(EventState state)
+        public void AddState(AbstractStateComponent state)
         {
             states.Add(state);
             UpdateStateIDs();
@@ -162,6 +138,7 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
             states.RemoveSafe(state);
         }
 
-        public void RemoveState(EventState state) => states.RemoveSafe(state);
+        public void RemoveState(AbstractStateComponent state)
+            => states.RemoveSafe(state);
     }
 }

@@ -5,7 +5,7 @@ using StardropTools.FiniteStateMachine.EventFiniteStateMachine;
 namespace StardropTools
 {
 	[RequireComponent(typeof(EventStateMachine))]
-	public class CoreTransformStateMachined : CoreTransform, IStateMachined
+	public class CoreTransformStateMachined : CoreTransform, IEventStateMachined
 	{
 		[SerializeField] protected EventStateMachine eStateMachine;
 		public EventState CurrentState { get => eStateMachine.CurrentState; }

@@ -3,7 +3,7 @@ using UnityEngine;
 using StardropTools.FiniteStateMachine.EventFiniteStateMachine;
 
 [RequireComponent(typeof(EventStateMachine))]
-public abstract class SingletonStateMachined<T> : MonoBehaviour where T : MonoBehaviour, IStateMachined
+public abstract class SingletonStateMachined<T> : MonoBehaviour where T : MonoBehaviour, IEventStateMachined
 {
 	/// <summary>
 	/// The instance.

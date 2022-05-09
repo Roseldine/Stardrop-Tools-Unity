@@ -5,12 +5,12 @@ using StardropTools.FiniteStateMachine.EventFiniteStateMachine;
 
 namespace StardropTools
 {
-	[RequireComponent(typeof(EventStateMachineComponent))]
-	public class CoreObjectStateMachined : CoreObject, IStateMachine
-	{
-		[SerializeField] protected EventStateMachineComponent eventStateMachine;
+    [RequireComponent(typeof(EventStateMachineComponent))]
+    public class CoreManagerEventStateMachined : CoreManager, IStateMachine
+    {
+        [SerializeField] protected EventStateMachineComponent eventStateMachine;
 
-		public EventState CurrentState { get => eventStateMachine.CurrentState; }
+        public EventState CurrentState { get => eventStateMachine.CurrentState; }
         public float TimeInCurrentState { get => eventStateMachine.CurrentState.TimeInState; }
         public EventState GetState(int stateIndex) => eventStateMachine.GetState(stateIndex);
 
@@ -68,5 +68,13 @@ namespace StardropTools
 
         public void RemoveState(EventState state)
             => eventStateMachine.RemoveState(state);
-	}
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+
+            if (eventStateMachine == null)
+                eventStateMachine = GetComponent<EventStateMachineComponent>();
+        }
+    }
 }

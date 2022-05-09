@@ -1,17 +1,10 @@
 ﻿
 using UnityEngine;
-using StardropTools.FiniteStateMachine.EventFiniteStateMachine;
 
 namespace StardropTools.Singletons
 {
-	[RequireComponent(typeof(EventStateMachineComponent))]
-	public abstract class SingletonManagerStateMachined<T> : CoreManagerEventStateMachined where T : Component
+	public abstract class SingletonCoreRectTransform<T> : CoreRectTransform where T : Component
 	{
-		//public static CustomEvent OnEnter { get; private set; }
-		//public static CustomEvent OnExit { get; private set; }
-		//public static CustomEvent OnUpdate { get; private set; }
-
-		#region Manager Singleton
 		/// <summary>
 		/// The instance.
 		/// </summary>
@@ -36,10 +29,10 @@ namespace StardropTools.Singletons
 						instance = obj.AddComponent<T>();
 					}
 				}
+
 				return instance;
 			}
 		}
-
 
 		void SingletonInitialization()
 		{
@@ -52,7 +45,7 @@ namespace StardropTools.Singletons
 			else
 				Destroy(gameObject);
 		}
-		#endregion // manager singleton
+
 
 		public override void Initialize()
 		{
@@ -62,5 +55,3 @@ namespace StardropTools.Singletons
 		}
 	}
 }
-
-

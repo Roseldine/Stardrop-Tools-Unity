@@ -4,8 +4,8 @@ using StardropTools.FiniteStateMachine.EventFiniteStateMachine;
 
 namespace StardropTools.Singletons
 {
-	[RequireComponent(typeof(EventStateMachine))]
-	public abstract class SingletonCoreTransformStateMachined<T> : CoreTransformStateMachined where T : Component
+	[RequireComponent(typeof(EventStateMachineComponent))]
+	public abstract class SingletonCoreTransformStateMachined<T> : CoreTransformEventStateMachined where T : Component
 	{
 		//public static CustomEvent OnEnter { get; private set; }
 		//public static CustomEvent OnExit { get; private set; }
@@ -59,14 +59,6 @@ namespace StardropTools.Singletons
 			base.Initialize();
 
 			SingletonInitialization();
-		}
-
-		protected override void OnValidate()
-		{
-			base.OnValidate();
-
-			if (eStateMachine == null)
-				eStateMachine = GetComponent<EventStateMachine>();
 		}
 	}
 }

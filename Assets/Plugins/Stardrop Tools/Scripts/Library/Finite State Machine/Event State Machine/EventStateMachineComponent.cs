@@ -9,6 +9,9 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
         public EventStateMachine EventStateMachine { get => stateMachine; set => stateMachine = value; }
 
         public bool IsInitialized { get; private set; }
+        public EventState CurrentState { get => stateMachine.CurrentState; }
+        public float TimeInCurrentState { get => stateMachine.CurrentState.TimeInState; }
+        public EventState GetState(int stateIndex) => stateMachine.GetState(stateIndex);
 
         public CoreEvent<int> OnStateEnter { get => stateMachine.OnStateEnter; }
         public CoreEvent<int> OnStateExit { get => stateMachine.OnStateEnter; }

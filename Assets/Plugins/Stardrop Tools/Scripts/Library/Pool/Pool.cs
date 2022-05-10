@@ -1,9 +1,9 @@
 
-/*
+
 namespace StardropTools.Pool
 {
     [System.Serializable]
-    public class Pool<T> where T : IPoolable
+    public class Pool<T> where T : class, IPool
     {
         [UnityEngine.SerializeField] PoolData poolData;
         [UnityEngine.SerializeField] ClusterData clusterData;
@@ -73,23 +73,18 @@ namespace StardropTools.Pool
 
             for (int i = 0; i < capacity; i++)
             {
-                T pooled = ;
-
+                T pooled = System.Activator.CreateInstance<T>();
                 queue.Enqueue(pooled);
             }
 
             isInitialized = true;
         }
 
-        public T Spawn(UnityEngine.Vector3 position, UnityEngine.Quaternion rotation, UnityEngine.Transform parent)
+        public T Spawn()
         {
             if (active >= capacity && overflow)
             {
-                T pooled = new();
-
-                // Add support for async task
-                if (lifeTime > 0)
-                    pooled.LifeTime(this, lifeTime);
+                T pooled = System.Activator.CreateInstance<T>();
 
                 if (cache.Contains(pooled) == false)
                     cache.Add(pooled);
@@ -102,9 +97,6 @@ namespace StardropTools.Pool
             {
                 // dequeue (get from queue)
                 T pooled = queue.Dequeue();
-
-                if (lifeTime > 0)
-                    pooled.LifeTime(this, lifeTime);
 
                 if (cache.Contains(pooled) == false)
                     cache.Add(pooled);
@@ -141,4 +133,3 @@ namespace StardropTools.Pool
         }
     }
 }
-*/

@@ -21,7 +21,7 @@ namespace StardropTools.Tween
         }
 
         public override void PauseTween() => tween.PauseTween();
-        public override void CancelTween() => tween.CancelTween();
+        public override void StopTween() => tween.StopTween();
 
         void UpdateValue(UnityEngine.Vector3 value) => target.localScale = value;
 

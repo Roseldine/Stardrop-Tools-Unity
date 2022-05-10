@@ -79,7 +79,7 @@ namespace StardropTools.Tween
                     break;
 
                 case Tween.TweenState.canceled:
-                    Cancel();
+                    Stop();
                     break;
             }
         }
@@ -162,7 +162,7 @@ namespace StardropTools.Tween
 
         public virtual void Pause() { }
 
-        public virtual void Cancel()
+        public virtual void Stop()
             => RemoveFromManagerList();
 
         protected abstract void TweenUpdate(float percent);

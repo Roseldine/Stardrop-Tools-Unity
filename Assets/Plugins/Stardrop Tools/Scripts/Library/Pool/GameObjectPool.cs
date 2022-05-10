@@ -26,10 +26,6 @@ namespace StardropTools.Pool
         System.Collections.Generic.Queue<PooledObject> queue;
         System.Collections.Generic.List<PooledObject> cache;
 
-        /// <summary>
-        /// Gets filled up Spawn calls are made
-        /// </summary>
-        System.Collections.Generic.List<UnityEngine.MonoBehaviour> behaviours;
         UnityEngine.Transform parent;
         bool isInitialized;
 
@@ -56,20 +52,11 @@ namespace StardropTools.Pool
         #endregion // poolable lifetime cache
 
 
-        public GameObjectPool(UnityEngine.GameObject prefab, int capacity, bool overflow, UnityEngine.Transform parent, bool populate = true)
+        public GameObjectPool(ClusterData clusterData, PoolData poolData, UnityEngine.GameObject prefab, int capacity, bool overflow, UnityEngine.Transform parent, bool populate = true)
         {
-            this.prefab = prefab;
-            this.capacity = capacity;
-            this.overflow = overflow;
-            this.parent = parent;
+            this.clusterData = clusterData;
+            this.poolData = poolData;
 
-            if (populate)
-                Populate(parent);
-        }
-
-        public GameObjectPool(int poolID, UnityEngine.GameObject prefab, int capacity, bool overflow, UnityEngine.Transform parent, bool populate = true)
-        {
-            poolData.poolID = poolID;
             this.prefab = prefab;
             this.capacity = capacity;
             this.overflow = overflow;
@@ -94,7 +81,6 @@ namespace StardropTools.Pool
 
             queue = new System.Collections.Generic.Queue<PooledObject>();
             cache = new System.Collections.Generic.List<PooledObject>();
-            behaviours = new System.Collections.Generic.List<UnityEngine.MonoBehaviour>();
 
             poolableLifetimeDictionary = new System.Collections.Generic.Dictionary<float, UnityEngine.WaitForSeconds>();
 

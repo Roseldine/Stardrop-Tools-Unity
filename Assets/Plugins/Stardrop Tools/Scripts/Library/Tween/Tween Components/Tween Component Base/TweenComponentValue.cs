@@ -27,7 +27,7 @@ namespace StardropTools.Tween
         }
 
         public void PauseTween() => tween.Pause();
-        public void CancelTween() => tween.Cancel();
+        public void StopTween() => tween.Stop();
 
         protected virtual void OnValidate() { }
     }

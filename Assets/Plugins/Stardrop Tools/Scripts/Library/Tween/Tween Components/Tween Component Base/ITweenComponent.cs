@@ -7,6 +7,6 @@ namespace StardropTools.Tween
 
         public void InitializeTween();
         public void PauseTween();
-        public void CancelTween();
+        public void StopTween();
     }
 }

@@ -19,7 +19,7 @@ namespace StardropTools.Tween
 
         public abstract void InitializeTween();
         public abstract void PauseTween();
-        public abstract void CancelTween();
+        public abstract void StopTween();
 
         public virtual void SetTweenID(int value)
         {

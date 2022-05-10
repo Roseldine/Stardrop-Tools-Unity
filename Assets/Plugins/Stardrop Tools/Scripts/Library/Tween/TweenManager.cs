@@ -46,7 +46,7 @@ namespace StardropTools.Tween
             {
                 if (tweens[i].tweenID == tweenID && tweens[i].tweenType == type)
                 {
-                    tweens[i].Cancel();
+                    tweens[i].Stop();
                 }
             }
         }
@@ -61,7 +61,10 @@ namespace StardropTools.Tween
         }
 
         public void RemoveTween(TweenBase tween)
-            => tweens.RemoveSafe(tween);
+        {
+            tween.Stop();
+            tweens.RemoveSafe(tween);
+        }
 
         public void UpdateTweens()
         {

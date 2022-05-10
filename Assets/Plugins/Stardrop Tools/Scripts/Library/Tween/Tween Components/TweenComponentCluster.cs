@@ -24,7 +24,7 @@ namespace StardropTools.Tween
         public void StopTweens()
         {
             for (int i = 0; i < tweens.Length; i++)
-                tweens[i].CancelTween();
+                tweens[i].StopTween();
         }
 
         void GetTweens()

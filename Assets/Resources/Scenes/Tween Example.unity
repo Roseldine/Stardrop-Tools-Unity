@@ -568,7 +568,7 @@ MonoBehaviour:
     clusterName: Test Cluster
     clusterID: 0
   pools:
-  - name: 
+  - name: Blob Shadow - Ortho
     poolData:
       poolName: 
       poolID: 0
@@ -576,7 +576,7 @@ MonoBehaviour:
       clusterName: Test Cluster
       clusterID: 0
     prefab: {fileID: 100002, guid: c55204c801ea12045bdb0b93b2d54a79, type: 3}
-    capacity: 0
+    capacity: 10
     overflow: 0
     overflowCount: 0
     lifeTime: 0

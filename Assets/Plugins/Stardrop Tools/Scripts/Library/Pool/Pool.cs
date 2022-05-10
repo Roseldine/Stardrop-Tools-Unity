@@ -1,17 +1,14 @@
 
-
+/*
 namespace StardropTools.Pool
 {
     [System.Serializable]
-    public class Pool : IPool
+    public class Pool<T> where T : IPoolable
     {
-        [UnityEngine.SerializeField] string poolName;
-        [UnityEngine.SerializeField] int poolID;
+        [UnityEngine.SerializeField] PoolData poolData;
+        [UnityEngine.SerializeField] ClusterData clusterData;
         [UnityEngine.Space]
-        [UnityEngine.SerializeField] string clusterName;
-        [UnityEngine.SerializeField] int clusterID;
-        [UnityEngine.Space]
-        [UnityEngine.SerializeField] UnityEngine.GameObject prefab;
+        [UnityEngine.SerializeField] T prefab;
         [UnityEngine.SerializeField] int capacity;
         /// <summary>
         /// Can pool spawn more than amount?
@@ -25,8 +22,8 @@ namespace StardropTools.Pool
         [UnityEngine.Min(0)][UnityEngine.SerializeField] float lifeTime;
         [UnityEngine.SerializeField] int active;
 
-        System.Collections.Generic.Queue<PooledObject> queue;
-        System.Collections.Generic.List<PooledObject> cache;
+        System.Collections.Generic.Queue<T> queue;
+        System.Collections.Generic.List<T> cache;
 
         /// <summary>
         /// Gets filled up Spawn calls are made
@@ -36,75 +33,47 @@ namespace StardropTools.Pool
         bool isInitialized;
 
         #region Properties
-        public string ClusterName { get => clusterName; set => clusterName = value; }
-        public int ClusterID { get => clusterID; set => clusterID = value; }
+        public string ClusterName { get => clusterData.clusterName; set => clusterData.clusterName = value; }
+        public int ClusterID { get => clusterData.clusterID; set => clusterData.clusterID = value; }
 
-        public string PoolName { get => poolName; set => poolName = value; }
-        public int PoolID { get => poolID; set => poolID = value; }
+        public string PoolName { get => poolData.poolName; set => poolData.poolName = value; }
+        public int PoolID { get => poolData.poolID; set => poolData.poolID = value; }
         #endregion // properties
 
 
-        #region Poolable Lifetime Cache
-        public System.Collections.Generic.Dictionary<float, UnityEngine.WaitForSeconds> poolableLifetimeDictionary = new System.Collections.Generic.Dictionary<float, UnityEngine.WaitForSeconds>();
-        public UnityEngine.WaitForSeconds GetWait(float time)
+        public Pool(ClusterData clusterData, PoolData poolData, T prefab, int capacity, bool overflow, bool populate = true)
         {
-            if (poolableLifetimeDictionary.TryGetValue(time, out var wait)) return wait;
+            this.clusterData = clusterData;
+            this.poolData = poolData;
 
-            poolableLifetimeDictionary[time] = new UnityEngine.WaitForSeconds(time);
-            return poolableLifetimeDictionary[time];
-        }
-        #endregion // poolable lifetime cache
-
-
-        public Pool(UnityEngine.GameObject prefab, int capacity, bool overflow, UnityEngine.Transform parent, bool populate = true)
-        {
             this.prefab = prefab;
             this.capacity = capacity;
             this.overflow = overflow;
-            this.parent = parent;
 
             if (populate)
-                Populate(parent);
+                Populate();
         }
 
-        public Pool(int poolID, UnityEngine.GameObject prefab, int capacity, bool overflow, UnityEngine.Transform parent, bool populate = true)
+        public void Populate(ClusterData clusterData, int poolIndex)
         {
-            this.poolID = poolID;
-            this.prefab = prefab;
-            this.capacity = capacity;
-            this.overflow = overflow;
-            this.parent = parent;
+            this.clusterData = clusterData;
+            PoolID = poolIndex;
 
-            if (populate)
-                Populate(parent);
+            Populate();
         }
 
-        public void Populate(int clusterIndex, string clusterName, int poolIndex, UnityEngine.Transform parent)
-        {
-            this.clusterID = clusterIndex;
-            this.clusterName = clusterName;
-            this.poolID = poolIndex;
-
-            Populate(parent);
-        }
-
-        public void Populate(UnityEngine.Transform parent)
+        public void Populate()
         {
             if (isInitialized)
                 return;
 
-            queue = new System.Collections.Generic.Queue<PooledObject>();
-            cache = new System.Collections.Generic.List<PooledObject>();
+            queue = new System.Collections.Generic.Queue<T>();
+            cache = new System.Collections.Generic.List<T>();
             behaviours = new System.Collections.Generic.List<UnityEngine.MonoBehaviour>();
-
-            poolableLifetimeDictionary = new System.Collections.Generic.Dictionary<float, UnityEngine.WaitForSeconds>();
 
             for (int i = 0; i < capacity; i++)
             {
-                PooledObject pooled = UnityEngine.Object.Instantiate(prefab, parent).AddComponent<PooledObject>();
-
-                pooled.name += " - " + i;
-                pooled.Initialize(clusterID, clusterName, poolID, poolName, i, false);
+                T pooled = ;
 
                 queue.Enqueue(pooled);
             }
@@ -112,20 +81,11 @@ namespace StardropTools.Pool
             isInitialized = true;
         }
 
-        public PooledObject Spawn(UnityEngine.Vector3 position, UnityEngine.Quaternion rotation, UnityEngine.Transform parent)
+        public T Spawn(UnityEngine.Vector3 position, UnityEngine.Quaternion rotation, UnityEngine.Transform parent)
         {
             if (active >= capacity && overflow)
             {
-                PooledObject pooled = UnityEngine.Object.Instantiate(prefab, parent).AddComponent<PooledObject>();
-
-                // set Transforms
-                pooled.SetPosition(position);
-                pooled.SetRotation(rotation);
-                pooled.SetParent(parent);
-
-                pooled.SetActive(true);
-
-                pooled.OnSpawn();
+                T pooled = new();
 
                 // Add support for async task
                 if (lifeTime > 0)
@@ -141,18 +101,7 @@ namespace StardropTools.Pool
             else
             {
                 // dequeue (get from queue)
-                PooledObject pooled = queue.Dequeue();
-
-                // set Transforms
-                pooled.SetPosition(position);
-                pooled.SetRotation(rotation);
-                pooled.SetParent(parent);
-
-                // activate & place on queue/list again
-                pooled.SetActive(true);
-                queue.Enqueue(pooled);
-
-                pooled.OnSpawn();
+                T pooled = queue.Dequeue();
 
                 if (lifeTime > 0)
                     pooled.LifeTime(this, lifeTime);
@@ -165,42 +114,19 @@ namespace StardropTools.Pool
             }
         }
 
-        public T Spawn<T>(UnityEngine.Vector3 position, UnityEngine.Quaternion rotation, UnityEngine.Transform parent)
-        {
-            // dequeue (get from queue)
-            PooledObject pooledObj = Spawn(position, rotation, parent);
-            T component = pooledObj.GetComponent<T>();
-            return component;
-        }
 
 
-
-        public void Despawn(PooledObject pooled, bool resetParent = true)
-        {
-            if (pooled != null && pooled.PoolName == poolName)
-            {
-                if (resetParent)
-                    pooled.SetParent(parent);
-
-                pooled.SetActive(false);
-                queue.Enqueue(pooled);
-
-                active--;
-            }
-
-            else
-                UnityEngine.Debug.LogWarning("Object didn't come from this pool!");
-        }
-
-        public void Despawn(UnityEngine.GameObject pooledObject, bool resetParent = true)
+        public void Despawn(T pooled)
         {
             // find pooled equivalent
             for (int i = 0; i < cache.Count; i++)
-                if (cache[i].GameObject.Equals(pooledObject))
+                if (cache[i].Equals(pooled))
                 {
-                    Despawn(cache[i], resetParent);
+                    queue.Enqueue(pooled);
                     break;
                 }
+
+             UnityEngine.Debug.LogWarning("Object didn't come from this pool!");
         }
 
         public void DespawnAll()
@@ -211,10 +137,8 @@ namespace StardropTools.Pool
 
             if (overflowCount > 0)
                 for (int i = 0; i < overflowCount; i++)
-                {
-                    var pooled = queue.Dequeue();
-                    UnityEngine.Object.Destroy(pooled.GameObject);
-                }
+                    queue.Dequeue();
         }
     }
 }
+*/

@@ -3,14 +3,12 @@ using UnityEngine;
 
 namespace StardropTools
 {
-    public abstract class CoreObject : MonoBehaviour
+    public class CoreObject : CoreComponent
     {
         [Header("Initialization")]
         [SerializeField] protected CoreObjectData coreData;
 
-
-        public bool IsInitialized { get => coreData.IsInitialized; }
-        public bool IsLateInitialized { get => coreData.IsLateInitialized; }
+        #region Properties
         public bool IsActive { get => coreData.IsActive; set => SetActive(value); }
         public bool CanUpdate { get => coreData.CanUpdate; set => coreData.SetUpdate(value); }
         public bool CanDebug { get => coreData.Debug; }
@@ -36,6 +34,43 @@ namespace StardropTools
         public Vector3 DisabledPosition { get; private set; }
 
 
+        // Position
+        public float PosX { get => Position.x; set => Position.SetX(value); }
+        public float PosY { get => Position.y; set => Position.SetY(value); }
+        public float PosZ { get => Position.z; set => Position.SetZ(value); }
+
+        public Vector2 PosXY { get => Position.GetXY(); set => Position.SetXY(value.x, value.y); }
+        public Vector2 PosXZ { get => Position.GetXZ(); set => Position.SetXZ(value.x, value.y); }
+        public Vector2 PosYZ { get => Position.GetYZ(); set => Position.SetYZ(value.x, value.y); }
+
+
+        // Rotation
+        public float RotX { get => Rotation.x; }
+        public float RotY { get => Rotation.y; }
+        public float RotZ { get => Rotation.z; }
+        public float RotW { get => Rotation.w; }
+
+        public float LocalRotX { get => LocalRotation.x; }
+        public float LocalRotY { get => LocalRotation.y; }
+        public float LocalRotZ { get => LocalRotation.z; }
+        public float LocalRotW { get => LocalRotation.w; }
+
+        public float EulerRotX { get => EulerRotation.x; set => EulerRotation.SetX(value); }
+        public float EulerRotY { get => EulerRotation.y; set => EulerRotation.SetY(value); }
+        public float EulerRotZ { get => EulerRotation.z; set => EulerRotation.SetZ(value); }
+
+        public float LocalEulerRotX { get => LocalRotation.x; set => EulerRotation.SetX(value); }
+        public float LocalEulerRotY { get => LocalRotation.y; set => EulerRotation.SetY(value); }
+        public float LocalEulerRotZ { get => LocalRotation.z; set => EulerRotation.SetZ(value); }
+
+
+        // Scale
+        public float ScaleX { get => Scale.x; set => Scale.SetX(value); }
+        public float ScaleY { get => Scale.y; set => Scale.SetY(value); }
+        public float ScaleZ { get => Scale.z; set => Scale.SetZ(value); }
+        #endregion // properties
+
+
         #region Print & Debug.log
         /// <summary>
         /// substitute to Debug.Log();
@@ -49,24 +84,15 @@ namespace StardropTools
         #endregion // print
 
         #region Events
-        public static readonly CoreEvent OnEnableObject = new CoreEvent();
-        public static readonly CoreEvent OnDisableObject = new CoreEvent();
+        public readonly CoreEvent OnSetParent = new CoreEvent();
+        public readonly CoreEvent OnAddChild = new CoreEvent();
+        public readonly CoreEvent OnRemoveChild = new CoreEvent();
 
-        public static readonly CoreEvent OnAwakeObject = new CoreEvent();
-        public static readonly CoreEvent OnStartObject = new CoreEvent();
-
-        public static readonly CoreEvent OnDestroyObject = new CoreEvent();
-
-        public static readonly CoreEvent OnInitialize = new CoreEvent();
-        public static readonly CoreEvent OnLateInitialize = new CoreEvent();
-
-        public static readonly CoreEvent OnSetParent = new CoreEvent();
-        public static readonly CoreEvent OnAddChild = new CoreEvent();
-        public static readonly CoreEvent OnRemoveChild = new CoreEvent();
+        public readonly CoreEvent OnDestroyObject = new CoreEvent();
         #endregion // events
 
 
-        protected virtual void Awake()
+        protected override void Awake()
         {
             DataCheck();
 
@@ -76,10 +102,10 @@ namespace StardropTools
             if (coreData.LateInitialization == CoreObjectData.InitializationType.awake)
                 LateInitialize();
 
-            OnAwakeObject?.Invoke();
+            OnAwake?.Invoke();
         }
 
-        protected virtual void Start()
+        protected override void Start()
         {
             DataCheck();
 
@@ -89,10 +115,10 @@ namespace StardropTools
             if (coreData.LateInitialization == CoreObjectData.InitializationType.start)
                 LateInitialize();
 
-            OnStartObject?.Invoke();
+            OnStart?.Invoke();
         }
 
-        public virtual void Initialize()
+        public override void Initialize()
         {
             if (IsInitialized)
                 return;
@@ -120,7 +146,7 @@ namespace StardropTools
             Initialize();
         }
 
-        public virtual void LateInitialize()
+        public override void LateInitialize()
         {
             if (IsLateInitialized)
             {
@@ -191,21 +217,21 @@ namespace StardropTools
 
         public virtual void SetCanDrawGizmos(bool value) => coreData.DrawGizmos = value;
 
-        protected virtual void OnEnable()
+        protected override void OnEnable()
         {
             EnabledPosition = Transform.position;
 
-            OnEnableObject?.Invoke();
+            OnEnabled?.Invoke();
         }
 
-        protected virtual void OnDisable()
+        protected override void OnDisable()
         {
             DisabledPosition = Transform.position;
 
             UnsubscribeFromEvents();
             UnsubscribeFromEventsOnDisable();
 
-            OnDisableObject?.Invoke();
+            OnDisabled?.Invoke();
         }
 
         protected virtual void OnDestroy()
@@ -291,6 +317,70 @@ namespace StardropTools
         {
             Transform child = Transform.GetChild(childIndex);
             child.SetSiblingIndex(index);
+        }
+
+
+
+        // position
+        public void SetPosition(Vector3 position)
+            => Position = position;
+
+        public void SetLocalPosition(Vector3 localPosition)
+            => LocalPosition = localPosition;
+
+
+        // Rotation
+        public void SetRotation(Quaternion rotation)
+            => Rotation = rotation;
+
+        public void SetLocalRotation(Quaternion localRotation)
+            => LocalRotation = localRotation;
+
+        public void SetRotation(Vector3 rotation)
+            => EulerRotation = rotation;
+        public void SetLocalRotation(Vector3 rotation)
+            => LocalEulerRotation = rotation;
+
+
+        // scale
+        public void SetScale(Vector3 scale)
+            => Scale = scale;
+
+
+        public Vector3 DirectionTo(Vector3 target) => target - Position;
+        public Vector3 DirectionTo(Transform target) => target.position - Position;
+
+        public Vector3 DirectionFrom(Vector3 target) => Position - target;
+        public Vector3 DirectionFrom(Transform target) => Position - target.position;
+
+
+        public float DistanceFrom(Vector3 target) => DirectionTo(target).magnitude;
+        public float DistanceFrom(Transform target) => DirectionTo(target).magnitude;
+
+
+        public Quaternion SmoothLookAt(Vector3 direction, float lookSpeed, bool lockX = false, bool lockY = true, bool lockZ = false)
+        {
+            if (direction == Vector3.zero)
+                return Quaternion.identity;
+
+            Quaternion lookRot = Quaternion.LookRotation(direction);
+            Quaternion targetRot = Quaternion.Slerp(Rotation, lookRot, Time.deltaTime * lookSpeed);
+
+            if (lockX) lookRot.x = 0;
+            if (lockY) lookRot.y = 0;
+            if (lockZ) lookRot.z = 0;
+
+            SetRotation(targetRot);
+
+            return targetRot;
+        }
+
+        public Quaternion SmoothLookAt(Transform target, float lookSpeed, bool lockX = false, bool lockY = true, bool lockZ = false)
+        {
+            Vector3 lookDir = DirectionTo(target.position);
+            Quaternion targetRot = SmoothLookAt(lookDir, lookSpeed, lockX, lockY, lockZ);
+
+            return targetRot;
         }
     }
 }

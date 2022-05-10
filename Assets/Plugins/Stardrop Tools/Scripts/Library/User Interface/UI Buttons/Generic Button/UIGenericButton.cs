@@ -10,7 +10,7 @@ namespace StardropTools.UI.GenericButton
 
         [Header("Generic Buttons")]
         [SerializeField] UIGenericButtonComponentData componentData;
-        [SerializeField] CoreRectTransformData.OrientationEnum orientation;
+        [SerializeField] CoreUIObjectData.OrientationEnum orientation;
         [SerializeField] GraphicOptions graphicOptions;
         [Space]
         [SerializeField] Sprite icon;
@@ -35,23 +35,23 @@ namespace StardropTools.UI.GenericButton
 
             switch (DataOrientation)
             {
-                case CoreRectTransformData.OrientationEnum.center:
+                case CoreUIObjectData.OrientationEnum.center:
                     graphics = style.center;
                     break;
 
-                case CoreRectTransformData.OrientationEnum.top:
+                case CoreUIObjectData.OrientationEnum.top:
                     graphics = style.top;
                     break;
 
-                case CoreRectTransformData.OrientationEnum.left:
+                case CoreUIObjectData.OrientationEnum.left:
                     graphics = style.left;
                     break;
 
-                case CoreRectTransformData.OrientationEnum.right:
+                case CoreUIObjectData.OrientationEnum.right:
                     graphics = style.right;
                     break;
 
-                case CoreRectTransformData.OrientationEnum.bottom:
+                case CoreUIObjectData.OrientationEnum.bottom:
                     graphics = style.bottom;
                     break;
 
@@ -108,8 +108,8 @@ namespace StardropTools.UI.GenericButton
             ValidateOutline();
 
             // orientation
-            if (orientation != CoreRectTransformData.OrientationEnum.none && DataLayout != CoreRectTransformData.LayoutOptions.orientation)
-                DataLayout = CoreRectTransformData.LayoutOptions.orientation;
+            if (orientation != CoreUIObjectData.OrientationEnum.none && DataLayout != CoreUIObjectData.LayoutOptions.orientation)
+                DataLayout = CoreUIObjectData.LayoutOptions.orientation;
 
             if (DataOrientation != orientation)
                 DataOrientation = orientation;

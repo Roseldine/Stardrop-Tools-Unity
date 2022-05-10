@@ -4,7 +4,7 @@ using UnityEngine;
 namespace StardropTools.UI
 {
     [RequireComponent(typeof(UISizeCopy))]
-    public class UIRootCanvas : CoreRectTransform
+    public class UIRootCanvas : CoreUIObject
     {
         [SerializeField] UISizeCopy sizeCopy;
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StardropTools
 {
-    public class Animation : MonoBehaviour
+    public class Animation : CoreComponent
     {
         [Header("Animation")]
         [SerializeField] Animator animator;
@@ -45,7 +45,7 @@ namespace StardropTools
         }
 
         // layerIndex is there as a reminder to update this to all animator layers
-        public void PlayAnimation(int animID, bool disableOnFinish = false, int layerIndex = 0)
+        public void PlayAnimation(int animID, bool disableOnFinish = false)
         {
             if (animID == currentAnimID)
                 return;
@@ -54,13 +54,13 @@ namespace StardropTools
             {
                 var targetState = animStates[animID];
 
-                if (animator.GetCurrentAnimatorStateInfo(layerIndex).IsName(targetState.State) == false)
+                if (animator.GetCurrentAnimatorStateInfo(targetState.Layer).IsName(targetState.StateName) == false)
                 {
                     if (animator.enabled == false)
                         animator.enabled = true;
 
-                    animator.Play(targetState.State, layerIndex);
-                    AnimationLifetime(GetAnimationLength(), !disableOnFinish);
+                    animator.Play(targetState.StateName, targetState.Layer);
+                    AnimationLifetime(targetState.LengthInSeconds, !disableOnFinish);
                     currentAnimID = animID;
 
                     OnAnimStart?.Invoke(currentAnimID);
@@ -72,7 +72,7 @@ namespace StardropTools
         }
 
         // layerIndex is there as a reminder to update this to all animator layers
-        public void CrossFadeAnimation(int animID, bool disableOnFinish = false, int layerIndex = 0)
+        public void CrossFadeAnimation(int animID, bool disableOnFinish = false)
         {
             if (animID == currentAnimID)
                 return;
@@ -81,13 +81,13 @@ namespace StardropTools
             {
                 var targetState = animStates[animID];
 
-                if (animator.GetCurrentAnimatorStateInfo(layerIndex).IsName(targetState.State) == false)
+                if (animator.GetCurrentAnimatorStateInfo(targetState.Layer).IsName(targetState.StateName) == false)
                 {
                     if (animator.enabled == false)
                         animator.enabled = true;
 
-                    animator.CrossFade(targetState.State, targetState.crossfade);
-                    AnimationLifetime(GetAnimationLength(), !disableOnFinish);
+                    animator.CrossFade(targetState.StateName, targetState.crossfade);
+                    AnimationLifetime(targetState.LengthInSeconds, !disableOnFinish);
                     currentAnimID = animID;
 
                     OnAnimStart?.Invoke(currentAnimID);
@@ -106,35 +106,9 @@ namespace StardropTools
             animTimeCR = StartCoroutine(AnimTimeCR(time, disableOnFinish));
         }
 
-        // layerIndex is there as a reminder to update this to all animator layers
-        public float GetAnimationLength(int layerIndex = 0)
-        {
-            if (animator.enabled == true)
-                return animator.runtimeAnimatorController.animationClips[currentAnimID].length;
-
-            else
-            {
-                Debug.Log("Animator not enabled!");
-                return 0;
-            }
-        }
-
-        // layerIndex is there as a reminder to update this to all animator layers
-        public float GetAnimationTime(int layerIndex = 0)
-        {
-            if (animator.enabled == true)
-                return animStates[currentAnimID].Length;
-
-            else
-            {
-                Debug.Log("Animator not enabled!");
-                return 0;
-            }
-        }
-
         System.Collections.IEnumerator AnimTimeCR(float time, bool disableOnFinish)
         {
-            yield return new WaitForSeconds(time);
+            yield return WaitForSecondsManager.GetWait("animation", time);
             animator.enabled = disableOnFinish;
             OnAnimComplete?.Invoke(currentAnimID);
         }
@@ -150,25 +124,33 @@ namespace StardropTools
                 // Number of layers:
                 int layerCount = animController.layers.Length;
                 Debug.Log("Layer Count: " + layerCount);
-
-                // Names of each layer:
-                //for (int layer = 0; layer < layerCount; layer++)
-                //    Debug.LogFormat("Layer {0}: {1}", layer, animController.layers[layer].name);
-
-                // States on layer 0:
-                UnityEditor.Animations.AnimatorStateMachine animatorStateMachine = animController.layers[0].stateMachine;
-                UnityEditor.Animations.ChildAnimatorState[] states = animatorStateMachine.states;
                 AnimationClip[] animClips = animator.runtimeAnimatorController.animationClips;
+                Debug.Log("Clip count: " + animClips.Length);
 
-                // create array with state length
-                animStates = new AnimState[states.Length];
+                var listAnimStates = new System.Collections.Generic.List<AnimState>();
 
-                for (int i = 0; i < states.Length; i++)
+                for (int layer = 0; layer < layerCount; layer++)
                 {
-                    animStates[i] = new AnimState(states[i].state.name, .15f, animClips[i].length);
-                    Debug.Log("State: " + states[i].state.name);
+                    // Names of each layer:
+                    // Debug.LogFormat("Layer {0}: {1}", layer, animController.layers[layer].name);
+
+                    UnityEditor.Animations.AnimatorStateMachine animatorStateMachine = animController.layers[layer].stateMachine;
+                    UnityEditor.Animations.ChildAnimatorState[] states = animatorStateMachine.states;
+
+                    // loop through ChildAnimatorState && add to list
+                    for (int i = 0; i < states.Length; i++)
+                    {
+                        var newState = new AnimState(states[i].state.name, layer, .15f, animClips[i].length);
+                        listAnimStates.Add(newState);
+                        Debug.Log("State: " + states[i].state.name);
+                    }
                 }
+
+                animStates = listAnimStates.ToArray();
             }
+
+            else
+                Debug.Log("Animator not found!");
         }
 
 

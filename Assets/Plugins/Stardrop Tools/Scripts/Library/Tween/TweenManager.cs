@@ -5,18 +5,15 @@ namespace StardropTools.Tween
 {
     public class TweenManager : Singleton<TweenManager>
     {
-        [SerializeField] TweenCurves curves;
+        [SerializeField] TweenCurvesSO curves;
         public static System.Collections.Generic.List<TweenBase> tweens = new System.Collections.Generic.List<TweenBase>();
 
         protected override void Awake()
         {
             base.Awake();
-
-            if (LoopManager.Instance == null)
-                LoopManager.Instance.Initialize();
-
             LoopManager.OnUpdate.AddListener(UpdateTweens);
         }
+
 
         public void ProcessTween(TweenBase tween)
         {

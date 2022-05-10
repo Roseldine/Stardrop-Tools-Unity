@@ -9,6 +9,7 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
         [UnityEngine.SerializeField] int startStateID = 0;
         [UnityEngine.SerializeField] EventState currentState;
         [UnityEngine.SerializeField] EventState previousState;
+        [UnityEngine.Space]
         [UnityEngine.SerializeField] System.Collections.Generic.List<EventState> states;
         [UnityEngine.Space]
         [UnityEngine.SerializeField] bool log;
@@ -16,6 +17,7 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
         public bool IsInitialized { get; private set; }
         public EventState CurrentState { get => currentState; }
         public float TimeInCurrentState { get => currentState.TimeInState; }
+        public int StateCount { get { if (states.Exists()) return states.Count; else return 0; } }
         public EventState GetState(int stateIndex) => states[stateIndex];
 
         public readonly CoreEvent<int> OnStateEnter = new CoreEvent<int>();
@@ -135,19 +137,38 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
 
         public void AddState()
         {
-            states.Add(new EventState());
-            UpdateStateIDs();
+            return;
         }
 
-        public void AddState(string stateName)
+        public void AddState(bool updateIDs = true)
+        {
+            states.Add(new EventState());
+
+            if (updateIDs)
+                UpdateStateIDs();
+        }
+
+        public void AddState(string stateName, bool updateIDs = true)
         {
             states.Add(new EventState(stateName));
-            UpdateStateIDs();
+
+            if (updateIDs)
+                UpdateStateIDs();
         }
 
-        public void AddState(EventState state)
+        public void AddState(EventState state, bool updateIDs = true)
         {
             states.Add(state);
+
+            if (updateIDs)
+                UpdateStateIDs();
+        }
+
+        public void AddStates(EventState[] states)
+        {
+            foreach (var state in states)
+                states.Add(state);
+
             UpdateStateIDs();
         }
 
@@ -160,8 +181,19 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
         {
             var state = GetState(id);
             states.RemoveSafe(state);
+
+            UpdateStateIDs();
         }
 
-        public void RemoveState(EventState state) => states.RemoveSafe(state);
+        public void RemoveState(EventState state)
+            => states.RemoveSafe(state);
+
+        public void RemoveStates(EventState[] statesToRemove)
+        {
+            foreach (var state in statesToRemove)
+                states.RemoveSafe(state);
+
+            UpdateStateIDs();
+        }
     }
 }

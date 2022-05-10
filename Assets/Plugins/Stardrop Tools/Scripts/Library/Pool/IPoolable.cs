@@ -5,6 +5,6 @@ namespace StardropTools.Pool
     {
         public void OnSpawn();
         public void OnDespawn();
-        public void LifeTime(Pool pool, float time);
+        public void LifeTime(GameObjectPool pool, float time);
     }
 }

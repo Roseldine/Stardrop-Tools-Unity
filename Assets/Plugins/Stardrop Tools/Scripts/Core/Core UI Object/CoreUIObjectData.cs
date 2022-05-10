@@ -3,7 +3,7 @@
 namespace StardropTools
 {
     [System.Serializable]
-    public class CoreRectTransformData
+    public class CoreUIObjectData
     {
         public enum PivotEnum
         {

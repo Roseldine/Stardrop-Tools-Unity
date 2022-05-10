@@ -1,102 +1,35 @@
 
-using UnityEngine;
-using StardropTools;
 
-public class LoopManager : StardropTools.Singletons.SingletonCoreManager<LoopManager>
+public class LoopManager : Singleton<LoopManager>
 {
-    [Header("Managers")]
-    [SerializeField] Transform parentManagers;
-    [SerializeField] CoreManager[] managers;
-    [SerializeField] bool getManagers;
+    public bool IsInitialized { get; private set; }
 
+    public static readonly CoreEvent OnAwake = new CoreEvent();
+    public static readonly CoreEvent OnStart = new CoreEvent();
     public static readonly CoreEvent OnUpdate = new CoreEvent();
     public static readonly CoreEvent OnLateUpdate = new CoreEvent();
     public static readonly CoreEvent OnFixedUpdate = new CoreEvent();
 
-    protected override void Awake()
+    public static readonly CoreEvent OnEnabled = new CoreEvent();
+    public static readonly CoreEvent OnDisabled = new CoreEvent();
+    
+
+    public void Initialize()
     {
-        Initialize();
-    }
+        if (IsInitialized)
+            return;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    public override void Initialize()
-    {
-        base.Initialize();
-        SetCanUpdate(true);
-
-        GetManagers();
-        InitializeManagers();
-        LateInitializeManagers();
-
-        OnInitialize?.Invoke();
-    }
-
-    public override void LateInitialize()
-    {
-        base.LateInitialize();
-
-        OnLateUpdate?.Invoke();
-    }
-
-    private void Update() => UpdateObject();
-
-    private void FixedUpdate() => FixedUpdateObject();
-
-    public override void UpdateObject()
-    {
-        UpdateManagers();
-        OnUpdate?.Invoke();
-    }
-
-    public override void FixedUpdateObject()
-    {
-        FixedUpdateManagers();
-        OnFixedUpdate?.Invoke();
+        IsInitialized = true;
     }
 
 
-    #region Managers
-    void GetManagers()
-    {
-        managers = GetItems<CoreManager>(parentManagers);
-    }
+    private void Start() => OnStart?.Invoke();
 
-    void InitializeManagers()
-    {
-        for (int i = 0; i < managers.Length; i++)
-            managers[i].Initialize();
-    }
+    private void Update() => OnUpdate?.Invoke();
 
-    void LateInitializeManagers()
-    {
-        for (int i = 0; i < managers.Length; i++)
-            if (managers[i].IsInitialized)
-                managers[i].LateInitialize();
-    }
+    private void FixedUpdate() => OnFixedUpdate?.Invoke();
 
-    void UpdateManagers()
-    {
-        for (int i = 0; i < managers.Length; i++)
-            if (managers[i].CanUpdate)
-                managers[i].UpdateObject();
-    }
+    private void OnEnable() => OnEnabled?.Invoke();
 
-    void FixedUpdateManagers()
-    {
-        for (int i = 0; i < managers.Length; i++)
-            if (managers[i].CanUpdate)
-                managers[i].FixedUpdateObject();
-    }
-    #endregion // Managers
-
-    protected override void OnValidate()
-    {
-        base.OnValidate();
-
-        if (getManagers)
-        {
-            GetManagers();
-            getManagers = false;
-        }
-    }
+    private void OnDisable() => OnDisabled?.Invoke();
 }

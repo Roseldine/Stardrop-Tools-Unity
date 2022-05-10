@@ -4,17 +4,17 @@ using UnityEngine;
 namespace StardropTools
 {
     [RequireComponent(typeof(RectTransform))]
-    public class CoreRectTransform : CoreTransform
+    public class CoreUIObject : CoreObject
     {
-        [SerializeField] protected CoreRectTransformData rectData;
+        [SerializeField] protected CoreUIObjectData rectData;
 
         public RectTransform RectTransform { get => rectData.RectTransform; }
-        public CoreRectTransformData.PivotEnum DataPivot { get => rectData.Pivot; set => rectData.SetDataPivot(value); }
-        public CoreRectTransformData.AnchorEnum DataAnchor { get => rectData.Anchor; set => rectData.SetDataAnchor(value); }
+        public CoreUIObjectData.PivotEnum DataPivot { get => rectData.Pivot; set => rectData.SetDataPivot(value); }
+        public CoreUIObjectData.AnchorEnum DataAnchor { get => rectData.Anchor; set => rectData.SetDataAnchor(value); }
 
-        public CoreRectTransformData.LayoutOptions DataLayout { get => rectData.LayoutOption; set => rectData.SetDataLayout(value); }
-        public CoreRectTransformData.OrientationEnum DataOrientation { get => rectData.Orientation; set => rectData.SetDataOrientation(value); }
-        public CoreRectTransformData.StretchEnum DataStretch { get => rectData.Stretch; set => rectData.SetDataStretch(value); }
+        public CoreUIObjectData.LayoutOptions DataLayout { get => rectData.LayoutOption; set => rectData.SetDataLayout(value); }
+        public CoreUIObjectData.OrientationEnum DataOrientation { get => rectData.Orientation; set => rectData.SetDataOrientation(value); }
+        public CoreUIObjectData.StretchEnum DataStretch { get => rectData.Stretch; set => rectData.SetDataStretch(value); }
 
         public Vector2 Size { get => RectTransform.sizeDelta; set => RectTransform.sizeDelta = value; }
         public Vector2 Pivot { get => RectTransform.pivot; }
@@ -30,16 +30,16 @@ namespace StardropTools
         {
             base.DataCheck();
             if (rectData == null)
-                rectData = new CoreRectTransformData();
+                rectData = new CoreUIObjectData();
         }
 
         protected void ValidatePivotAndAnchor()
         {
-            if (rectData.LayoutOption != CoreRectTransformData.LayoutOptions.none)
+            if (rectData.LayoutOption != CoreUIObjectData.LayoutOptions.none)
             {
-                if (rectData.LayoutOption == CoreRectTransformData.LayoutOptions.orientation)
+                if (rectData.LayoutOption == CoreUIObjectData.LayoutOptions.orientation)
                     ValidateOrientation();
-                else if (rectData.LayoutOption == CoreRectTransformData.LayoutOptions.stretch)
+                else if (rectData.LayoutOption == CoreUIObjectData.LayoutOptions.stretch)
                     ValidateStretch();
 
                 return;
@@ -47,112 +47,112 @@ namespace StardropTools
 
             #region Anchor
             // upper
-            if (DataAnchor == CoreRectTransformData.AnchorEnum.upperCornerLeft)
+            if (DataAnchor == CoreUIObjectData.AnchorEnum.upperCornerLeft)
                 SetAnchorUpperCornerLeft();
 
-            else if (DataAnchor == CoreRectTransformData.AnchorEnum.upperCenter)
+            else if (DataAnchor == CoreUIObjectData.AnchorEnum.upperCenter)
                 SetAnchorUpperCenter();
 
-            else if (DataAnchor == CoreRectTransformData.AnchorEnum.upperCornerRight)
+            else if (DataAnchor == CoreUIObjectData.AnchorEnum.upperCornerRight)
                 SetAnchorUpperCornerRight();
 
 
             // middle
-            if (DataAnchor == CoreRectTransformData.AnchorEnum.middleLeft)
+            if (DataAnchor == CoreUIObjectData.AnchorEnum.middleLeft)
                 SetAnchorMiddleLeft();
 
-            else if (DataAnchor == CoreRectTransformData.AnchorEnum.middleCenter)
+            else if (DataAnchor == CoreUIObjectData.AnchorEnum.middleCenter)
                 SetAnchorMiddleCenter();
 
-            else if (DataAnchor == CoreRectTransformData.AnchorEnum.middleRight)
+            else if (DataAnchor == CoreUIObjectData.AnchorEnum.middleRight)
                 SetAnchorMiddleRight();
 
 
             // lower
-            if (DataAnchor == CoreRectTransformData.AnchorEnum.lowerCornerLeft)
+            if (DataAnchor == CoreUIObjectData.AnchorEnum.lowerCornerLeft)
                 SetAnchorLowerCornerLeft();
 
-            else if (DataAnchor == CoreRectTransformData.AnchorEnum.lowerCenter)
+            else if (DataAnchor == CoreUIObjectData.AnchorEnum.lowerCenter)
                 SetAnchorLowerCenter();
 
-            else if (DataAnchor == CoreRectTransformData.AnchorEnum.lowerCornerRight)
+            else if (DataAnchor == CoreUIObjectData.AnchorEnum.lowerCornerRight)
                 SetAnchorLowerCornerRight();
 
             #endregion // anchor
 
             #region Pivot
             // upper
-            if (DataPivot == CoreRectTransformData.PivotEnum.upperCornerLeft)
+            if (DataPivot == CoreUIObjectData.PivotEnum.upperCornerLeft)
                 SetPivotUpperCornerLeft();
 
-            else if (DataPivot == CoreRectTransformData.PivotEnum.upperCenter)
+            else if (DataPivot == CoreUIObjectData.PivotEnum.upperCenter)
                 SetPivotUpperCenter();
 
-            else if (DataPivot == CoreRectTransformData.PivotEnum.upperCornerRight)
+            else if (DataPivot == CoreUIObjectData.PivotEnum.upperCornerRight)
                 SetPivotUpperCornerRight();
 
 
             // middle
-            else if (DataPivot == CoreRectTransformData.PivotEnum.middleLeft)
+            else if (DataPivot == CoreUIObjectData.PivotEnum.middleLeft)
                 SetPivotMiddleLeft();
 
-            else if (DataPivot == CoreRectTransformData.PivotEnum.middleCenter)
+            else if (DataPivot == CoreUIObjectData.PivotEnum.middleCenter)
                 SetPivotMiddleCenter();
 
-            else if (DataPivot == CoreRectTransformData.PivotEnum.middleRight)
+            else if (DataPivot == CoreUIObjectData.PivotEnum.middleRight)
                 SetPivotMiddleRight();
 
 
             // lower
-            else if (DataPivot == CoreRectTransformData.PivotEnum.lowerCornerLeft)
+            else if (DataPivot == CoreUIObjectData.PivotEnum.lowerCornerLeft)
                 SetPivotLowerCornerLeft();
 
-            else if (DataPivot == CoreRectTransformData.PivotEnum.lowerCenter)
+            else if (DataPivot == CoreUIObjectData.PivotEnum.lowerCenter)
                 SetPivotLowerCenter();
 
-            else if (DataPivot == CoreRectTransformData.PivotEnum.lowerCornerRight)
+            else if (DataPivot == CoreUIObjectData.PivotEnum.lowerCornerRight)
                 SetPivotLowerCornerRight();
             #endregion // pivot
         }
 
         void ValidateOrientation()
         {
-            if (DataOrientation == CoreRectTransformData.OrientationEnum.none)
+            if (DataOrientation == CoreUIObjectData.OrientationEnum.none)
                 return;
 
 
-            if (DataOrientation == CoreRectTransformData.OrientationEnum.center)
+            if (DataOrientation == CoreUIObjectData.OrientationEnum.center)
                 SetOrientationCenter();
 
-            else if (DataOrientation == CoreRectTransformData.OrientationEnum.top)
+            else if (DataOrientation == CoreUIObjectData.OrientationEnum.top)
                 SetOrientationTop();
 
-            else if (DataOrientation == CoreRectTransformData.OrientationEnum.left)
+            else if (DataOrientation == CoreUIObjectData.OrientationEnum.left)
                 SetOrientationLeft();
 
-            else if (DataOrientation == CoreRectTransformData.OrientationEnum.right)
+            else if (DataOrientation == CoreUIObjectData.OrientationEnum.right)
                 SetOrientationRight();
 
-            else if (DataOrientation == CoreRectTransformData.OrientationEnum.bottom)
+            else if (DataOrientation == CoreUIObjectData.OrientationEnum.bottom)
                 SetOrientationBottom();
         }
 
         void ValidateStretch()
         {
-            if (DataStretch == CoreRectTransformData.StretchEnum.none)
+            if (DataStretch == CoreUIObjectData.StretchEnum.none)
                 return;
 
 
-            if (DataStretch == CoreRectTransformData.StretchEnum.top)
+            if (DataStretch == CoreUIObjectData.StretchEnum.top)
                 SetStretchTop();
 
-            if (DataStretch == CoreRectTransformData.StretchEnum.left)
+            if (DataStretch == CoreUIObjectData.StretchEnum.left)
                 SetStretchLeft();
 
-            else if (DataStretch == CoreRectTransformData.StretchEnum.right)
+            else if (DataStretch == CoreUIObjectData.StretchEnum.right)
                 SetStretchRight();
 
-            else if (DataStretch == CoreRectTransformData.StretchEnum.bottom)
+            else if (DataStretch == CoreUIObjectData.StretchEnum.bottom)
                 SetStretchBottom();
         }
 
@@ -166,51 +166,51 @@ namespace StardropTools
         public void SetPivotUpperCornerLeft()
         {
             SetPivot(0, 1);
-            DataPivot = CoreRectTransformData.PivotEnum.upperCornerLeft;
+            DataPivot = CoreUIObjectData.PivotEnum.upperCornerLeft;
         }
         public void SetPivotUpperCenter()
         {
             SetPivot(.5f, 1);
-            DataPivot = CoreRectTransformData.PivotEnum.upperCenter;
+            DataPivot = CoreUIObjectData.PivotEnum.upperCenter;
         }
         public void SetPivotUpperCornerRight()
         {
             SetPivot(1, 1);
-            DataPivot = CoreRectTransformData.PivotEnum.upperCornerRight;
+            DataPivot = CoreUIObjectData.PivotEnum.upperCornerRight;
         }
 
         // middle
         public void SetPivotMiddleLeft()
         {
             SetPivot(0, .5f);
-            DataPivot = CoreRectTransformData.PivotEnum.middleLeft;
+            DataPivot = CoreUIObjectData.PivotEnum.middleLeft;
         }
         public void SetPivotMiddleCenter()
         {
             SetPivot(.5f, .5f);
-            DataPivot = CoreRectTransformData.PivotEnum.middleCenter;
+            DataPivot = CoreUIObjectData.PivotEnum.middleCenter;
         }
         public void SetPivotMiddleRight()
         {
             SetPivot(1, .5f);
-            DataPivot = CoreRectTransformData.PivotEnum.middleRight;
+            DataPivot = CoreUIObjectData.PivotEnum.middleRight;
         }
 
         // lower
         public void SetPivotLowerCornerLeft()
         {
             SetPivot(0, 0);
-            DataPivot = CoreRectTransformData.PivotEnum.lowerCornerLeft;
+            DataPivot = CoreUIObjectData.PivotEnum.lowerCornerLeft;
         }
         public void SetPivotLowerCenter()
         {
             SetPivot(.5f, 0);
-            DataPivot = CoreRectTransformData.PivotEnum.lowerCenter;
+            DataPivot = CoreUIObjectData.PivotEnum.lowerCenter;
         }
         public void SetPivotLowerCornerRight()
         {
             SetPivot(1, 0);
-            DataPivot = CoreRectTransformData.PivotEnum.lowerCornerLeft;
+            DataPivot = CoreUIObjectData.PivotEnum.lowerCornerLeft;
         }
 
         #endregion // set pivot
@@ -229,7 +229,7 @@ namespace StardropTools
             RectTransform.anchorMin = new Vector2(0, 1);
             RectTransform.anchorMax = new Vector2(0, 1);
 
-            DataAnchor = CoreRectTransformData.AnchorEnum.upperCornerLeft;
+            DataAnchor = CoreUIObjectData.AnchorEnum.upperCornerLeft;
         }
         public void SetAnchorUpperCenter()
         {
@@ -237,7 +237,7 @@ namespace StardropTools
             RectTransform.anchorMin = new Vector2(.5f, 1);
             RectTransform.anchorMax = new Vector2(.5f, 1);
 
-            DataAnchor = CoreRectTransformData.AnchorEnum.upperCenter;
+            DataAnchor = CoreUIObjectData.AnchorEnum.upperCenter;
         }
         public void SetAnchorUpperCornerRight()
         {
@@ -245,7 +245,7 @@ namespace StardropTools
             RectTransform.anchorMin = new Vector2(1, 1);
             RectTransform.anchorMax = new Vector2(1, 1);
 
-            DataAnchor = CoreRectTransformData.AnchorEnum.upperCornerRight;
+            DataAnchor = CoreUIObjectData.AnchorEnum.upperCornerRight;
         }
 
         // middle
@@ -255,7 +255,7 @@ namespace StardropTools
             RectTransform.anchorMin = new Vector2(0, .5f);
             RectTransform.anchorMax = new Vector2(0, .5f);
 
-            DataAnchor = CoreRectTransformData.AnchorEnum.middleLeft;
+            DataAnchor = CoreUIObjectData.AnchorEnum.middleLeft;
         }
         public void SetAnchorMiddleCenter()
         {
@@ -263,7 +263,7 @@ namespace StardropTools
             RectTransform.anchorMin = new Vector2(.5f, .5f);
             RectTransform.anchorMax = new Vector2(.5f, .5f);
 
-            DataAnchor = CoreRectTransformData.AnchorEnum.middleCenter;
+            DataAnchor = CoreUIObjectData.AnchorEnum.middleCenter;
         }
         public void SetAnchorMiddleRight()
         {
@@ -271,7 +271,7 @@ namespace StardropTools
             RectTransform.anchorMin = new Vector2(1, .5f);
             RectTransform.anchorMax = new Vector2(1, .5f);
 
-            DataAnchor = CoreRectTransformData.AnchorEnum.middleRight;
+            DataAnchor = CoreUIObjectData.AnchorEnum.middleRight;
         }
 
         // lower
@@ -281,7 +281,7 @@ namespace StardropTools
             RectTransform.anchorMin = new Vector2(0, 0);
             RectTransform.anchorMax = new Vector2(0, 0);
 
-            DataAnchor = CoreRectTransformData.AnchorEnum.lowerCornerLeft;
+            DataAnchor = CoreUIObjectData.AnchorEnum.lowerCornerLeft;
         }
         public void SetAnchorLowerCenter()
         {
@@ -289,7 +289,7 @@ namespace StardropTools
             RectTransform.anchorMin = new Vector2(.5f, 0);
             RectTransform.anchorMax = new Vector2(.5f, 0);
 
-            DataAnchor = CoreRectTransformData.AnchorEnum.lowerCenter;
+            DataAnchor = CoreUIObjectData.AnchorEnum.lowerCenter;
         }
         public void SetAnchorLowerCornerRight()
         {
@@ -297,7 +297,7 @@ namespace StardropTools
             RectTransform.anchorMin = new Vector2(1, 0);
             RectTransform.anchorMax = new Vector2(1, 0);
 
-            DataAnchor = CoreRectTransformData.AnchorEnum.lowerCornerRight;
+            DataAnchor = CoreUIObjectData.AnchorEnum.lowerCornerRight;
         }
         #endregion // set anchor
 
@@ -352,7 +352,7 @@ namespace StardropTools
 
             RectTransform.anchorMin = new Vector2(0, 1);
             RectTransform.anchorMax = new Vector2(1, 1);
-            DataAnchor = CoreRectTransformData.AnchorEnum.stretchTop;
+            DataAnchor = CoreUIObjectData.AnchorEnum.stretchTop;
 
             CheckStretchHeight();
 
@@ -365,7 +365,7 @@ namespace StardropTools
 
             RectTransform.anchorMin = new Vector2(0, 0);
             RectTransform.anchorMax = new Vector2(0, 1);
-            DataAnchor = CoreRectTransformData.AnchorEnum.stretchLeft;
+            DataAnchor = CoreUIObjectData.AnchorEnum.stretchLeft;
 
             CheckStretchWidth();
 
@@ -378,7 +378,7 @@ namespace StardropTools
 
             RectTransform.anchorMin = new Vector2(1, 0);
             RectTransform.anchorMax = new Vector2(1, 1);
-            DataAnchor = CoreRectTransformData.AnchorEnum.stretchRight;
+            DataAnchor = CoreUIObjectData.AnchorEnum.stretchRight;
 
             CheckStretchWidth();
 
@@ -391,7 +391,7 @@ namespace StardropTools
 
             RectTransform.anchorMin = new Vector2(0, 0);
             RectTransform.anchorMax = new Vector2(1, 0);
-            DataAnchor = CoreRectTransformData.AnchorEnum.stretchBottom;
+            DataAnchor = CoreUIObjectData.AnchorEnum.stretchBottom;
 
             CheckStretchHeight();
 
@@ -424,9 +424,9 @@ namespace StardropTools
 
         public void ResetCenter()
         {
-            rectData.SetDataAnchor(CoreRectTransformData.AnchorEnum.middleCenter);
-            rectData.SetDataPivot(CoreRectTransformData.PivotEnum.middleCenter);
-            rectData.SetDataStretch(CoreRectTransformData.StretchEnum.none);
+            rectData.SetDataAnchor(CoreUIObjectData.AnchorEnum.middleCenter);
+            rectData.SetDataPivot(CoreUIObjectData.PivotEnum.middleCenter);
+            rectData.SetDataStretch(CoreUIObjectData.StretchEnum.none);
         }
 
 
@@ -435,7 +435,7 @@ namespace StardropTools
             base.OnValidate();
 
             if (rectData == null)
-                rectData = new CoreRectTransformData();
+                rectData = new CoreUIObjectData();
 
             if (rectData.resetCenter)
             {

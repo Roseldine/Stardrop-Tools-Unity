@@ -5,12 +5,14 @@ using UnityEngine;
 namespace StardropTools.Tween
 {
     [CreateAssetMenu(menuName = "Stardrop / Tween / Tween Curves")]
-    public class TweenCurves : SingletonSO<TweenCurves>
+    public class TweenCurvesSO : SingletonSO<TweenCurvesSO>
     {
         [SerializeField] string filePath;
         [SerializeField] bool generateFile;
         [Space]
         [SerializeField] TweenAnimCurve[] curves;
+
+        public AnimationCurve GetCurve(int id) => curves[id].curve;
 
         void GenerateFile()
         {

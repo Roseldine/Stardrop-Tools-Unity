@@ -1,19 +1,17 @@
-﻿using System.Collections;
+﻿
 using UnityEngine;
 
 namespace StardropTools.Pool
 {
     public class PoolCluster : MonoBehaviour
     {
-        [SerializeField] string clusterName;
-        [SerializeField] int clusterID;
-        [Space]
-        [SerializeField] Pool[] pools;
+        [SerializeField] ClusterData clusterData;
+        [SerializeField] GameObjectPool[] pools;
 
         bool isInitialized;
 
-        public string ClusterName { get => clusterName; set => clusterName = value; }
-        public int ClusterID { get => clusterID; set => clusterID = value; }
+        public string ClusterName { get => clusterData.clusterName; set => clusterData.clusterName = value; }
+        public int ClusterID { get => clusterData.clusterID; set => clusterData.clusterID = value; }
 
 
         public void Initialize(int clusterIndex)
@@ -21,10 +19,10 @@ namespace StardropTools.Pool
             if (isInitialized)
                 return;
 
-            clusterID = clusterIndex;
+            clusterData.clusterID = clusterIndex;
             var self = transform;
             for (int i = 0; i < pools.Length; i++)
-                pools[i].Populate(clusterID, clusterName, i, self);
+                pools[i].Populate(clusterData, i, self);
 
             isInitialized = true;
         }
@@ -61,7 +59,7 @@ namespace StardropTools.Pool
 
         public void DespawnAllPools()
         {
-            foreach (Pool pool in pools)
+            foreach (GameObjectPool pool in pools)
                 pool.DespawnAll();
         }
 
@@ -78,9 +76,12 @@ namespace StardropTools.Pool
             if (pools.Exists())
                 for (int i = 0; i < pools.Length; i++)
                 {
-                    pools[i].ClusterID = clusterID;
-                    pools[i].ClusterName = clusterName;
+                    pools[i].ClusterID = ClusterID;
+                    pools[i].ClusterName = ClusterName;
                     pools[i].PoolID = i;
+
+                    if (pools[i].name.Length == 0)
+                        pools[i].name = pools[i].Prefab.name;
                 }
         }
     }

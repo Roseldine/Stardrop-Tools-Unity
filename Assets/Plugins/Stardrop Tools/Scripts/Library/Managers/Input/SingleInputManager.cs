@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Input Class focused on mobile single finger input
 /// </summary>
-public class SingleInputManager : StardropTools.Singletons.SingletonCoreManager<SingleInputManager>
+public class SingleInputManager : Singleton<SingleInputManager>
 {
     /// <summary>
     /// 0-joystick center is finger input point, 1-screen center only applies to Horizontal, 2-screen center only applies to Vertical, 3-screen center is dead center
@@ -76,28 +76,21 @@ public class SingleInputManager : StardropTools.Singletons.SingletonCoreManager<
     public static readonly CoreEvent<float> OnInputDistance = new CoreEvent<float>();
     #endregion // events
 
-
-    public override void Initialize()
+    protected override void Awake()
     {
-        base.Initialize();
+        base.Awake();
 
         screenSize = new Vector2(Screen.width, Screen.height);
         CalculateScreenPercent();
-    }
 
-    public override void SubscribeToEvents()
-    {
-        base.SubscribeToEvents();
-    }
-
-    public override void UpdateObject()
-    {
-        base.UpdateObject();
-        UserInput();
+        LoopManager.OnUpdate.AddListener(UserInput);
     }
 
     public void UserInput()
     {
+        if (camera == null)
+            camera = Camera.main;
+
         // Input start
         if (Input.GetMouseButtonDown(0))
         {
@@ -252,12 +245,5 @@ public class SingleInputManager : StardropTools.Singletons.SingletonCoreManager<
 
         if (raycastList.Count > 0 && isOverUI == false)
             isOverUI = true;
-    }
-
-    protected override void OnValidate()
-    {
-        base.OnValidate();
-        if (camera == null)
-            camera = Camera.main;
     }
 }

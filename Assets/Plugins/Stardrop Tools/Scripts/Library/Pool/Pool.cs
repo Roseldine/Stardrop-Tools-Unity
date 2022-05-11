@@ -3,33 +3,27 @@
 namespace StardropTools.Pool
 {
     [System.Serializable]
-    public class Pool<T> where T : class, IPool
+    public abstract class Pool<T> where T : class
     {
-        [UnityEngine.SerializeField] PoolData poolData;
-        [UnityEngine.SerializeField] ClusterData clusterData;
+        [UnityEngine.SerializeField] protected PoolData poolData;
+        [UnityEngine.SerializeField] protected ClusterData clusterData;
         [UnityEngine.Space]
-        [UnityEngine.SerializeField] T prefab;
-        [UnityEngine.SerializeField] int capacity;
+        [UnityEngine.SerializeField] protected T template;
+        [UnityEngine.SerializeField] protected int capacity;
         /// <summary>
         /// Can pool spawn more than amount?
         /// </summary>
-        [UnityEngine.SerializeField] bool overflow;
-        [UnityEngine.SerializeField] int overflowCount;
+        [UnityEngine.SerializeField] protected bool overflow;
+        [UnityEngine.SerializeField] protected int overflowCount;
         [UnityEngine.Space]
         /// <summary>
         /// if != 0, despawn after lifetime is reached
         /// </summary>
-        [UnityEngine.Min(0)][UnityEngine.SerializeField] float lifeTime;
-        [UnityEngine.SerializeField] int active;
+        [UnityEngine.Min(0)][UnityEngine.SerializeField] protected float lifeTime;
+        [UnityEngine.SerializeField] protected int active;
 
-        System.Collections.Generic.Queue<T> queue;
-        System.Collections.Generic.List<T> cache;
-
-        /// <summary>
-        /// Gets filled up Spawn calls are made
-        /// </summary>
-        System.Collections.Generic.List<UnityEngine.MonoBehaviour> behaviours;
-        UnityEngine.Transform parent;
+        protected System.Collections.Generic.Queue<T> queue;
+        protected System.Collections.Generic.List<T> cache;
         bool isInitialized;
 
         #region Properties
@@ -46,7 +40,7 @@ namespace StardropTools.Pool
             this.clusterData = clusterData;
             this.poolData = poolData;
 
-            this.prefab = prefab;
+            this.template = prefab;
             this.capacity = capacity;
             this.overflow = overflow;
 
@@ -69,22 +63,26 @@ namespace StardropTools.Pool
 
             queue = new System.Collections.Generic.Queue<T>();
             cache = new System.Collections.Generic.List<T>();
-            behaviours = new System.Collections.Generic.List<UnityEngine.MonoBehaviour>();
 
             for (int i = 0; i < capacity; i++)
             {
-                T pooled = System.Activator.CreateInstance<T>();
+                //T pooled = System.Activator.CreateInstance<T>();
+                T pooled = CreateClass();
                 queue.Enqueue(pooled);
             }
 
             isInitialized = true;
         }
 
+
+
         public T Spawn()
         {
             if (active >= capacity && overflow)
             {
-                T pooled = System.Activator.CreateInstance<T>();
+                //T pooled = System.Activator.CreateInstance<T>();
+                T pooled = CreateClass();
+                ActivateObject(pooled);
 
                 if (cache.Contains(pooled) == false)
                     cache.Add(pooled);
@@ -95,8 +93,9 @@ namespace StardropTools.Pool
 
             else
             {
-                // dequeue (get from queue)
+                // dequeue = get from queue list
                 T pooled = queue.Dequeue();
+                ActivateObject(pooled);
 
                 if (cache.Contains(pooled) == false)
                     cache.Add(pooled);
@@ -107,13 +106,13 @@ namespace StardropTools.Pool
         }
 
 
-
         public void Despawn(T pooled)
         {
             // find pooled equivalent
             for (int i = 0; i < cache.Count; i++)
                 if (cache[i].Equals(pooled))
                 {
+                    DeactivateObject(pooled);
                     queue.Enqueue(pooled);
                     break;
                 }
@@ -131,5 +130,9 @@ namespace StardropTools.Pool
                 for (int i = 0; i < overflowCount; i++)
                     queue.Dequeue();
         }
+
+        protected abstract T CreateClass();
+        protected abstract void ActivateObject(T pooled);
+        protected abstract void DeactivateObject(T pooled);
     }
 }

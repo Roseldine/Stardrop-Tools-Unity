@@ -46,6 +46,12 @@ namespace StardropTools.UI
             if (clear)
                 copys = null;
             clear = false;
+
+            if (getChildren)
+            {
+                copys = target.GetComponentsInChildren<UnityEngine.RectTransform>();
+                getChildren = false;
+            }
         }
     }
 }

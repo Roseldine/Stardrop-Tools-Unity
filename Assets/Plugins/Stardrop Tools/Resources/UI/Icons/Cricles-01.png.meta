@@ -1,0 +1,646 @@
+fileFormatVersion: 2
+guid: ff0ac4af9c460384abad954fe6def1f8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -158131894566089426
+    second: Cricles-01_0
+  - first:
+      213: 6905048776739855524
+    second: Cricles-01_1
+  - first:
+      213: -8346455069405863217
+    second: Cricles-01_2
+  - first:
+      213: -4351951182049372050
+    second: Cricles-01_3
+  - first:
+      213: 1675521752033433523
+    second: Cricles-01_4
+  - first:
+      213: -5267915784658916861
+    second: Cricles-01_5
+  - first:
+      213: -4416829307641815050
+    second: Cricles-01_6
+  - first:
+      213: 9215048451374445969
+    second: Cricles-01_7
+  - first:
+      213: 1949289034537890904
+    second: Cricles-01_8
+  - first:
+      213: -2838235513124697463
+    second: Cricles-01_9
+  - first:
+      213: -5787357205144197946
+    second: Cricles-01_10
+  - first:
+      213: -5912486265761508390
+    second: Cricles-01_11
+  - first:
+      213: 8514713177507898017
+    second: Cricles-01_12
+  - first:
+      213: 5701099036992042469
+    second: Cricles-01_13
+  - first:
+      213: 5750894624410367229
+    second: Cricles-01_14
+  - first:
+      213: 2364623883302366073
+    second: Cricles-01_15
+  - first:
+      213: 5139577391059896365
+    second: Cricles-01_16
+  - first:
+      213: 5089360166476558081
+    second: Cricles-01_17
+  - first:
+      213: -3956040048832934571
+    second: Cricles-01_18
+  - first:
+      213: 499535433751037959
+    second: Cricles-01_19
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Cricles-01_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1200.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2d8ab431e33ecdf0800000000000000
+      internalID: -158131894566089426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_1
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 1200.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ac13562749a3df50800000000000000
+      internalID: 6905048776739855524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_2
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 1200.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc22e46f55f6b2c80800000000000000
+      internalID: -8346455069405863217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_3
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 1200.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e681b122573ca93c0800000000000000
+      internalID: -4351951182049372050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_4
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 1200.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b7946bf726a04710800000000000000
+      internalID: 1675521752033433523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_5
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 1200.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30a6bb4218a94e6b0800000000000000
+      internalID: -5267915784658916861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_6
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 1200.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ff9974652544b2c0800000000000000
+      internalID: -4416829307641815050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_7
+      rect:
+        serializedVersion: 2
+        x: 931
+        y: 1200.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 195ff2c3ebd62ef70800000000000000
+      internalID: 9215048451374445969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_8
+      rect:
+        serializedVersion: 2
+        x: 1064
+        y: 1200.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 854f1349c044d0b10800000000000000
+      internalID: 1949289034537890904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_9
+      rect:
+        serializedVersion: 2
+        x: 1197
+        y: 1200.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98acd43a6df8c98d0800000000000000
+      internalID: -2838235513124697463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1067.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c4251fd84d2fafa0800000000000000
+      internalID: -5787357205144197946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_11
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 1067.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad3d8e52111a2fda0800000000000000
+      internalID: -5912486265761508390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_12
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 1067.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a222b5a5865a2670800000000000000
+      internalID: 8514713177507898017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_13
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 1067.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e57b315e5f5e1f40800000000000000
+      internalID: 5701099036992042469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_14
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 1067.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df4feacf0384fcf40800000000000000
+      internalID: 5750894624410367229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_15
+      rect:
+        serializedVersion: 2
+        x: 665
+        y: 1067.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97b64afb4e4d0d020800000000000000
+      internalID: 2364623883302366073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_16
+      rect:
+        serializedVersion: 2
+        x: 798
+        y: 1067.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2801c11862735740800000000000000
+      internalID: 5139577391059896365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_17
+      rect:
+        serializedVersion: 2
+        x: 931
+        y: 1067.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10fabd85b1a01a640800000000000000
+      internalID: 5089360166476558081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_18
+      rect:
+        serializedVersion: 2
+        x: 1064
+        y: 1067.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55d081c19825919c0800000000000000
+      internalID: -3956040048832934571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cricles-01_19
+      rect:
+        serializedVersion: 2
+        x: 1197
+        y: 1067.6
+        width: 133.4
+        height: 133.4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 708837194d4bee600800000000000000
+      internalID: 499535433751037959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 6cce74627a03dd04d8ccae86353ff989
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Cricles-01_7: 9215048451374445969
+      Cricles-01_9: -2838235513124697463
+      Cricles-01_2: -8346455069405863217
+      Cricles-01_10: -5787357205144197946
+      Cricles-01_14: 5750894624410367229
+      Cricles-01_15: 2364623883302366073
+      Cricles-01_1: 6905048776739855524
+      Cricles-01_4: 1675521752033433523
+      Cricles-01_0: -158131894566089426
+      Cricles-01_8: 1949289034537890904
+      Cricles-01_11: -5912486265761508390
+      Cricles-01_6: -4416829307641815050
+      Cricles-01_13: 5701099036992042469
+      Cricles-01_18: -3956040048832934571
+      Cricles-01_16: 5139577391059896365
+      Cricles-01_17: 5089360166476558081
+      Cricles-01_5: -5267915784658916861
+      Cricles-01_3: -4351951182049372050
+      Cricles-01_12: 8514713177507898017
+      Cricles-01_19: 499535433751037959
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

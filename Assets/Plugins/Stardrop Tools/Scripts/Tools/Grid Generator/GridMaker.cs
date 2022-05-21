@@ -9,6 +9,7 @@ public class GridMaker : StardropTools.CoreObject
     [SerializeField] bool generate;
     [Space]
     [SerializeField] bool generateCopy;
+    [SerializeField] bool copyPoints;
     [SerializeField] Transform[] points;
 
 
@@ -134,8 +135,24 @@ public class GridMaker : StardropTools.CoreObject
         }
 
         if (generateCopy)
+        {
             GenerateCopy();
-        generateCopy = false;
+            generateCopy = false;
+        }
+
+        if (copyPoints)
+        {
+            if (transform.childCount == 0)
+            {
+                copyPoints = false;
+                return;
+            }
+
+            var parent = transform.GetChild(0);
+            points = Utilities.GetItems<Transform>(parent); //parent.GetComponentsInChildren<Transform>();
+
+            copyPoints = false;
+        }
 
         if (oldPos != Position)
         {

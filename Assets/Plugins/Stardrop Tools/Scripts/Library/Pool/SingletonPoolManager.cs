@@ -57,7 +57,9 @@ namespace StardropTools.Pool
         #endregion // manager singleton
 
         [Header("Clusters")]
-        [Tooltip("0-rooms, 1-agents, 2-opponents, 3-particles, 4-projectiles")]
+#if UNITY_EDITOR
+        [TextArea] [SerializeField] string description;
+#endif
         [SerializeField] protected PoolCluster[] clusters;
         [SerializeField] protected bool getPools;
         
@@ -79,14 +81,17 @@ namespace StardropTools.Pool
 
         #region Spawn
         public PooledObject SpawnFromPoolCluster(int clusterIndex, int poolIndex, Vector3 position, Quaternion rotation, Transform parent)
-        {
-            return clusters[clusterIndex].SpawnFromPool(poolIndex, position, rotation, parent);
-        }
+            => clusters[clusterIndex].SpawnFromPool(poolIndex, position, rotation, parent);
 
         public T SpawnFromPoolCluster<T>(int clusterIndex, int poolIndex, Vector3 position, Quaternion rotation, Transform parent)
-        {
-            return clusters[clusterIndex].SpawnFromPool<T>(poolIndex, position, rotation, parent);
-        }
+            => clusters[clusterIndex].SpawnFromPool<T>(poolIndex, position, rotation, parent);
+
+
+        public PooledObject SpawnRandomFromPoolCluster(int clusterIndex, Vector3 position, Quaternion rotation, Transform parent)
+            => clusters[clusterIndex].SpawnRandomFromPool(position, rotation, parent);
+
+        public T SpawnRandomFromPoolCluster<T>(int clusterIndex, Vector3 position, Quaternion rotation, Transform parent)
+            => clusters[clusterIndex].SpawnRandomFromPool<T>(position, rotation, parent);
 
         #endregion // spawn
 

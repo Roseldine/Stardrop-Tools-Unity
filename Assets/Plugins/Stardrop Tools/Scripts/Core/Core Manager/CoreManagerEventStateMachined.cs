@@ -27,6 +27,17 @@ namespace StardropTools
             eventStateMachine.Initialize();
         }
 
+
+        protected CoreEvent SyncEnter(int stateID)
+        => GetState(stateID).OnStateEnter;
+
+        protected CoreEvent SyncUpdate(int stateID)
+            => GetState(stateID).OnStateUpdate;
+
+        protected CoreEvent SyncExit(int stateID)
+            => GetState(stateID).OnStateExit;
+
+
         public void UpdateStateMachine()
             => eventStateMachine.UpdateStateMachine();
 

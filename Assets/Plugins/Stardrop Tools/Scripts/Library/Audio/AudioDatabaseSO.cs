@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace StardropTools
+namespace StardropTools.Audio
 {
     [CreateAssetMenu(menuName = "Stardrop / Audio / Audio Database")]
     public class AudioDatabaseSO : ScriptableObject

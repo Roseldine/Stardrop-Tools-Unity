@@ -194,6 +194,7 @@ namespace StardropTools
             OnReviveAmount?.Invoke(amount);
 
             OnHitPointsChange?.Invoke(hitPoints);
+            
         }
 
         public void Revive(float percentage)
@@ -232,6 +233,7 @@ namespace StardropTools
             }
         }
 
+#if UNITY_EDITOR
         private void OnValidate()
         {
             if (maxHitPoints > 0)
@@ -246,5 +248,6 @@ namespace StardropTools
                 testInvulnerability = false;
             }
         }
+#endif
     }
 }

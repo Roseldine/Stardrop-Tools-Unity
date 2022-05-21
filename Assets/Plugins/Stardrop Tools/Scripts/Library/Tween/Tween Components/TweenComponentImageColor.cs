@@ -16,5 +16,17 @@ namespace StardropTools.Tween
             else
                 tween = Tween.ImageColor(target, end, data.duration, data.delay, data.ignoreTimeScale, data.curve, data.loop, target.GetInstanceID(), OnTween);
         }
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+
+            if (copyValues)
+            {
+                start = target.color;
+                end = start;
+                copyValues = false;
+            }
+        }
     }
 }

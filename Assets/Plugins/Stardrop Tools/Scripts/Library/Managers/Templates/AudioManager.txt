@@ -1,14 +1,15 @@
 
 using UnityEngine;
+using StardropTools.Audio;
 
-public class AudioManager : SingletonManager<AudioManager>
+public class AudioManager : StardropTools.Singletons.SingletonCoreManager<AudioManager>
 {
     [Header("Audio Databases")]
     [SerializeField] AudioSourceDB db_someAudio;
 
     [Header("Ambience & Music")]
-    [SerializeField] AudioClipSource music;
-    [SerializeField] AudioClipSource ambience;
+    [SerializeField] AudioSourceClip music;
+    [SerializeField] AudioSourceClip ambience;
 
     public void PlayOneShotAtSource(AudioSource source, AudioClip clip, float pitch = 1)
     {

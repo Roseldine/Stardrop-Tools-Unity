@@ -22,13 +22,13 @@ namespace StardropTools.Tween
 
         protected UnityEngine.AnimationCurve curve;
 
-        public static readonly CoreEvent OnStart = new CoreEvent();
-        public static readonly CoreEvent OnComplete = new CoreEvent();
-        public static readonly CoreEvent OnPaused = new CoreEvent();
-        public static readonly CoreEvent OnCanceled = new CoreEvent();
+        public readonly CoreEvent OnStart = new CoreEvent();
+        public readonly CoreEvent OnComplete = new CoreEvent();
+        public readonly CoreEvent OnPaused = new CoreEvent();
+        public readonly CoreEvent OnCanceled = new CoreEvent();
 
-        public static readonly CoreEvent OnDelayStart = new CoreEvent();
-        public static readonly CoreEvent OnDelayComplete = new CoreEvent();
+        public readonly CoreEvent OnDelayStart = new CoreEvent();
+        public readonly CoreEvent OnDelayComplete = new CoreEvent();
 
         protected void SetBaseValues(Tween.TweenType type, int tweenID, float duration, float delay, bool ignoreTimeScale, UnityEngine.AnimationCurve curve, Tween.LoopType loop)
         {
@@ -101,7 +101,6 @@ namespace StardropTools.Tween
             // to complete
             if (nextState == Tween.TweenState.complete)
             {
-                OnComplete?.Invoke();
                 OnComplete?.Invoke();
             }
 

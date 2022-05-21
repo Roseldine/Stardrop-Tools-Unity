@@ -17,13 +17,16 @@ namespace StardropTools.Tween
                 tween = Tween.LocalScale(target, end, data.duration, data.delay, data.ignoreTimeScale, data.curve, data.loop, target.GetInstanceID(), OnTween);
         }
 
-        public override void SetTweenID(int value)
+        protected override void OnValidate()
         {
-            base.SetTweenID(value);
-            tween.tweenID = value;
-        }
+            base.OnValidate();
 
-        public override void PauseTween() => tween.Pause();
-        public override void StopTween() => tween.Stop();
+            if (copyValues)
+            {
+                start = target.localScale;
+                end = start;
+                copyValues = false;
+            }
+        }
     }
 }

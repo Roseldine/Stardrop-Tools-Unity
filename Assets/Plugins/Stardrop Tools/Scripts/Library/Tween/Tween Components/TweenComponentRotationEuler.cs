@@ -27,5 +27,21 @@ namespace StardropTools.Tween
                     tween = Tween.LocalRotationEuler(target, end, data.duration, data.delay, data.ignoreTimeScale, data.curve, data.loop, target.GetInstanceID(), OnTween);
             }
         }
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+
+            if (copyValues)
+            {
+                if (globalOrLocal == ITweenComponent.GlobalOrLocal.global)
+                    start = target.eulerAngles;
+                else
+                    start = target.localEulerAngles;
+
+                end = start;
+                copyValues = false;
+            }
+        }
     }
 }

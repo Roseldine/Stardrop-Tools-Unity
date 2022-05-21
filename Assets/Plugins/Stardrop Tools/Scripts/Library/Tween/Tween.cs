@@ -28,7 +28,7 @@ namespace StardropTools.Tween
             ShakeSize, ShakeAnchoredPosition, // to do
 
             // Image
-            ImageColor, ImagePixelPerUnitMultiplier,
+            ImageColor, ImagePixelPerUnitMultiplier, ImageFillAmount,
         }
         public enum LoopType { none, loop, pingPong }
         public enum TweenState { waiting, running, complete, paused, canceled }
@@ -373,14 +373,14 @@ namespace StardropTools.Tween
         // Local Scale
         public static TweenBase LocalScale(Transform target, Vector3 targetScale, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
         {
-            TweenBase tween = new TweenPosition(target, tweenID, targetScale, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            TweenBase tween = new TweenLocalScale(target, tweenID, targetScale, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
         public static TweenBase LocalScale(Transform target, Vector3 startScale, Vector3 targetScale, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
         {
             target.localScale = startScale;
-            TweenBase tween = new TweenPosition(target, tweenID, targetScale, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            TweenBase tween = new TweenLocalScale(target, tweenID, targetScale, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
@@ -389,15 +389,15 @@ namespace StardropTools.Tween
         // --------------- \\     Shake Transform     // --------------- //
 
         // Position Shake
-        public static TweenBase ShakePosition(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase ShakePosition(Transform target, Vector3 intensity, Vector3 endPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
         {
-            TweenBase tween = new TweenShakePosition(target, tweenID, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            TweenBase tween = new TweenShakePosition(target, tweenID, intensity, endPosition, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ShakeLocalPosition(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase ShakeLocalPosition(Transform target, Vector3 intensity, Vector3 endPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
         {
-            TweenBase tween = new TweenShakeLocalPosition(target, tweenID, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            TweenBase tween = new TweenShakeLocalPosition(target, tweenID, intensity, endPosition, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
@@ -502,6 +502,35 @@ namespace StardropTools.Tween
         {
             image.pixelsPerUnitMultiplier = startFloat;
             TweenBase tween = new TweenImagePixelsPerUnitMultiplier(image, tweenID, targetFloat, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            return ProcessTween(tween);
+        }
+
+
+        // Image Fill Amount
+        public static TweenBase ImageFillAmount(UnityEngine.UI.Image image, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<float> eventToUdapte = null)
+        {
+            TweenBase tween = new TweenImageFillAmount(image, tweenID, targetFloat, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            return ProcessTween(tween);
+        }
+
+        public static TweenBase ImageFillAmount(UnityEngine.UI.Image image, float startFloat, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<float> eventToUdapte = null)
+        {
+            image.fillAmount = startFloat;
+            TweenBase tween = new TweenImageFillAmount(image, tweenID, targetFloat, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            return ProcessTween(tween);
+        }
+
+        // Text Mesh color
+        public static TweenBase TextMeshColor(TMPro.TextMeshProUGUI textMesh, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        {
+            TweenBase tween = new TweenTextMeshColor(textMesh, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            return ProcessTween(tween);
+        }
+
+        public static TweenBase TextMeshColor(TMPro.TextMeshProUGUI textMesh, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        {
+            textMesh.color = startColor;
+            TweenBase tween = new TweenTextMeshColor(textMesh, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 

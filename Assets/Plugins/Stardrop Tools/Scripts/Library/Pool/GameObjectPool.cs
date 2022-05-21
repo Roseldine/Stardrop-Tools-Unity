@@ -6,8 +6,8 @@ namespace StardropTools.Pool
     public class GameObjectPool : IPool
     {
         public string name;
-        [UnityEngine.SerializeField] PoolData poolData;
-        [UnityEngine.SerializeField] ClusterData clusterData;
+        public PoolData poolData;
+        public PoolData clusterData;
         [UnityEngine.Space]
         [UnityEngine.SerializeField] UnityEngine.GameObject prefab;
         [UnityEngine.SerializeField] int capacity;
@@ -23,18 +23,18 @@ namespace StardropTools.Pool
         [UnityEngine.Min(0)][UnityEngine.SerializeField] float lifeTime;
         [UnityEngine.SerializeField] int active;
 
-        System.Collections.Generic.Queue<PooledObject> queue;
+        System.Collections.Generic.Queue<PooledObject> queue = new System.Collections.Generic.Queue<PooledObject>();
         System.Collections.Generic.List<PooledObject> cache;
 
         UnityEngine.Transform parent;
         bool isInitialized;
 
         #region Properties
-        public string ClusterName { get => clusterData.clusterName; set => clusterData.clusterName = value; }
-        public int ClusterID { get => clusterData.clusterID; set => clusterData.clusterID = value; }
+        public string ClusterName { get => clusterData.name; set => clusterData.name = value; }
+        public int ClusterID { get => clusterData.id; set => clusterData.id = value; }
 
-        public string PoolName { get => poolData.poolName; set => poolData.poolName = value; }
-        public int PoolID { get => poolData.poolID; set => poolData.poolID = value; }
+        public string PoolName { get => poolData.name; set => poolData.name = value; }
+        public int PoolID { get => poolData.id; set => poolData.id = value; }
 
         public UnityEngine.GameObject Prefab { get => prefab; }
         #endregion // properties
@@ -52,7 +52,7 @@ namespace StardropTools.Pool
         #endregion // poolable lifetime cache
 
 
-        public GameObjectPool(ClusterData clusterData, PoolData poolData, UnityEngine.GameObject prefab, int capacity, bool overflow, UnityEngine.Transform parent, bool populate = true)
+        public GameObjectPool(PoolData clusterData, PoolData poolData, UnityEngine.GameObject prefab, int capacity, bool overflow = false, UnityEngine.Transform parent = null, bool populate = true)
         {
             this.clusterData = clusterData;
             this.poolData = poolData;
@@ -66,10 +66,10 @@ namespace StardropTools.Pool
                 Populate(parent);
         }
 
-        public void Populate(ClusterData clusterData, int poolIndex, UnityEngine.Transform parent)
+        public void Populate(PoolData clusterData, int poolIndex, UnityEngine.Transform parent)
         {
             this.clusterData = clusterData;
-            poolData.poolID = poolIndex;
+            poolData.id = poolIndex;
 
             Populate(parent);
         }
@@ -129,6 +129,14 @@ namespace StardropTools.Pool
             {
                 // dequeue (get from queue)
                 PooledObject pooled = queue.Dequeue();
+
+                // make sure we are spawning a disabled item
+                if (active != capacity)
+                    while(pooled.IsActive)
+                    {
+                        queue.Enqueue(pooled);
+                        pooled = queue.Dequeue();
+                    }
 
                 // set Transforms
                 pooled.SetPosition(position);

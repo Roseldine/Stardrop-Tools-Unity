@@ -89,6 +89,9 @@ namespace StardropTools
         public readonly CoreEvent OnRemoveChild = new CoreEvent();
 
         public readonly CoreEvent OnDestroyObject = new CoreEvent();
+
+        public readonly CoreEvent OnActivate = new CoreEvent();
+        public readonly CoreEvent OnDeactivate = new CoreEvent();
         #endregion // events
 
 
@@ -280,6 +283,11 @@ namespace StardropTools
                 GameObject.SetActive(value);
             else if (CanDebug)
                 Print("Object unassigned");
+
+            if (value)
+                OnActivate?.Invoke();
+            else
+                OnDeactivate?.Invoke();
         }
 
         public void SetCanUpdate(bool value) => coreData.SetUpdate(value);
@@ -375,6 +383,31 @@ namespace StardropTools
 
         public float DistanceFrom(Vector3 target) => DirectionTo(target).magnitude;
         public float DistanceFrom(Transform target) => DirectionTo(target).magnitude;
+
+
+        public Quaternion LookAt(Vector3 direction, bool lockX = false, bool lockY = true, bool lockZ = false)
+        {
+            if (direction == Vector3.zero)
+                return Quaternion.identity;
+
+            Quaternion lookRot = Quaternion.LookRotation(direction);
+
+            if (lockX) lookRot.x = 0;
+            if (lockY) lookRot.y = 0;
+            if (lockZ) lookRot.z = 0;
+
+            SetRotation(lookRot);
+
+            return lookRot;
+        }
+
+        public Quaternion LookAt(Transform target, bool lockX = false, bool lockY = true, bool lockZ = false)
+        {
+            Vector3 lookDir = DirectionTo(target.position);
+            Quaternion targetRot = LookAt(lookDir, lockX, lockY, lockZ);
+
+            return targetRot;
+        }
 
 
         public Quaternion SmoothLookAt(Vector3 direction, float lookSpeed, bool lockX = false, bool lockY = true, bool lockZ = false)

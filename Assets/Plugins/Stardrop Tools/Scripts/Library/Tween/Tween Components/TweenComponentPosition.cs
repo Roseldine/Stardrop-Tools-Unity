@@ -27,5 +27,21 @@ namespace StardropTools.Tween
                     tween = Tween.LocalPosition(target, end, data.duration, data.delay, data.ignoreTimeScale, data.curve, data.loop, target.GetInstanceID(), OnTween);
             }
         }
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+
+            if (copyValues)
+            {
+                if (globalOrLocal == ITweenComponent.GlobalOrLocal.global)
+                    start = target.position;
+                else
+                    start = target.localPosition;
+
+                end = start;
+                copyValues = false;
+            }
+        }
     }
 }

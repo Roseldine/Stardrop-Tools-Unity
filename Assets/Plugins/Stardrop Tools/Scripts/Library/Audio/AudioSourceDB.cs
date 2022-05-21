@@ -1,5 +1,5 @@
 ﻿
-namespace StardropTools
+namespace StardropTools.Audio
 {
     [System.Serializable]
     public class AudioSourceDB
@@ -31,10 +31,14 @@ namespace StardropTools
         }
 
 
-        public void PlayClipAtIndex(int index)
+        public void PlayClipAtIndex(int index, bool randomPitch = false)
         {
             StopPlaying();
             source.clip = database.GetClipAtIndex(index);
+
+            if (randomPitch)
+                source.pitch = RandomPitch;
+
             source.Play();
         }
 

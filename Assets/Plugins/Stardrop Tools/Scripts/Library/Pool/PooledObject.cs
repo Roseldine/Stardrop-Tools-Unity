@@ -9,20 +9,20 @@ namespace StardropTools.Pool
         [UnityEngine.Header("Pooled Object")]
         [UnityEngine.SerializeField] int itemID;
         [UnityEngine.Space]
-        [UnityEngine.SerializeField] ClusterData clusterData;
+        [UnityEngine.SerializeField] PoolData clusterData;
         [UnityEngine.SerializeField] PoolData poolData;
 
         UnityEngine.Coroutine lifetimeCR;
 
-        public string ClusterName { get => clusterData.clusterName; set => clusterData.clusterName = value; }
-        public int ClusterID { get => clusterData.clusterID; set => clusterData.clusterID = value; }
+        public string ClusterName { get => clusterData.name; set => clusterData.name = value; }
+        public int ClusterID { get => clusterData.id; set => clusterData.id = value; }
 
-        public string PoolName { get => poolData.poolName; set => poolData.poolName = value; }
-        public int PoolID { get => poolData.poolID; set => poolData.poolID = value; }
+        public string PoolName { get => poolData.name; set => poolData.name = value; }
+        public int PoolID { get => poolData.id; set => poolData.id = value; }
 
         public int ItemID { get => itemID; set => itemID = value; }
 
-        public void Initialize(ClusterData clusterData, PoolData poolData, int itemID, bool setActive = false)
+        public void Initialize(PoolData clusterData, PoolData poolData, int itemID, bool setActive = false)
         {
             this.clusterData = clusterData;
             this.poolData = poolData;

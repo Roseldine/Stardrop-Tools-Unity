@@ -11,20 +11,25 @@ namespace StardropTools
         [Min(0)] [SerializeField] float overralCrossFadeTime = 0;
         [SerializeField] float animTime;
         [Space]
-        [SerializeField] bool getAnimState;
-        [SerializeField] bool clearAnimState;
+        [SerializeField] bool getAnimStates;
+        [SerializeField] bool clearAnimStates;
 
         Coroutine animTimeCR;
 
         public AnimState CurrentState { get => animStates[currentAnimID]; }
+        public int currentAnimID;
 
-        public readonly CoreEvent<int> OnAnimStart = new CoreEvent<int>();
-        public readonly CoreEvent<int> OnAnimComplete = new CoreEvent<int>();
-        public readonly CoreEvent<int> OnAnimEvent = new CoreEvent<int>();
+        public readonly CoreEvent<int> OnAnimStartID = new CoreEvent<int>();
+        public readonly CoreEvent<int> OnAnimCompleteID = new CoreEvent<int>();
+        public readonly CoreEvent<int> OnAnimEventID = new CoreEvent<int>();
 
-        int currentAnimID;
+        public readonly CoreEvent<AnimState> OnAnimStart = new CoreEvent<AnimState>();
+        public readonly CoreEvent<AnimState> OnAnimComplete = new CoreEvent<AnimState>();
+        public readonly CoreEvent<AnimState> OnAnimEvent = new CoreEvent<AnimState>();
+
         AnimatorStateInfo stateInfo;
 
+        // WORK IN PROGRESS
         public void AnimEventDetection()
         {
             // check if state has any Events
@@ -44,62 +49,74 @@ namespace StardropTools
             }
         }
 
-        // layerIndex is there as a reminder to update this to all animator layers
-        public void PlayAnimation(int animID, bool disableOnFinish = false)
+
+        public void RefreshAnimState()
         {
-            if (animID == currentAnimID)
-                return;
-
-            if (animID >= 0 && animID < animStates.Length)
+            if (animator.GetCurrentAnimatorStateInfo(CurrentState.Layer).IsName(CurrentState.StateName) == false)
             {
-                var targetState = animStates[animID];
-
-                if (animator.GetCurrentAnimatorStateInfo(targetState.Layer).IsName(targetState.StateName) == false)
-                {
-                    if (animator.enabled == false)
-                        animator.enabled = true;
-
-                    animator.Play(targetState.StateName, targetState.Layer);
-                    AnimationLifetime(targetState.LengthInSeconds, !disableOnFinish);
-                    currentAnimID = animID;
-
-                    OnAnimStart?.Invoke(currentAnimID);
-                }
+                animator.Play(CurrentState.StateName, CurrentState.Layer);
+                //Debug.Log("Refeshed Anim!");
             }
-
-            else
-                Debug.Log("Animation ID does not exist");
         }
 
-        // layerIndex is there as a reminder to update this to all animator layers
-        public void CrossFadeAnimation(int animID, bool disableOnFinish = false)
+        
+        public void PlayAnimation(int animID, bool forceAnimation = false, bool disableOnFinish = false)
         {
-            if (animID == currentAnimID)
+            if (forceAnimation == false && animID == currentAnimID)
                 return;
 
             if (animID >= 0 && animID < animStates.Length)
             {
                 var targetState = animStates[animID];
 
-                if (animator.GetCurrentAnimatorStateInfo(targetState.Layer).IsName(targetState.StateName) == false)
-                {
-                    if (animator.enabled == false)
-                        animator.enabled = true;
+                if (animator.enabled == false)
+                    animator.enabled = true;
 
-                    animator.CrossFade(targetState.StateName, targetState.crossfade);
-                    AnimationLifetime(targetState.LengthInSeconds, !disableOnFinish);
-                    currentAnimID = animID;
+                animator.Play(targetState.StateName, targetState.Layer);
+                RefreshAnimState();
 
-                    OnAnimStart?.Invoke(currentAnimID);
-                }
+                AnimationLifetime(targetState.LengthInSeconds, !disableOnFinish);
+                currentAnimID = animID;
+
+                OnAnimStartID?.Invoke(currentAnimID);
+                OnAnimStart?.Invoke(CurrentState);
             }
 
             else
-                Debug.Log("Animation ID does not exist");
+                Debug.LogFormat("Animation ID: {0}, does not exist", animID);
+        }
+
+        
+        public void CrossFadeAnimation(int animID, bool forceAnimation = false, bool disableOnFinish = false)
+        {
+            if (forceAnimation == false && animID == currentAnimID)
+                return;
+
+            if (animID >= 0 && animID < animStates.Length)
+            {
+                var targetState = animStates[animID];
+
+                if (animator.enabled == false)
+                    animator.enabled = true;
+
+                animator.CrossFade(targetState.StateName, targetState.crossfade);
+
+                AnimationLifetime(targetState.LengthInSeconds, !disableOnFinish);
+                currentAnimID = animID;
+
+                OnAnimStartID?.Invoke(currentAnimID);
+                OnAnimStart?.Invoke(CurrentState);
+            }
+
+            else
+                Debug.LogFormat("Animation ID: {0}, does not exist", animID);
         }
 
         void AnimationLifetime(float time, bool disableOnFinish)
         {
+            if (isActiveAndEnabled == false)
+                return;
+
             if (animTimeCR != null)
                 StopCoroutine(animTimeCR);
 
@@ -110,7 +127,8 @@ namespace StardropTools
         {
             yield return WaitForSecondsManager.GetWait("animation", time);
             animator.enabled = disableOnFinish;
-            OnAnimComplete?.Invoke(currentAnimID);
+            OnAnimCompleteID?.Invoke(currentAnimID);
+            OnAnimComplete?.Invoke(CurrentState);
         }
 
 #if UNITY_EDITOR
@@ -127,12 +145,18 @@ namespace StardropTools
                 AnimationClip[] animClips = animator.runtimeAnimatorController.animationClips;
                 Debug.Log("Clip count: " + animClips.Length);
 
+                if (animClips.Length == 0)
+                {
+                    Debug.Log("NO Animation Clips!");
+                    return;
+                }
+
                 var listAnimStates = new System.Collections.Generic.List<AnimState>();
 
                 for (int layer = 0; layer < layerCount; layer++)
                 {
-                    // Names of each layer:
-                    // Debug.LogFormat("Layer {0}: {1}", layer, animController.layers[layer].name);
+                     // Names of each layer:
+                     //Debug.LogFormat("Layer {0}: {1}", layer, animController.layers[layer].name);
 
                     UnityEditor.Animations.AnimatorStateMachine animatorStateMachine = animController.layers[layer].stateMachine;
                     UnityEditor.Animations.ChildAnimatorState[] states = animatorStateMachine.states;
@@ -159,16 +183,16 @@ namespace StardropTools
             if (animator == null)
                 animator = GetComponent<Animator>();
 
-            if (getAnimState)
+            if (getAnimStates)
             {
                 GetAnimatorStates();
-                getAnimState = false;
+                getAnimStates = false;
             }
 
-            if (clearAnimState)
+            if (clearAnimStates)
             {
                 animStates = new AnimState[0];
-                clearAnimState = false;
+                clearAnimStates = false;
             }
 
             if (overralCrossFadeTime > 0)

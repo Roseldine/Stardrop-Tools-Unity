@@ -16,5 +16,17 @@ namespace StardropTools.Tween
             else
                 tween = Tween.ImagePixelsPerUnitMultiplier(target, end, data.duration, data.delay, data.ignoreTimeScale, data.curve, data.loop, target.GetInstanceID(), OnTween);
         }
+
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+
+            if (copyValues)
+            {
+                start = target.pixelsPerUnitMultiplier;
+                end = start;
+                copyValues = false;
+            }
+        }
     }
 }

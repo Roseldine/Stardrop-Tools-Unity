@@ -27,7 +27,7 @@ namespace StardropTools
             ColliderCheck();
         }
 
-
+#if UNITY_EDITOR
         protected override void OnDrawGizmos()
         {
             if (scannerGizmos.drawGizmos == false)
@@ -36,6 +36,7 @@ namespace StardropTools
             Gizmos.color = scannerGizmos.color;
             Utilities.DrawCube(Position + positionOffset, boxScale, Rotation);
         }
+#endif
     }
 
 }

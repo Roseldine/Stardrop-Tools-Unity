@@ -53,10 +53,10 @@ public static class TransformExtensions
         => transform.localPosition.SetX(xValue);
 
     public static void SetLocalPositionY(this Transform transform, float yValue)
-        => transform.localPosition.SetX(yValue);
+        => transform.localPosition.SetY(yValue);
 
     public static void SetLocalPositionZ(this Transform transform, float zValue)
-        => transform.localPosition.SetX(zValue);
+        => transform.localPosition.SetZ(zValue);
 
 
 

@@ -4,6 +4,7 @@ namespace StardropTools
     [System.Serializable]
     public class WeightedList<T>
     {
+        [UnityEngine.TextArea] [UnityEngine.SerializeField] string description;
         public System.Collections.Generic.List<WeightedItem<T>> list = new System.Collections.Generic.List<WeightedItem<T>>();
 
         public int Count { get => list.Count; }

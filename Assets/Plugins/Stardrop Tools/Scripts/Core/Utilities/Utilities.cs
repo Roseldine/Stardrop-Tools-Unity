@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -39,6 +40,7 @@ public static class Utilities
         return point;
     }
 
+#if UNITY_EDITOR
     public static void ClearLog() //you can copy/paste this code to the bottom of your script
     {
         var assembly = System.Reflection.Assembly.GetAssembly(typeof(UnityEditor.Editor));
@@ -59,10 +61,10 @@ public static class Utilities
         Gizmos.matrix = oldGizmosMatrix;
     }
 
-    public static void DrawString(string text, Vector3 worldPos, Color? colour = null)
+    public static void DrawString(string text, Vector3 worldPos, Color? color = null)
     {
         Handles.BeginGUI();
-        if (colour.HasValue) GUI.color = colour.Value;
+        if (color.HasValue) GUI.color = color.Value;
         var view = UnityEditor.SceneView.currentDrawingSceneView;
         Vector3 screenPos = view.camera.WorldToScreenPoint(worldPos);
         Vector2 size = GUI.skin.label.CalcSize(new GUIContent(text));
@@ -97,4 +99,5 @@ public static class Utilities
     }
 #endif
     #endregion // instantiate prefabs
+#endif
 }

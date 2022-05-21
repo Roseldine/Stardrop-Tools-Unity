@@ -1,5 +1,5 @@
 ﻿
-namespace StardropTools
+namespace StardropTools.Audio
 {
     [System.Serializable]
     public class AudioSourceClip

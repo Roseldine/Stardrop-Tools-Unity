@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace StardropTools
 {
-    public class CoreObject : CoreComponent
+    public class BaseObject : BaseComponent
     {
         [Header("Initialization")]
-        [SerializeField] protected CoreObjectData coreData;
+        [SerializeField] protected BaseObjectData coreData;
 
         #region Properties
         public bool IsActive { get => coreData.IsActive; set => SetActive(value); }
@@ -99,10 +99,10 @@ namespace StardropTools
         {
             DataCheck();
 
-            if (coreData.Initialization == CoreObjectData.InitializationType.awake)
+            if (coreData.Initialization == BaseObjectData.InitializationType.awake)
                 Initialize();
 
-            if (coreData.LateInitialization == CoreObjectData.InitializationType.awake)
+            if (coreData.LateInitialization == BaseObjectData.InitializationType.awake)
                 LateInitialize();
 
             OnAwake?.Invoke();
@@ -112,10 +112,10 @@ namespace StardropTools
         {
             DataCheck();
 
-            if (coreData.Initialization == CoreObjectData.InitializationType.start)
+            if (coreData.Initialization == BaseObjectData.InitializationType.start)
                 Initialize();
 
-            if (coreData.LateInitialization == CoreObjectData.InitializationType.start)
+            if (coreData.LateInitialization == BaseObjectData.InitializationType.start)
                 LateInitialize();
 
             OnStart?.Invoke();
@@ -247,7 +247,7 @@ namespace StardropTools
         protected virtual void OnValidate()
         {
             if (coreData == null)
-                coreData = new CoreObjectData();
+                coreData = new BaseObjectData();
 
             if (GameObject == null)
                 coreData.SetGameObject(gameObject);
@@ -265,7 +265,7 @@ namespace StardropTools
         protected virtual void DataCheck()
         {
             if (coreData == null)
-                coreData = new CoreObjectData(gameObject, transform);
+                coreData = new BaseObjectData(gameObject, transform);
         }
 
 
@@ -385,10 +385,13 @@ namespace StardropTools
         public float DistanceFrom(Transform target) => DirectionTo(target).magnitude;
 
 
-        public Quaternion LookAt(Vector3 direction, bool lockX = false, bool lockY = true, bool lockZ = false)
+        public Quaternion LookAt(Vector3 direction, bool lockX = true, bool lockY = false, bool lockZ = true)
         {
             if (direction == Vector3.zero)
+            {
+                //Debug.Log("Look rotation is zero");
                 return Quaternion.identity;
+            }
 
             Quaternion lookRot = Quaternion.LookRotation(direction);
 

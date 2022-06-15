@@ -4,7 +4,7 @@ using UnityEngine;
 namespace StardropTools.UI
 {
     [RequireComponent(typeof(UnityEngine.UI.Button))]
-    public class UIButton : CoreUIObject
+    public class UIButton : BaseUIObject
     {
         [Header("Buttons")]
         [SerializeField] int buttonID;

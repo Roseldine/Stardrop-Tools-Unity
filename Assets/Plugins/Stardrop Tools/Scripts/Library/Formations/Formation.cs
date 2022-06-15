@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StardropTools.Formations
 {
-    public abstract class Formation : CoreObject
+    public abstract class Formation : BaseObject
     {
         [Header("Formation")]
         [SerializeField] protected bool addPosition;

@@ -3,18 +3,18 @@ using UnityEngine;
 
 namespace StardropTools.Tween
 {
-    public class TweenMaterialColor : TweenColor
+    public class TweenSpriteRendererColor : TweenColor
     {
-        Material material;
+        SpriteRenderer renderer;
 
-        public TweenMaterialColor(Material material, int tweenID, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Color> updateEvent = null)
+        public TweenSpriteRendererColor(SpriteRenderer renderer, int tweenID, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Color> updateEvent = null)
             : base(tweenID, targetColor, targetColor, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
-            start = material.color;
+            start = renderer.color;
             target = targetColor;
-            this.material = material;
+            this.renderer = renderer;
 
-            SetBaseValues(Tween.TweenType.MaterialColor, tweenID, duration, delay, ignoreTimeScale, curve, loop);
+            SetBaseValues(Tween.TweenType.SpriteRendererColor, tweenID, duration, delay, ignoreTimeScale, curve, loop);
 
             this.delay = delay;
             this.duration = duration;
@@ -26,7 +26,7 @@ namespace StardropTools.Tween
         protected override void TweenUpdate(float percent)
         {
             lerped = Color.LerpUnclamped(start, target, curve.Evaluate(percent));
-            material.color = lerped;
+            renderer.color = lerped;
 
             OnUpdate?.Invoke(lerped);
         }

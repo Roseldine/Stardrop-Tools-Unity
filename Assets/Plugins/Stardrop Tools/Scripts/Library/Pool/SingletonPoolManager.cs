@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StardropTools.Pool
 {
-    public class SingletonPoolManager<T> : CoreManager where T : Component
+    public class SingletonPoolManager<T> : BaseManager where T : Component
     {
         #region Manager Singleton
         /// <summary>
@@ -53,21 +53,28 @@ namespace StardropTools.Pool
             base.Initialize();
 
             SingletonInitialization();
+
+            if (populationInitialization == EPopulationInitialization.initialize)
+                Populate();
         }
         #endregion // manager singleton
 
+        public enum EPopulationInitialization { initialize, lateInitialize }
+
         [Header("Clusters")]
+        [SerializeField] protected EPopulationInitialization populationInitialization;
 #if UNITY_EDITOR
-        [TextArea] [SerializeField] string description;
+        [TextArea] [SerializeField] protected string description;
 #endif
         [SerializeField] protected PoolCluster[] clusters;
         [SerializeField] protected bool getPools;
-        
 
         public override void LateInitialize()
         {
             base.LateInitialize();
-            Populate();
+
+            if (populationInitialization == EPopulationInitialization.lateInitialize)
+                Populate();
         }
 
         public void Populate()
@@ -125,6 +132,9 @@ namespace StardropTools.Pool
 
         public void Despawn(GameObject pooled, bool resetParent = true)
             => Despawn(pooled.GetComponent<PooledObject>(), resetParent);
+
+        //public void Despawn(PooledObject pooled, float delay, bool resetParent = true)
+        //    => Invoke(nameof(Despawn(pooled, resetParent)), delay);
 
         public void DespawnEverything()
         {

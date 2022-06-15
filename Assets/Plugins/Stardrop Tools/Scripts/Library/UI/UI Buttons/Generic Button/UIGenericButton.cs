@@ -10,7 +10,7 @@ namespace StardropTools.UI.GenericButton
 
         [Header("Generic Buttons")]
         [SerializeField] UIGenericButtonComponentData componentData;
-        [SerializeField] CoreUIObjectData.OrientationEnum orientation;
+        [SerializeField] BaseUIObjectData.OrientationEnum orientation;
         [SerializeField] GraphicOptions graphicOptions;
         [Space]
         [SerializeField] Sprite icon;
@@ -35,23 +35,23 @@ namespace StardropTools.UI.GenericButton
 
             switch (DataOrientation)
             {
-                case CoreUIObjectData.OrientationEnum.center:
+                case BaseUIObjectData.OrientationEnum.center:
                     graphics = style.center;
                     break;
 
-                case CoreUIObjectData.OrientationEnum.top:
+                case BaseUIObjectData.OrientationEnum.top:
                     graphics = style.top;
                     break;
 
-                case CoreUIObjectData.OrientationEnum.left:
+                case BaseUIObjectData.OrientationEnum.left:
                     graphics = style.left;
                     break;
 
-                case CoreUIObjectData.OrientationEnum.right:
+                case BaseUIObjectData.OrientationEnum.right:
                     graphics = style.right;
                     break;
 
-                case CoreUIObjectData.OrientationEnum.bottom:
+                case BaseUIObjectData.OrientationEnum.bottom:
                     graphics = style.bottom;
                     break;
 
@@ -108,8 +108,8 @@ namespace StardropTools.UI.GenericButton
             ValidateOutline();
 
             // orientation
-            if (orientation != CoreUIObjectData.OrientationEnum.none && DataLayout != CoreUIObjectData.LayoutOptions.orientation)
-                DataLayout = CoreUIObjectData.LayoutOptions.orientation;
+            if (orientation != BaseUIObjectData.OrientationEnum.none && DataLayout != BaseUIObjectData.LayoutOptions.orientation)
+                DataLayout = BaseUIObjectData.LayoutOptions.orientation;
 
             if (DataOrientation != orientation)
                 DataOrientation = orientation;

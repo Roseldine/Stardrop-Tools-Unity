@@ -15,10 +15,51 @@ public static class VectorUtility
     public static Vector3 GetMidPoint(Vector3 vectorOne, Vector3 vectorTwo)
         => (vectorOne + vectorTwo) / 2;
 
+    public static Vector3 GetMidPoint(Vector3[] vectorArray)
+    {
+        Vector3 totalPoints = Vector3.zero;
+        for (int i = 0; i < vectorArray.Length; i++)
+            totalPoints += vectorArray[i];
+
+        return totalPoints / vectorArray.Length;
+    }
+
+
+    /// <summary>
+    /// Axis is the axis to influence | ex: axis.up = horizonal
+    /// </summary>
+    public static Vector3 GetPerpendicular(Vector3 direction, Vector3 axis)
+        => Vector3.Cross(direction, axis).normalized;
+
+    /// <summary>
+    /// dirA = direction start, dirB = direction end | ex: direction = dirB - dirA.
+    /// Axis = the axis to influence | ex: axis.up = horizonal
+    /// </summary>
+    public static Vector3 GetPerpendicular(Vector3 dirA, Vector3 dirB, Vector3 axis)
+    {
+        Vector3 direction = dirB - dirA;
+        return GetPerpendicular(direction, axis);
+    }
+
 
     public static Vector3 GetVelocity(Vector3 currentPosition, Vector3 lastPosition)
         => (currentPosition - lastPosition) / Time.deltaTime;
 
+    public static Quaternion SmoothLookAt(Transform target, Vector3 direction, float lookSpeed, bool lockX = true, bool lockY = false, bool lockZ = true)
+    {
+        if (direction == Vector3.zero)
+            return Quaternion.identity;
+
+        Quaternion lookRot = Quaternion.LookRotation(direction);
+        Quaternion targetRot = Quaternion.Slerp(target.rotation, lookRot, Time.deltaTime * lookSpeed);
+
+        if (lockX) lookRot.x = 0;
+        if (lockY) lookRot.y = 0;
+        if (lockZ) lookRot.z = 0;
+
+        target.rotation = targetRot;
+        return targetRot;
+    }
 
     public static Vector3 RandomInsideCricle(Vector3 referencePoint, float radius)
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StardropTools
 {
-    public class Animation : CoreComponent
+    public class Animation : BaseComponent
     {
         [Header("Animation")]
         [SerializeField] Animator animator;
@@ -16,6 +16,7 @@ namespace StardropTools
 
         Coroutine animTimeCR;
 
+        public int StateCount { get => animStates.Length; }
         public AnimState CurrentState { get => animStates[currentAnimID]; }
         public int currentAnimID;
 

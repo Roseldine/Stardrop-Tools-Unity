@@ -4,7 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Input Class focused on user swipe input (pc or mobile)
 /// </summary>
-public class SwipeManager : StardropTools.Singletons.SingletonCoreManager<SwipeManager>
+public class SwipeManager : Singleton<SwipeManager>
 {
     public enum SwipeDirection
     {
@@ -54,6 +54,7 @@ public class SwipeManager : StardropTools.Singletons.SingletonCoreManager<SwipeM
     #region Events
 
     public static readonly CoreEvent<SwipeData> OnSwipe = new CoreEvent<SwipeData>();
+    public static readonly CoreEvent<SwipeDirection> OnSwipeDirection = new CoreEvent<SwipeDirection>();
 
     public static readonly CoreEvent<int> OnSwipeHorizontal = new CoreEvent<int>();
     public static readonly CoreEvent<int> OnSwipeVertical = new CoreEvent<int>();
@@ -72,17 +73,12 @@ public class SwipeManager : StardropTools.Singletons.SingletonCoreManager<SwipeM
 
     #endregion // events
 
-    public override void Initialize()
+    protected override void Awake()
     {
-        base.Initialize();
         screenSize = new Vector2(Screen.width, Screen.height);
         CalculateScreenPercent();
-    }
 
-    public override void UpdateObject()
-    {
-        base.UpdateObject();
-        CheckSwipe();
+        LoopManager.OnUpdate.AddListener(CheckSwipe);
     }
 
     public void CheckSwipe()
@@ -222,6 +218,8 @@ public class SwipeManager : StardropTools.Singletons.SingletonCoreManager<SwipeM
 
             // Invoke Swipe Event
             OnSwipe?.Invoke(data);
+            OnSwipeDirection?.Invoke(swipeDirection);
+
             if (debug) Debug.Log("Swiped: " + swipeDirection);
         }
     }
@@ -255,5 +253,36 @@ public class SwipeManager : StardropTools.Singletons.SingletonCoreManager<SwipeM
     {
         screenAvg = (screenSize.x + screenSize.y) * .5f;
         minSwipeDistance = screenAvg * screenPercentTarget;
+    }
+
+    public static SwipeDirection GetRandomSwipeDirection()
+        => (SwipeDirection)Random.Range(0, 9);
+
+    public static SwipeDirection GetRandomCardinalSwipeDirection()
+    {
+        int rand = Random.Range(0, 4);
+
+        if (rand == 0)
+            return SwipeDirection.down;
+        else if (rand == 1)
+            return SwipeDirection.up;
+        else if (rand == 2)
+            return SwipeDirection.left;
+        else
+            return SwipeDirection.right;
+    }
+
+    public static SwipeDirection GetRandomDiagonalSwipeDirection()
+    {
+        int rand = Random.Range(0, 4);
+
+        if (rand == 0)
+            return SwipeDirection.downLeft;
+        else if (rand == 1)
+            return SwipeDirection.downRight;
+        else if (rand == 2)
+            return SwipeDirection.upLeft;
+        else
+            return SwipeDirection.upRight;
     }
 }

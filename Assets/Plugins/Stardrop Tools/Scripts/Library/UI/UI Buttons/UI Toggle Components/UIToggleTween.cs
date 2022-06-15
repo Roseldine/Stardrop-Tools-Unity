@@ -19,9 +19,9 @@ namespace StardropTools.UI
         public void ToggleTweens(bool val)
         {
             if (val == false)
-                sequences[0].InitializeTweens();
+                sequences[0].StartTweens();
             else
-                sequences[1].InitializeTweens();
+                sequences[1].StartTweens();
         }
 
         private void OnValidate()

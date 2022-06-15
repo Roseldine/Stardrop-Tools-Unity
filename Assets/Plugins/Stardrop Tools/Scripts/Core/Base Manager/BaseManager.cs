@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StardropTools
 {
-    public abstract class CoreManager : CoreObject
+    public abstract class BaseManager : BaseObject
     {
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public void InitializeManager()

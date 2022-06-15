@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace StardropTools.Pool
 {
-    public class PooledObject : CoreObject, IPoolable
+    public class PooledObject : BaseObject, IPoolable
     {
         [UnityEngine.Header("Pooled Object")]
         [UnityEngine.SerializeField] int itemID;

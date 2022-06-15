@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StardropTools.Tween
 {
-    public class TweenCluster : MonoBehaviour
+    public class TweenCluster : BaseComponent
     {
         [SerializeField] bool testTweens;
         [Space]
@@ -14,10 +14,16 @@ namespace StardropTools.Tween
 
         float time;
 
-        public readonly CoreEvent OnStart = new CoreEvent();
-        public readonly CoreEvent OnComplete = new CoreEvent();
+        public readonly CoreEvent OnTweenStart = new CoreEvent();
+        public readonly CoreEvent OnTweenComplete = new CoreEvent();
 
-        public void InitializeTweens()
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            StopTweens();
+        }
+
+        public void StartTweens()
         {
             time = 0;
             StopTweens();
@@ -25,7 +31,7 @@ namespace StardropTools.Tween
             for (int i = 0; i < tweens.Length; i++)
                 tweens[i].InitializeTween();
 
-            OnStart?.Invoke();
+            OnTweenStart?.Invoke();
 
             LoopManager.OnUpdate.AddListener(WaitCompletion);
         }
@@ -47,7 +53,7 @@ namespace StardropTools.Tween
             time += Time.deltaTime;
             if (time > duration)
             {
-                OnComplete?.Invoke();
+                OnTweenComplete?.Invoke();
 
                 time = 0;
                 //Debug.Log("Cluster Complete!");
@@ -101,7 +107,7 @@ namespace StardropTools.Tween
             getTweens = false;
 
             if (testTweens)
-                InitializeTweens();
+                StartTweens();
             testTweens = false;
         }
     }

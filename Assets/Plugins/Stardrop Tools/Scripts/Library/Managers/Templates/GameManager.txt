@@ -1,82 +1,89 @@
 
-[UnityEngine.RequireComponent(typeof(StardropTools.EventStateMachine.EventStateMachine))]
-public class GameManager : SingletonCoreStatedManager<GameManager>
+using StardropTools;
+
+public class GameManager : StardropTools.Singletons.SingletonManagerStateMachined<GameManager>
 {
+    [UnityEngine.SerializeField] UnityEngine.Transform parentManagers;
+    [UnityEngine.SerializeField] CoreManager[] managers;
+
+
     #region Events
-    // Idle
-    public static CoreEvent OnEnterIdle { get; private set; }
-    public static CoreEvent OnExitIdle { get; private set; }
-    public static CoreEvent OnUpdateIdle { get; private set; }
+    public static CoreEvent OnIdleEnter { get; private set; }
+    public static CoreEvent OnIdleUpdate { get; private set; }
+    public static CoreEvent OnIdleExit { get; private set; }
 
-    // Play
-    public static CoreEvent OnEnterPlay { get; private set; }
-    public static CoreEvent OnExitPlay { get; private set; }
-    public static CoreEvent OnUpdatePlay { get; private set; }
+    public static CoreEvent OnPlayEnter { get; private set; }
+    public static CoreEvent OnPlayUpdate { get; private set; }
+    public static CoreEvent OnPlayExit { get; private set; }
 
-    // Finish
-    public static CoreEvent OnEnterFinish { get; private set; }
-    public static CoreEvent OnExitFinish { get; private set; }
-    public static CoreEvent OnUpdateFinish { get; private set; }
+    public static CoreEvent OnFinishEnter { get; private set; }
+    public static CoreEvent OnFinishUpdate { get; private set; }
+    public static CoreEvent OnFinishExit { get; private set; }
 
-    // Fixed Update
-    public static CoreEvent OnFixedUpdateIdle { get; private set; }
-    public static CoreEvent OnFixedUpdatePlay { get; private set; }
-    public static CoreEvent OnFixedUpdateFinish { get; private set; }
+    public static CoreEvent OnPauseEnter { get; private set; }
+    public static CoreEvent OnPauseUpdate { get; private set; }
+    public static CoreEvent OnPauseExit { get; private set; }
 
-    // win & lose conditions
-    public static readonly CoreEvent OnWin = new CoreEvent();
-    public static readonly CoreEvent OnLose = new CoreEvent();
+    #endregion // events
 
-    // add points
-    public static readonly CoreEvent<int> OnPointAdd = new CoreEvent<int>();
-    public static readonly CoreEvent<int> OnGemAdd = new CoreEvent<int>();
-
-    // next level
-    public static readonly CoreEvent OnNextLevel = new CoreEvent();
-    public static readonly CoreEvent OnRestartLevel = new CoreEvent();
-    #endregion // Events
-
-    public float TimeInIdle { get => GetState(0).TimeInState; }
-    public float TimeInPlay { get => GetState(1).TimeInState; }
-    public float TimeInFinish { get => GetState(2).TimeInState; }
 
     public override void Initialize()
     {
+        SynceEvents();
         base.Initialize();
-        SubscribeToEvents();
+
+        eventStateMachine.Initialize();
+        LoopManager.OnUpdate.AddListener(eventStateMachine.UpdateStateMachine);
+
+        GetManagers();
+        InitializeManagers();
+        LateInitializeManagers();
     }
 
-    public override void SubscribeToEvents()
+    public override void LateInitialize()
     {
-        base.SubscribeToEvents();
-
-        // Enter
-        OnEnterIdle = SyncEventEnter(0);
-        OnEnterPlay = SyncEventEnter(1);
-        OnEnterFinish = SyncEventEnter(2);
-
-        // Exit
-        OnExitIdle = SyncEventExit(0);
-        OnExitPlay = SyncEventExit(1);
-        OnExitFinish = SyncEventExit(2);
-
-        // Update
-        OnUpdateIdle = SyncEventUpdate(0);
-        OnUpdatePlay = SyncEventUpdate(1);
-        OnUpdateFinish = SyncEventUpdate(2);
+        base.LateInitialize();
     }
 
-    /// <summary>
-    /// 0-idle, 1-play, 2-finish
-    /// </summary>
-    public override void ChangeState(int stateIndex)
-        => base.ChangeState(stateIndex);
 
-    protected override void OnValidate()
+    void SynceEvents()
     {
-        base.OnValidate();
+        if (IsInitialized)
+            return;
 
-        if (eStateMachine == null)
-            eStateMachine = GetComponent<StardropTools.EventStateMachine.EventStateMachine>();
+        OnIdleEnter = SyncEnter(0);
+        OnIdleUpdate = SyncUpdate(0);
+        OnIdleExit = SyncExit(0);
+
+        OnPlayEnter = SyncEnter(1);
+        OnPlayUpdate = SyncUpdate(1);
+        OnPlayExit = SyncExit(1);
+
+        OnFinishEnter = SyncEnter(2);
+        OnFinishUpdate = SyncUpdate(2);
+        OnFinishExit = SyncExit(2);
+
+        OnPauseEnter = SyncEnter(3);
+        OnPauseUpdate = SyncUpdate(3);
+        OnPauseExit = SyncExit(3);
+    }
+
+
+
+    void GetManagers()
+        => managers = GetItems<CoreManager>(parentManagers);
+
+    void InitializeManagers()
+    {
+        if (managers.Exists())
+            for (int i = 0; i < managers.Length; i++)
+                managers[i].Initialize();
+    }
+
+    void LateInitializeManagers()
+    {
+        if (managers.Exists())
+            for (int i = 0; i < managers.Length; i++)
+                managers[i].LateInitialize();
     }
 }

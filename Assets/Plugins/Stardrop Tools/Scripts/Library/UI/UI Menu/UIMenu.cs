@@ -4,7 +4,7 @@ using UnityEngine;
 namespace StardropTools.UI
 {
     [RequireComponent(typeof(Canvas))]
-    public abstract class UIMenu : CoreUIObject
+    public abstract class UIMenu : BaseUIObject
     {
         public int menuID;
 

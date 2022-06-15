@@ -3,8 +3,9 @@ using UnityEngine;
 
 namespace StardropTools.Singletons
 {
-	public abstract class SingletonCoreObject<T> : CoreObject where T : Component
+	public abstract class SingletonBaseManager<T> : BaseManager where T : Component
 	{
+		#region Manager Singleton
 		/// <summary>
 		/// The instance.
 		/// </summary>
@@ -53,5 +54,7 @@ namespace StardropTools.Singletons
 
 			SingletonInitialization();
 		}
+		#endregion // manager singleton
 	}
 }
+

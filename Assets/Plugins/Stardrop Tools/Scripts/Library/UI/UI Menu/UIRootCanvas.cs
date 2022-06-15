@@ -4,9 +4,10 @@ using UnityEngine;
 namespace StardropTools.UI
 {
     [RequireComponent(typeof(UISizeCopy))]
-    public class UIRootCanvas : CoreUIObject
+    public class UIRootCanvas : BaseUIObject
     {
         [SerializeField] UISizeCopy sizeCopy;
+        [SerializeField] bool copy;
 
         public override void Initialize()
         {
@@ -20,6 +21,12 @@ namespace StardropTools.UI
 
             if (sizeCopy == null)
                 sizeCopy = GetComponent<UISizeCopy>();
+
+            if (copy)
+            {
+                sizeCopy.Copy();
+                copy = false;
+            }
         }
     }
 }

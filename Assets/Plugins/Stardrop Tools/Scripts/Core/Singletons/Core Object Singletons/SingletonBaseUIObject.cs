@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StardropTools.Singletons
 {
-	public abstract class SingletonCoreUIObject<T> : CoreUIObject where T : Component
+	public abstract class SingletonBaseUIObject<T> : BaseUIObject where T : Component
 	{
 		/// <summary>
 		/// The instance.

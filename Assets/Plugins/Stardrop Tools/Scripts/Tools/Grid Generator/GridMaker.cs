@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class GridMaker : StardropTools.CoreObject
+public class GridMaker : StardropTools.BaseObject
 {
     [SerializeField] GridGizmos gridGizmos;
     [SerializeField] GridData grid;

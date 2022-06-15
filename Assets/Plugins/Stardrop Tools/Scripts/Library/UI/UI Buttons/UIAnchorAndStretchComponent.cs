@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace StardropTools.UI
 {
-    public class UIAnchorAndStretchComponent : CoreComponent
+    public class UIAnchorAndStretchComponent : BaseComponent
     {
-        [SerializeField] CoreUIObject uiObject;
+        [SerializeField] BaseUIObject uiObject;
     }
 }

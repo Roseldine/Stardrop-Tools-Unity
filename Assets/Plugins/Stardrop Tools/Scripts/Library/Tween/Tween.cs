@@ -29,6 +29,7 @@ namespace StardropTools.Tween
 
             // Image
             ImageColor, ImagePixelPerUnitMultiplier, ImageFillAmount,
+            SpriteRendererColor, MaterialColor,
         }
         public enum LoopType { none, loop, pingPong }
         public enum TweenState { waiting, running, complete, paused, canceled }
@@ -546,6 +547,21 @@ namespace StardropTools.Tween
         {
             material.color = startColor;
             TweenBase tween = new TweenMaterialColor(material, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            return ProcessTween(tween);
+        }
+
+
+
+        public static TweenBase SpriteRendererColor(SpriteRenderer renderer, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        {
+            TweenBase tween = new TweenSpriteRendererColor(renderer, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
+            return ProcessTween(tween);
+        }
+
+        public static TweenBase SpriteRendererColor(SpriteRenderer renderer, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        {
+            renderer.color = startColor;
+            TweenBase tween = new TweenSpriteRendererColor(renderer, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 

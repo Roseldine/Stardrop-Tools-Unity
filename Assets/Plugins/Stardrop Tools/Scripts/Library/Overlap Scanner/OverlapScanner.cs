@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace StardropTools
 {
-    public abstract class OverlapScanner : CoreObject
+    public abstract class OverlapScanner : BaseObject
     {
         [Header("Scanner")]
         [SerializeField] protected ScannerGizmos scannerGizmos;

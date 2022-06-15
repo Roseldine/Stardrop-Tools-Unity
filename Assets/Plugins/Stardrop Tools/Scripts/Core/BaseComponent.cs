@@ -1,7 +1,7 @@
 ﻿
 namespace StardropTools
 {
-    public class CoreComponent : UnityEngine.MonoBehaviour, IInitialize
+    public class BaseComponent : UnityEngine.MonoBehaviour, IInitialize
     {
         public bool IsInitialized { get; protected set; }
         public bool IsLateInitialized { get; protected set; }

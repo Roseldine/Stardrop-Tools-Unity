@@ -231,6 +231,7 @@ MonoBehaviour:
     targetWidth: 256
     targetHeight: 128
     UseTargetSize: 0
+    ValidatePivotAndAnchor: 0
     resetCenter: 0
   buttonID: 0
   button: {fileID: 6917695447958201971}

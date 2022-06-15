@@ -5,7 +5,7 @@ using StardropTools.FiniteStateMachine.EventFiniteStateMachine;
 namespace StardropTools.Singletons
 {
 	[RequireComponent(typeof(EventStateMachineComponent))]
-	public abstract class SingletonManagerStateMachined<T> : CoreManagerEventStateMachined where T : Component
+	public abstract class SingletonManagerStateMachined<T> : BaseManagerEventStateMachined where T : Component
 	{
 		//public static CustomEvent OnEnter { get; private set; }
 		//public static CustomEvent OnExit { get; private set; }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace StardropTools
 {
-    public class ObjectMover : CoreObject
+    public class ObjectMover : BaseObject
     {
         protected override void OnEnable()
         {

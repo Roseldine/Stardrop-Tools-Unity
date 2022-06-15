@@ -5,10 +5,13 @@ namespace StardropTools.Pool
 {
     public class PoolCluster : MonoBehaviour
     {
+        [Header("Cluster Data")]
+        [SerializeField] PoolData clusterData;
+
+        [Header("Pools")]
         [SerializeField] GameObject[] objectsToPool;
         [SerializeField] int objectsToPoolCapacity;
         [Space]
-        [SerializeField] PoolData clusterData;
         [SerializeField] WeightedList<int> poolWeights;
         [SerializeField] bool copyWheightNumbers;
         [SerializeField] bool clearWheights;
@@ -163,7 +166,7 @@ namespace StardropTools.Pool
         private void OnValidate()
         {
             RefreshObjectToPool();
-            //RefreshPoolNames();
+            RefreshPoolNames();
 
             if (copyWheightNumbers)
             {

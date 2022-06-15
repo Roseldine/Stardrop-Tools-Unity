@@ -2,7 +2,7 @@
 
 namespace StardropTools
 {
-    public class Damageable : CoreComponent, IDamageable
+    public class Damageable : BaseComponent, IDamageable
     {
         [UnityEngine.Min(0)][UnityEngine.SerializeField] int hitPoints;
         [UnityEngine.Min(0)][UnityEngine.SerializeField] int maxHitPoints;
@@ -74,6 +74,16 @@ namespace StardropTools
         {
             this.maxHitPoints = maxHitPoints;
             this.hitPoints = hitPoints;
+
+            percent = (float)hitPoints / maxHitPoints;
+
+            OnHitPointsChange?.Invoke(hitPoints);
+        }
+
+        public void SetValues(int maxHitPoints)
+        {
+            this.maxHitPoints = maxHitPoints;
+            this.hitPoints = maxHitPoints;
 
             percent = (float)hitPoints / maxHitPoints;
 

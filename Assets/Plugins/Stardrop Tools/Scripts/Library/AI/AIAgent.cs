@@ -4,7 +4,7 @@ using UnityEngine;
 namespace StardropTools.AI
 {
     [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
-    public class AIAgent : CoreObject
+    public class AIAgent : BaseObject
     {
         public enum NavAgentState { disabled, idle, moving, }
 

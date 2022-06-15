@@ -6,7 +6,7 @@ using StardropTools.FiniteStateMachine.EventFiniteStateMachine;
 namespace StardropTools
 {
     [RequireComponent(typeof(EventStateMachineComponent))]
-    public class CoreManagerEventStateMachined : CoreManager, IStateMachine
+    public class BaseManagerEventStateMachined : BaseManager, IStateMachine
     {
         [SerializeField] protected EventStateMachineComponent eventStateMachine;
 
@@ -41,7 +41,7 @@ namespace StardropTools
         public void UpdateStateMachine()
             => eventStateMachine.UpdateStateMachine();
 
-        public void ChangeState(int nextStateID)
+        public virtual void ChangeState(int nextStateID)
             => eventStateMachine.ChangeState(nextStateID);
 
         public void InitializeStates()

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace StardropTools
 {
     [System.Serializable]
-    public class CoreObjectData
+    public class BaseObjectData
     {
         public enum InitializationType { none, awake, start }
 
@@ -39,8 +39,8 @@ namespace StardropTools
         public bool CanUpdate { get => canUpdate; }
 
 
-        public CoreObjectData() { }
-        public CoreObjectData(GameObject go, Transform trans)
+        public BaseObjectData() { }
+        public BaseObjectData(GameObject go, Transform trans)
         {
             selfObject = go;
             selfTransform = trans;

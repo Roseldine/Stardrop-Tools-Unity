@@ -79,6 +79,8 @@ namespace StardropTools.Pool
             if (isInitialized)
                 return;
 
+            this.parent = parent;
+
             queue = new System.Collections.Generic.Queue<PooledObject>();
             cache = new System.Collections.Generic.List<PooledObject>();
 

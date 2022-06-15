@@ -9,6 +9,7 @@ namespace StardropTools
     public class BaseManagerEventStateMachined : BaseManager, IStateMachine
     {
         [SerializeField] protected EventStateMachineComponent eventStateMachine;
+        [SerializeField] protected bool createStates;
 
         public EventState CurrentState { get => eventStateMachine.CurrentState; }
         public float TimeInCurrentState { get => eventStateMachine.CurrentState.TimeInState; }
@@ -24,7 +25,14 @@ namespace StardropTools
         public override void Initialize()
         {
             base.Initialize();
+
+            CreateEventStates();
             eventStateMachine.Initialize();
+        }
+
+        protected virtual void CreateEventStates()
+        {
+
         }
 
 
@@ -86,6 +94,12 @@ namespace StardropTools
 
             if (eventStateMachine == null)
                 eventStateMachine = GetComponent<EventStateMachineComponent>();
+
+            if (createStates)
+            {
+                CreateEventStates();
+                createStates = false;
+            }
         }
     }
 }

@@ -5,11 +5,11 @@ namespace StardropTools.UI
 {
     public abstract class UIToggleComponent : MonoBehaviour
     {
-        [SerializeField] protected UIToggle toggle;
+        [SerializeField] protected UIToggleButton toggle;
 
-        public void SetToggleTarget(UIToggle target) => toggle = target;
+        public void SetToggleTarget(UIToggleButton target) => toggle = target;
 
-        public virtual void SubscribeToToggle(UIToggle target)
+        public virtual void SubscribeToToggle(UIToggleButton target)
         {
             if (toggle != target)
                 toggle = target;

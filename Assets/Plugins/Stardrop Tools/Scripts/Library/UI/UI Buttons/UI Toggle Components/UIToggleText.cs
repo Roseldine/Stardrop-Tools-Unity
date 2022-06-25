@@ -9,11 +9,11 @@ namespace StardropTools.UI
         [Tooltip("0-false, 1-true")]
         [SerializeField] string[] values;
 
-        public override void SubscribeToToggle(UIToggle target)
+        public override void SubscribeToToggle(UIToggleButton target)
         {
             base.SubscribeToToggle(target);
 
-            target.OnToggleValue.AddListener(ToggleText);
+            target.OnToggleBoolValue.AddListener(ToggleText);
         }
 
         public void ToggleText(bool val)

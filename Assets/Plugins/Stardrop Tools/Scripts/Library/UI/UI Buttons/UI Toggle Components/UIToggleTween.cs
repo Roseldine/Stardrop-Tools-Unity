@@ -10,10 +10,10 @@ namespace StardropTools.UI
         [SerializeField] protected TweenCluster[] sequences;
         [SerializeField] bool getSequences;
 
-        public override void SubscribeToToggle(UIToggle target)
+        public override void SubscribeToToggle(UIToggleButton target)
         {
             base.SubscribeToToggle(target);
-            target.OnToggleValue.AddListener(ToggleTweens);
+            target.OnToggleBoolValue.AddListener(ToggleTweens);
         }
 
         public void ToggleTweens(bool val)
@@ -28,7 +28,7 @@ namespace StardropTools.UI
         {
             if (getSequences)
             {
-                sequences = Utilities.GetItems<TweenCluster>(transform);
+                sequences = Utilities.GetItems<TweenCluster>(transform).ToArray();
                 getSequences = false;
             }
         }

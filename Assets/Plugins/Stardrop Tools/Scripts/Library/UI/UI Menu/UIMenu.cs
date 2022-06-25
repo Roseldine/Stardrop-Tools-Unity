@@ -7,6 +7,7 @@ namespace StardropTools.UI
     public abstract class UIMenu : BaseUIObject
     {
         public int menuID;
+        public bool IsOpen { get; protected set; }
 
         public override void Initialize()
         {
@@ -17,11 +18,13 @@ namespace StardropTools.UI
         public virtual void Open()
         {
             SetActive(true);
+            IsOpen = true;
         }
 
         public virtual void Close()
         {
             SetActive(false);
+            IsOpen = false;
         }
     }
 }

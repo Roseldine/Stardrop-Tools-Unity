@@ -149,7 +149,7 @@ public class GridMaker : StardropTools.BaseObject
             }
 
             var parent = transform.GetChild(0);
-            points = Utilities.GetItems<Transform>(parent); //parent.GetComponentsInChildren<Transform>();
+            points = Utilities.GetItems<Transform>(parent).ToArray(); //parent.GetComponentsInChildren<Transform>();
 
             copyPoints = false;
         }

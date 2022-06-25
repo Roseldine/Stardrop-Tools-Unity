@@ -98,7 +98,7 @@ namespace StardropTools.UI.GenericButton
 
             RectTransform outlineRect = componentData.outlineRect;
             float pixels = componentData.outline.pixelsPerUnitMultiplier;
-            outlineRect.sizeDelta = new Vector2(0, Size.y - pixels * .25f);
+            outlineRect.sizeDelta = new Vector2(0, SizeDelta.y - pixels * .25f);
         }
 
         protected void ValidateData()

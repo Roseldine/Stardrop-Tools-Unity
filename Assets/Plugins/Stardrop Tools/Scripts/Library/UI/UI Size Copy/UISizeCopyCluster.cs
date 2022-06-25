@@ -18,7 +18,7 @@ namespace StardropTools.UI
         public void GetCopies()
         {
             if (parent != null)
-                sizeCopies = Utilities.GetItems<UISizeCopy>(parent);
+                sizeCopies = Utilities.GetItems<UISizeCopy>(parent).ToArray();
         }
 
         private void OnValidate()

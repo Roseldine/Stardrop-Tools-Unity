@@ -10,6 +10,6 @@ namespace StardropTools
             => Initialize();
 
         protected T[] GetItems<T>(Transform parent)
-            => Utilities.GetItems<T>(parent);
+            => Utilities.GetItems<T>(parent).ToArray();
     }
 }

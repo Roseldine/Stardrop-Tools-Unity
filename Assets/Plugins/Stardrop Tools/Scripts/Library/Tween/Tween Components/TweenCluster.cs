@@ -67,6 +67,7 @@ namespace StardropTools.Tween
 
             for (int p = 0; p < parentTweens.Length; p++)
             {
+                // get components from parents themselfs
                 var components = parentTweens[p].GetComponents<TweenComponent>();
                 if (components.Exists())
                 {
@@ -74,7 +75,8 @@ namespace StardropTools.Tween
                         list.Add(components[i]);
                 }
 
-                components = Utilities.GetItems<TweenComponent>(parentTweens[p]);
+                // get components from children
+                components = Utilities.GetItems<TweenComponent>(parentTweens[p]).ToArray();
                 if (components.Exists())
                 {
                     for (int i = 0; i < components.Length; i++)

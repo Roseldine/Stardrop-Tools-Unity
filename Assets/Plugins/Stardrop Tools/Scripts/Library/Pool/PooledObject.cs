@@ -53,7 +53,7 @@ namespace StardropTools.Pool
 
         private async Task LifetimeSync(GameObjectPool pool, float time)
         {
-            int milisenconds = MathUtility.ConvertToMiliseconds(time);
+            int milisenconds = UtilsMath.ConvertToMiliseconds(time);
             await Task.Delay(milisenconds);
             pool.Despawn(this);
         }

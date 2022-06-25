@@ -16,12 +16,19 @@ namespace StardropTools
         public BaseUIObjectData.OrientationEnum DataOrientation { get => rectData.Orientation; set => rectData.SetDataOrientation(value); }
         public BaseUIObjectData.StretchEnum DataStretch { get => rectData.Stretch; set => rectData.SetDataStretch(value); }
 
-        public Vector2 Size { get => RectTransform.sizeDelta; set => RectTransform.sizeDelta = value; }
+        public Vector2 SeizeRect { get => RectTransform.rect.size; }
+        public Vector2 SizeDelta { get => RectTransform.sizeDelta; set => RectTransform.sizeDelta = value; }
         public Vector2 Pivot { get => RectTransform.pivot; }
         public Vector2 AnchoredPosition { get => RectTransform.anchoredPosition; set => RectTransform.anchoredPosition = value; }
 
-        public float Width { get => Size.x; set => Size.SetX(value); }
-        public float Height { get => Size.y; set => Size.SetY(value); }
+        public float AnchoredPosX { get => AnchoredPosition.x; set => SetAnchoredPosX(value); }
+        public float AnchoredPosY { get => AnchoredPosition.y; set => SetAnchoredPosY(value); }
+
+        public float WidthRect { get => RectTransform.rect.width; set => SizeDelta.SetX(value); }
+        public float HeightRect { get => RectTransform.rect.height; set => SizeDelta.SetY(value); }
+
+        public float WidthDelta { get => SizeDelta.x; set => SizeDelta.SetX(value); }
+        public float HeightDelta { get => SizeDelta.y; set => SizeDelta.SetY(value); }
 
         public float TargetWidth { get => rectData.TargetWidth; }
         public float TargetHeight { get => rectData.TargetHeight; }
@@ -336,13 +343,13 @@ namespace StardropTools
         #region Set Stretch
         void CheckStretchWidth()
         {
-            if (Width != TargetWidth || Height != 0)
+            if (WidthRect != TargetWidth || HeightRect != 0)
                 SetSize(TargetWidth, 0);
         }
 
         void CheckStretchHeight()
         {
-            if (Height != TargetHeight || Width != 0)
+            if (HeightRect != TargetHeight || WidthRect != 0)
                 SetSize(0, TargetHeight);
         }
 
@@ -400,16 +407,16 @@ namespace StardropTools
         #endregion // set stretch
 
 
-
-        public void SetSize(Vector2 size) => Size = size;
+        public void SetSize(Vector2 size)
+            => SizeDelta = size;
         public void SetSize(float width, float height)
-            => Size = new Vector2(width, height);
+            => SizeDelta = new Vector2(width, height);
 
 
         public void SetWidth(float width)
-            => Width = width;
+            => WidthRect = width;
         public void SetHeight(float height)
-            => Height = height;
+            => HeightRect = height;
 
         public void SetTargetSize()
         {
@@ -428,6 +435,21 @@ namespace StardropTools
             rectData.SetDataPivot(BaseUIObjectData.PivotEnum.middleCenter);
             rectData.SetDataStretch(BaseUIObjectData.StretchEnum.none);
         }
+
+        #region Anchored Position
+        public void SetAnchoredPosition(Vector2 position)
+            => RectTransform.anchoredPosition = position;
+
+        public void SetAnchoredPosition(float posX, float posY)
+            => RectTransform.anchoredPosition = new Vector2(posX, posY);
+
+        public void SetAnchoredPosX(float posX)
+            => RectTransform.anchoredPosition = new Vector2(posX, AnchoredPosY);
+
+        public void SetAnchoredPosY(float posY)
+            => RectTransform.anchoredPosition = new Vector2(AnchoredPosX, posY);
+
+        #endregion // anchored pos
 
 
         protected override void OnValidate()

@@ -55,13 +55,13 @@ namespace StardropTools
         public float LocalRotZ { get => LocalRotation.z; }
         public float LocalRotW { get => LocalRotation.w; }
 
-        public float EulerRotX { get => EulerRotation.x; set => EulerRotation.SetX(value); }
-        public float EulerRotY { get => EulerRotation.y; set => EulerRotation.SetY(value); }
-        public float EulerRotZ { get => EulerRotation.z; set => EulerRotation.SetZ(value); }
+        public float EulerX { get => EulerRotation.x; set => EulerRotation.SetX(value); }
+        public float EulerY { get => EulerRotation.y; set => EulerRotation.SetY(value); }
+        public float EulerZ { get => EulerRotation.z; set => EulerRotation.SetZ(value); }
 
-        public float LocalEulerRotX { get => LocalRotation.x; set => EulerRotation.SetX(value); }
-        public float LocalEulerRotY { get => LocalRotation.y; set => EulerRotation.SetY(value); }
-        public float LocalEulerRotZ { get => LocalRotation.z; set => EulerRotation.SetZ(value); }
+        public float LocalEulerX { get => LocalRotation.x; set => EulerRotation.SetX(value); }
+        public float LocalEulerY { get => LocalRotation.y; set => EulerRotation.SetY(value); }
+        public float LocalEulerZ { get => LocalRotation.z; set => EulerRotation.SetZ(value); }
 
 
         // Scale
@@ -363,10 +363,24 @@ namespace StardropTools
         public void SetLocalRotation(Quaternion localRotation)
             => LocalRotation = localRotation;
 
-        public void SetRotation(Vector3 rotation)
+        public void SetEulerRotation(Vector3 rotation)
             => EulerRotation = rotation;
-        public void SetLocalRotation(Vector3 rotation)
+        public void SetLocalEulerRotation(Vector3 rotation)
             => LocalEulerRotation = rotation;
+
+        public void SetEulerX(float x)
+            => SetEulerRotation(new Vector3(x, EulerY, EulerZ));
+        public void SetEulerY(float y)
+            => SetEulerRotation(new Vector3(EulerX, y, EulerZ));
+        public void SetEulerZ(float z)
+            => SetEulerRotation(new Vector3(EulerX, EulerY, z));
+
+        public void SetLocalEulerX(float x)
+            => SetLocalEulerRotation(new Vector3(x, EulerY, EulerZ));
+        public void SetLocalEulerY(float y)
+            => SetLocalEulerRotation(new Vector3(EulerX, y, EulerZ));
+        public void SetLocalEulerZ(float z)
+            => SetLocalEulerRotation(new Vector3(EulerX, EulerY, z));
 
 
         // scale

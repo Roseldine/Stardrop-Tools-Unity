@@ -9,11 +9,11 @@ namespace StardropTools.UI
         [Tooltip("0-false, 1-true")]
         [SerializeField] Sprite[] icons;
 
-        public override void SubscribeToToggle(UIToggle target)
+        public override void SubscribeToToggle(UIToggleButton target)
         {
             base.SubscribeToToggle(target);
 
-            target.OnToggleValue.AddListener(ToggleImage);
+            target.OnToggleBoolValue.AddListener(ToggleImage);
         }
 
         public void ToggleImage(bool val)

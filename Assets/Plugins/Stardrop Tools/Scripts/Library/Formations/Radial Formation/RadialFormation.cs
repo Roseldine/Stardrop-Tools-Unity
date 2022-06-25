@@ -73,7 +73,7 @@ namespace StardropTools.Formations
 
         void Outline()
         {
-            var points = VectorUtility.CreatePointCircleHorizontal(Vector3.zero, pointsOnRing, radius);
+            var points = UtilsVector.CreatePointCircleHorizontal(Vector3.zero, pointsOnRing, radius);
             AddPointsToList(points, listPoints);
         }
 
@@ -85,7 +85,7 @@ namespace StardropTools.Formations
 
             for (int i = 0; i < rings; i++)
             {
-                var points = VectorUtility.CreatePointCircleHorizontal(Vector3.zero, pointCount, radius * (i + 1));
+                var points = UtilsVector.CreatePointCircleHorizontal(Vector3.zero, pointCount, radius * (i + 1));
                 AddPointsToList(points, listPoints);
 
                 pointCount += pointIncrement;
@@ -95,9 +95,9 @@ namespace StardropTools.Formations
         void IncrementOutline()
         {
             radialOcupation = (float)pointsOnRing / startPoints;
-            rings = MathUtility.GetIntegerFromFloat(radialOcupation);
+            rings = UtilsMath.GetIntegerFromFloat(radialOcupation);
 
-            var ringPoints = VectorUtility.CreatePointCircleHorizontal(Vector3.zero, pointsOnRing, radius * (rings + 1));
+            var ringPoints = UtilsVector.CreatePointCircleHorizontal(Vector3.zero, pointsOnRing, radius * (rings + 1));
             AddPointsToList(ringPoints, listPoints);
         }
 
@@ -136,7 +136,7 @@ namespace StardropTools.Formations
             for (int i = 0; i < ringArrayList.Count; i++)
             {
                 var ring = ringArrayList[i];
-                Vector3[] ringPoints = VectorUtility.CreatePointCircle(Vector3.zero, new Vector3(90, 0, 90), ring.OccupiedPoints, radius * (i + 1));
+                Vector3[] ringPoints = UtilsVector.CreatePointCircle(Vector3.zero, new Vector3(90, 0, 90), ring.OccupiedPoints, radius * (i + 1));
                 AddPointsToList(ringPoints, listPoints);
             }
             

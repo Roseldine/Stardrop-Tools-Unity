@@ -42,9 +42,9 @@ namespace StardropTools
                 animTime = stateInfo.normalizedTime;
 
                 for (int i = 0; i < CurrentState.EventCount; i++)
-                    CurrentState.AnimEvents[i].EventCheck(MathUtility.RoundDecimals(animTime, 1));
+                    CurrentState.AnimEvents[i].EventCheck(UtilsMath.RoundDecimals(animTime, 1));
 
-                if (animTime > .8f && Mathf.Approximately(MathUtility.RoundDecimals(animTime, 3), .999f))
+                if (animTime > .8f && Mathf.Approximately(UtilsMath.RoundDecimals(animTime, 3), .999f))
                     for (int i = 0; i < CurrentState.EventCount; i++)
                         CurrentState.AnimEvents[i].ResetInvoke();
             }

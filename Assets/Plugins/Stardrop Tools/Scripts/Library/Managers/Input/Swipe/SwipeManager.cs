@@ -137,8 +137,6 @@ public class SwipeManager : Singleton<SwipeManager>
             if (angle < -0.875f || angle > 0.875f)
             {
                 swipeDirection = SwipeDirection.left;
-                if (debug) Debug.Log("Left");
-
                 OnSwipeHorizontal?.Invoke(1);
                 OnSwipeLeft?.Invoke();
             }
@@ -147,8 +145,6 @@ public class SwipeManager : Singleton<SwipeManager>
             else if (angle > -0.125f && angle < 0.125f)
             {
                 swipeDirection = SwipeDirection.right;
-                if (debug) Debug.Log("Right");
-
                 OnSwipeHorizontal?.Invoke(-1);
                 OnSwipeRight?.Invoke();
             }
@@ -157,8 +153,6 @@ public class SwipeManager : Singleton<SwipeManager>
             if (angle > 0.375f && angle < 0.625f)
             {
                 swipeDirection = SwipeDirection.up;
-                if (debug) Debug.Log("Up");
-
                 OnSwipeVertical?.Invoke(-1);
                 OnSwipeUp?.Invoke();
             }
@@ -167,8 +161,6 @@ public class SwipeManager : Singleton<SwipeManager>
             else if (angle < -0.375f && angle > -0.625f)
             {
                 swipeDirection = SwipeDirection.down;
-                if (debug) Debug.Log("Down");
-
                 OnSwipeVertical?.Invoke(1);
                 OnSwipeDown?.Invoke();
             }
@@ -181,8 +173,6 @@ public class SwipeManager : Singleton<SwipeManager>
             if (angle > 0.625f && angle < 0.875f)
             {
                 swipeDirection = SwipeDirection.upLeft;
-                if (debug) Debug.Log("Up Left");
-
                 OnSwipeUpLeft?.Invoke();
             }
 
@@ -190,8 +180,6 @@ public class SwipeManager : Singleton<SwipeManager>
             else if (angle > 0.125f && angle < 0.375f)
             {
                 swipeDirection = SwipeDirection.upRight;
-                if (debug) Debug.Log("Up Right");
-
                 OnSwipeUpRight?.Invoke();
             }
 
@@ -199,8 +187,6 @@ public class SwipeManager : Singleton<SwipeManager>
             else if (angle < -0.625f && angle > -0.875f)
             {
                 swipeDirection = SwipeDirection.downLeft;
-                if (debug) Debug.Log("Down Left");
-
                 OnSwipeDownLeft?.Invoke();
             }
 
@@ -208,8 +194,6 @@ public class SwipeManager : Singleton<SwipeManager>
             else if (angle < -0.125f && angle > -0.375f)
             {
                 swipeDirection = SwipeDirection.downRight;
-                if (debug) Debug.Log("Down Right");
-
                 OnSwipeDownRight?.Invoke();
             }
 
@@ -220,7 +204,8 @@ public class SwipeManager : Singleton<SwipeManager>
             OnSwipe?.Invoke(data);
             OnSwipeDirection?.Invoke(swipeDirection);
 
-            if (debug) Debug.Log("Swiped: " + swipeDirection);
+            if (debug)
+                Debug.Log("Swiped: " + swipeDirection);
         }
     }
 

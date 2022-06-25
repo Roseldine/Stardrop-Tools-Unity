@@ -5,15 +5,15 @@ namespace StardropTools.FiniteStateMachine.StateMachineComponent
     public class FiniteStateMachineComponent : UnityEngine.MonoBehaviour, IStateMachine
     {
         public int fsmID = 0;
-        [UnityEngine.SerializeField] int startStateID = 0;
-        [UnityEngine.SerializeField] AbstractStateComponent startState;
-        [UnityEngine.SerializeField] AbstractStateComponent currentState;
-        [UnityEngine.SerializeField] AbstractStateComponent previousState;
-        [UnityEngine.SerializeField] System.Collections.Generic.List<AbstractStateComponent> states;
+        [UnityEngine.SerializeField] protected int startStateID = 0;
+        [UnityEngine.SerializeField] protected AbstractStateComponent startState;
+        [UnityEngine.SerializeField] protected AbstractStateComponent currentState;
+        [UnityEngine.SerializeField] protected AbstractStateComponent previousState;
+        [UnityEngine.SerializeField] protected System.Collections.Generic.List<AbstractStateComponent> states;
         [UnityEngine.Space]
         [UnityEngine.SerializeField] bool log;
 
-        public bool IsInitialized { get; private set; }
+        public bool IsInitialized { get; protected set; }
         public AbstractStateComponent CurrentState { get => currentState; }
         public float TimeInCurrentState { get => currentState.TimeInState; }
         public AbstractStateComponent GetState(int stateIndex) => states[stateIndex];
@@ -24,7 +24,7 @@ namespace StardropTools.FiniteStateMachine.StateMachineComponent
         public readonly CoreEvent<AbstractStateComponent> OnStatePause = new CoreEvent<AbstractStateComponent>();
         public readonly CoreEvent<AbstractStateComponent> OnStateResume = new CoreEvent<AbstractStateComponent>();
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             if (IsInitialized)
                 return;

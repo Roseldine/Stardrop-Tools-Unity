@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class Utilities
 {
-    public static T[] GetItems<T>(Transform parent)
+    public static List<T> GetItems<T>(Transform parent)
     {
         if (parent != null && parent.childCount > 0)
         {
@@ -22,7 +22,7 @@ public static class Utilities
             }
 
             // return array of found components
-            return componentList.ToArray();
+            return componentList;
         }
 
         else
@@ -38,6 +38,60 @@ public static class Utilities
         point.position = position;
         point.parent = parent;
         return point;
+    }
+
+    public static T[] RemoveDuplicates<T>(T[] array)
+    {
+        List<T> list = new List<T>();
+        for (int i = 0; i < array.Length; i++)
+            list.Add(array[i]);
+
+        return RemoveDuplicates<T>(list).ToArray();
+    }
+
+    public static List<T> RemoveDuplicates<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            T item = list[i];
+
+            for (int j = 0; j < list.Count; j++)
+            {
+                if (j == i)
+                    continue;
+
+                if (item.Equals(list[j]))
+                    list.Remove(list[j]);
+            }
+        }
+
+        return list;
+    }
+
+    public static List<T> ReverseList<T>(List<T> list)
+    {
+        var reversed = new List<T>();
+
+        for (int i = 0; i < list.Count; i++)
+        {
+            int index = Mathf.Clamp(list.Count - 1 - i, 0, list.Count);
+            reversed[index] = list[i];
+        }
+
+        return reversed;
+    }
+
+    public static List<T> ReverseArray<T>(T[] array)
+    {
+        var reversed = new List<T>();
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            int index = Mathf.Clamp(array.Length - 1 - i, 0, array.Length);
+            reversed.Add(array[index]);
+        }
+
+        return reversed;
     }
 
 #if UNITY_EDITOR
@@ -89,6 +143,27 @@ public static class Utilities
     {
         var obj = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
         return obj.GetComponent<T>();
+    }
+
+    public static T CreatePrefab<T>(Object prefab)
+    {
+        var obj = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+        return obj.GetComponent<T>();
+    }
+
+    /// <summary>
+    /// Path to save ex: "Assets/Resources/SO" 
+    /// </summary>
+    /// <param name="className">Name of scriptable object class</param>
+    /// <param name="path"> Path to save ex: "Assets/Resources/SO" </param>
+    /// <returns></returns>
+    public static void CreateScriptableObject(string soClassName, string path)
+    {
+        ScriptableObject so = ScriptableObject.CreateInstance(soClassName);
+
+        AssetDatabase.CreateAsset(so, path);
+        AssetDatabase.SaveAssets();
+        Selection.activeObject = so;
     }
 
     public static T CreatePrefab<T>(GameObject prefab, Transform parent)

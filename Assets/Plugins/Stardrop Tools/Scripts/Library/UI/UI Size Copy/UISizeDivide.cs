@@ -80,7 +80,7 @@ namespace StardropTools.UI
             if (parentRect == null)
                 return;
 
-            var rects = Utilities.GetItems<RectTransform>(parentRect);
+            var rects = Utilities.GetItems<RectTransform>(parentRect).ToArray();
 
             elements = new UIDivideElement[rects.Length];
             float div = 1f / rects.Length;

@@ -8,7 +8,7 @@ namespace StardropTools.Tween
     {
         RectTransform rectTransform;
 
-        public TweenSizeDelta(RectTransform rectTransform, int tweenID, Vector2 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector2> updateEvent = null)
+        public TweenSizeDelta(RectTransform rectTransform, int tweenID, Vector2 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Vector2> updateEvent = null)
                       : base(tweenID, targetVector, targetVector, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             start = rectTransform.sizeDelta;

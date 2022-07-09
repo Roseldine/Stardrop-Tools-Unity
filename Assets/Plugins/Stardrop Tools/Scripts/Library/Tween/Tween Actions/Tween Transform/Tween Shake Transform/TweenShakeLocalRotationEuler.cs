@@ -7,7 +7,7 @@ namespace StardropTools.Tween
     {
         Transform transform;
 
-        public TweenShakeLocalRotationEuler(Transform transform, int tweenID, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector3> updateEvent = null)
+        public TweenShakeLocalRotationEuler(Transform transform, int tweenID, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Vector3> updateEvent = null)
                       : base(tweenID, transform.localEulerAngles, intensity, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             this.transform = transform;

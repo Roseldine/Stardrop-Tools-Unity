@@ -3,9 +3,22 @@ using UnityEngine;
 
 namespace StardropTools
 {
-    public class ObjectMoverManager : Singleton<ObjectMoverManager>
+    public class ObjectMoverManager : BaseComponent
     {
         [SerializeField] List<ObjectMover> listMovers;
+
+        Vector3 direction;
+        public Vector3 Direction { get => direction; }
+
+        public void StartMove(Vector3 direction)
+        {
+            this.direction = direction;
+            LoopManager.OnUpdate.AddListener(() => Move(direction));
+        }
+
+        public void StopMove()
+            => LoopManager.OnUpdate.RemoveListener(() => Move(direction));
+
 
         public void AddMover(ObjectMover mover)
         {

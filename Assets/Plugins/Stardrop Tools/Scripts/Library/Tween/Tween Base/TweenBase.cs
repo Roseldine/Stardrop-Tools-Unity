@@ -17,18 +17,21 @@ namespace StardropTools.Tween
         public float runtime;
         public float timeInState;
 
+        public float TotalDuration { get => delay + duration; }
+
         protected float percent;
         protected bool ignoreTimeScale;
 
         protected UnityEngine.AnimationCurve curve;
 
-        public readonly CoreEvent OnStart = new CoreEvent();
-        public readonly CoreEvent OnComplete = new CoreEvent();
-        public readonly CoreEvent OnPaused = new CoreEvent();
-        public readonly CoreEvent OnCanceled = new CoreEvent();
+        public readonly BaseEvent OnTweenStart = new BaseEvent();
+        public readonly BaseEvent OnTweenComplete = new BaseEvent();
+        public readonly BaseEvent OnTweenUpdate = new BaseEvent();
+        public readonly BaseEvent OnTweenPaused = new BaseEvent();
+        public readonly BaseEvent OnTweenCanceled = new BaseEvent();
 
-        public readonly CoreEvent OnDelayStart = new CoreEvent();
-        public readonly CoreEvent OnDelayComplete = new CoreEvent();
+        public readonly BaseEvent OnDelayStart = new BaseEvent();
+        public readonly BaseEvent OnDelayComplete = new BaseEvent();
 
         protected void SetBaseValues(Tween.TweenType type, int tweenID, float duration, float delay, bool ignoreTimeScale, UnityEngine.AnimationCurve curve, Tween.LoopType loop)
         {
@@ -50,7 +53,7 @@ namespace StardropTools.Tween
         {
             runtime = 0;
             timeInState = 0;
-            OnStart?.Invoke();
+            OnTweenStart?.Invoke();
 
             if (delay > 0)
                 ChangeState(Tween.TweenState.waiting);
@@ -101,16 +104,16 @@ namespace StardropTools.Tween
             // to complete
             if (nextState == Tween.TweenState.complete)
             {
-                OnComplete?.Invoke();
+                OnTweenComplete?.Invoke();
             }
 
             // to pause
             if (nextState == Tween.TweenState.paused)
-                OnPaused?.Invoke();
+                OnTweenPaused?.Invoke();
 
             // to cancel
             if (nextState == Tween.TweenState.canceled)
-                OnCanceled?.Invoke();
+                OnTweenCanceled?.Invoke();
 
             tweenState = nextState;
             timeInState = 0;
@@ -147,6 +150,8 @@ namespace StardropTools.Tween
 
             if (percent >= 1)
                 ChangeState(Tween.TweenState.complete);
+
+            OnTweenUpdate?.Invoke();
         }
 
         protected virtual void Complete()
@@ -170,10 +175,11 @@ namespace StardropTools.Tween
 
         protected void RemoveFromManagerList()
         {
-            OnStart.RemoveAllListeners();
-            OnComplete.RemoveAllListeners();
-            OnPaused.RemoveAllListeners();
-            OnCanceled.RemoveAllListeners();
+            OnTweenStart.RemoveAllListeners();
+            OnTweenUpdate.RemoveAllListeners();
+            OnTweenComplete.RemoveAllListeners();
+            OnTweenPaused.RemoveAllListeners();
+            OnTweenCanceled.RemoveAllListeners();
             OnDelayStart.RemoveAllListeners();
             OnDelayComplete.RemoveAllListeners();
 

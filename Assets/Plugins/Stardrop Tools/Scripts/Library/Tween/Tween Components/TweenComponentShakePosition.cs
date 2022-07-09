@@ -7,7 +7,7 @@ namespace StardropTools.Tween
         public UnityEngine.Vector3 intensity = UnityEngine.Vector3.one;
         public UnityEngine.Vector3 end = UnityEngine.Vector3.one;
 
-        public CoreEvent<UnityEngine.Vector3> OnTween = new CoreEvent<UnityEngine.Vector3>();
+        public BaseEvent<UnityEngine.Vector3> OnTween = new BaseEvent<UnityEngine.Vector3>();
 
         public override void InitializeTween()
         {

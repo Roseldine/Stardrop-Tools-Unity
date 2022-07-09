@@ -15,11 +15,11 @@ namespace StardropTools
         public float TimeInCurrentState { get => eventStateMachine.CurrentState.TimeInState; }
         public EventState GetState(int stateIndex) => eventStateMachine.GetState(stateIndex);
 
-        public CoreEvent<int> OnStateEnter { get => eventStateMachine.OnStateEnter; }
-        public CoreEvent<int> OnStateExit { get => eventStateMachine.OnStateEnter; }
-        public CoreEvent<int> OnStateUpdate { get => eventStateMachine.OnStateEnter; }
-        public CoreEvent<int> OnStatePause { get => eventStateMachine.OnStateEnter; }
-        public CoreEvent<int> OnStateResume { get => eventStateMachine.OnStateEnter; }
+        public BaseEvent<int> OnStateEnter { get => eventStateMachine.OnStateEnter; }
+        public BaseEvent<int> OnStateExit { get => eventStateMachine.OnStateEnter; }
+        public BaseEvent<int> OnStateUpdate { get => eventStateMachine.OnStateEnter; }
+        public BaseEvent<int> OnStatePause { get => eventStateMachine.OnStateEnter; }
+        public BaseEvent<int> OnStateResume { get => eventStateMachine.OnStateEnter; }
 
 
         public override void Initialize()
@@ -36,13 +36,13 @@ namespace StardropTools
         }
 
 
-        protected CoreEvent SyncEnter(int stateID)
+        protected BaseEvent SyncEnter(int stateID)
         => GetState(stateID).OnStateEnter;
 
-        protected CoreEvent SyncUpdate(int stateID)
+        protected BaseEvent SyncUpdate(int stateID)
             => GetState(stateID).OnStateUpdate;
 
-        protected CoreEvent SyncExit(int stateID)
+        protected BaseEvent SyncExit(int stateID)
             => GetState(stateID).OnStateExit;
 
 

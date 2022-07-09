@@ -8,7 +8,7 @@ namespace StardropTools.Tween
     {
         protected Vector4 intensity;
 
-        public TweenShakeQuaternion(int tweenID, Quaternion targetQuaternion, Vector4 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Quaternion> updateEvent = null)
+        public TweenShakeQuaternion(int tweenID, Quaternion targetQuaternion, Vector4 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Quaternion> updateEvent = null)
                                   : base(tweenID, targetQuaternion, targetQuaternion, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             start = targetQuaternion;

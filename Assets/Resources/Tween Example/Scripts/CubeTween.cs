@@ -19,7 +19,7 @@ public class CubeTween : MonoBehaviour
     public float duration = 1;
     public float delay = .2f;
 
-    private CoreEvent<Vector3> tweenEvent = new CoreEvent<Vector3>();
+    private BaseEvent<Vector3> tweenEvent = new BaseEvent<Vector3>();
 
     private void Start()
     {

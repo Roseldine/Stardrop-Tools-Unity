@@ -10,9 +10,9 @@ namespace StardropTools.Tween
         public Color target;
         public Color lerped;
 
-        public static CoreEvent<Color> OnUpdate = new CoreEvent<Color>();
+        public static BaseEvent<Color> OnUpdate = new BaseEvent<Color>();
 
-        public TweenColor(int tweenID, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Color> updateEvent = null)
+        public TweenColor(int tweenID, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Color> updateEvent = null)
         {
             start = startColor;
             target = targetColor;

@@ -5,8 +5,8 @@ namespace StardropTools.FiniteStateMachine
     {
         public enum ExecutionPhaseEnum { None, Entering, Exited, Updating, Paused, Completed }
 
-        public bool EnterState();
-        public bool ExitState();
+        public void EnterState();
+        public void ExitState();
         public void UpdateState();
         public void PauseState();
         public void ResumeState();

@@ -53,23 +53,23 @@ public class SwipeManager : Singleton<SwipeManager>
 
     #region Events
 
-    public static readonly CoreEvent<SwipeData> OnSwipe = new CoreEvent<SwipeData>();
-    public static readonly CoreEvent<SwipeDirection> OnSwipeDirection = new CoreEvent<SwipeDirection>();
+    public static readonly BaseEvent<SwipeData> OnSwipe = new BaseEvent<SwipeData>();
+    public static readonly BaseEvent<SwipeDirection> OnSwipeDirection = new BaseEvent<SwipeDirection>();
 
-    public static readonly CoreEvent<int> OnSwipeHorizontal = new CoreEvent<int>();
-    public static readonly CoreEvent<int> OnSwipeVertical = new CoreEvent<int>();
+    public static readonly BaseEvent<int> OnSwipeHorizontal = new BaseEvent<int>();
+    public static readonly BaseEvent<int> OnSwipeVertical = new BaseEvent<int>();
 
-    public static readonly CoreEvent OnSwipeUp = new CoreEvent();
-    public static readonly CoreEvent OnSwipeDown = new CoreEvent();
+    public static readonly BaseEvent OnSwipeUp = new BaseEvent();
+    public static readonly BaseEvent OnSwipeDown = new BaseEvent();
 
-    public static readonly CoreEvent OnSwipeLeft = new CoreEvent();
-    public static readonly CoreEvent OnSwipeRight = new CoreEvent();
+    public static readonly BaseEvent OnSwipeLeft = new BaseEvent();
+    public static readonly BaseEvent OnSwipeRight = new BaseEvent();
 
-    public static readonly CoreEvent OnSwipeUpLeft = new CoreEvent();
-    public static readonly CoreEvent OnSwipeUpRight = new CoreEvent();
+    public static readonly BaseEvent OnSwipeUpLeft = new BaseEvent();
+    public static readonly BaseEvent OnSwipeUpRight = new BaseEvent();
 
-    public static readonly CoreEvent OnSwipeDownLeft = new CoreEvent();
-    public static readonly CoreEvent OnSwipeDownRight = new CoreEvent();
+    public static readonly BaseEvent OnSwipeDownLeft = new BaseEvent();
+    public static readonly BaseEvent OnSwipeDownRight = new BaseEvent();
 
     #endregion // events
 

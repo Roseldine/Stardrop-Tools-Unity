@@ -7,6 +7,6 @@ namespace StardropTools.Tween
         public UnityEngine.Material target;
         [UnityEngine.SerializeField] protected bool copyValues;
 
-        public CoreEvent<UnityEngine.Color> OnTween = new CoreEvent<UnityEngine.Color>();
+        public BaseEvent<UnityEngine.Color> OnTween = new BaseEvent<UnityEngine.Color>();
     }
 }

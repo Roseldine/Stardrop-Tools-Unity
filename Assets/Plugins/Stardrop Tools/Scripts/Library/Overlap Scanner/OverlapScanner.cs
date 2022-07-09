@@ -20,27 +20,26 @@ namespace StardropTools
         public Vector3 PositionOffset { get => positionOffset; set => positionOffset = value; }
 
         #region Events
-        public readonly CoreEvent OnEnterDry = new CoreEvent();
-        public readonly CoreEvent OnStayDry = new CoreEvent();
-        public readonly CoreEvent OnExitDry = new CoreEvent();
+        public readonly BaseEvent OnEnterDry = new BaseEvent();
+        public readonly BaseEvent OnStayDry = new BaseEvent();
+        public readonly BaseEvent OnExitDry = new BaseEvent();
 
-        public readonly CoreEvent OnDetected = new CoreEvent();
+        public readonly BaseEvent OnDetected = new BaseEvent();
 
-        public readonly CoreEvent<Collider> OnEnter = new CoreEvent<Collider>();
-        public readonly CoreEvent<Collider> OnStay = new CoreEvent<Collider>();
-        public readonly CoreEvent<Collider> OnExit = new CoreEvent<Collider>();
+        public readonly BaseEvent<Collider> OnEnter = new BaseEvent<Collider>();
+        public readonly BaseEvent<Collider> OnStay = new BaseEvent<Collider>();
+        public readonly BaseEvent<Collider> OnExit = new BaseEvent<Collider>();
         #endregion // events
 
         public override void Initialize()
         {
             base.Initialize();
-            SetCanUpdate(true);
             colliders = new Collider[0];
         }
 
         public void SetLayerMask(LayerMask layerMask) => mask = layerMask;
 
-        public virtual void Scan()
+        public virtual void UpdateScan()
         {
             ColliderCheck();
         }

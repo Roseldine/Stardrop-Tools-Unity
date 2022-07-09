@@ -7,7 +7,7 @@ namespace StardropTools.Tween
     {
         UnityEngine.UI.Image image;
 
-        public TweenImageColor(UnityEngine.UI.Image image, int tweenID, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Color> updateEvent = null)
+        public TweenImageColor(UnityEngine.UI.Image image, int tweenID, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Color> updateEvent = null)
             : base(tweenID, targetColor, targetColor, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             start = image.color;

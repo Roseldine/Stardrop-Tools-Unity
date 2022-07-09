@@ -7,7 +7,7 @@ namespace StardropTools.Tween
     {
         UnityEngine.UI.Image image;
 
-        public TweenImageFillAmount(UnityEngine.UI.Image image, int tweenID, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<float> updateEvent = null)
+        public TweenImageFillAmount(UnityEngine.UI.Image image, int tweenID, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<float> updateEvent = null)
             : base(tweenID, image.pixelsPerUnitMultiplier, targetFloat, duration, delay, ignoreTimeScale, curve, loop, updateEvent)
         {
             start = image.fillAmount;

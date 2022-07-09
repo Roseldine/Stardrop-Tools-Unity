@@ -13,8 +13,8 @@ namespace StardropTools
         public bool Triggered { get => triggered; }
 
 
-        public static readonly CoreEvent<string> OnEventName = new CoreEvent<string>();
-        public static readonly CoreEvent<int> OnEventID = new CoreEvent<int>();
+        public static readonly BaseEvent<string> OnEventName = new BaseEvent<string>();
+        public static readonly BaseEvent<int> OnEventID = new BaseEvent<int>();
 
 
         public CoreEventTriggerBase() { }

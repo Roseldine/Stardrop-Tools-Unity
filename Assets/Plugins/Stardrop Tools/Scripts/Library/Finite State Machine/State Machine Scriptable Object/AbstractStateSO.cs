@@ -1,6 +1,6 @@
 ﻿
 
-namespace StardropTools.FiniteStateMachine.StateMachineSO
+namespace StardropTools.FiniteStateMachine.ScriptableObjectFiniteStateMachine
 {
     public abstract class AbstractStateSO : UnityEngine.ScriptableObject, IState
     {
@@ -31,24 +31,22 @@ namespace StardropTools.FiniteStateMachine.StateMachineSO
             IsInitialized = true;
         }
 
-        public virtual bool EnterState()
+        public virtual void EnterState()
         {
             // return if already entered
             if (ExecutionPhase == IState.ExecutionPhaseEnum.Entering)
-                return false;
+                return;
 
             ChangeExecutionStage(IState.ExecutionPhaseEnum.Entering);
-            return true;
         }
 
-        public virtual bool ExitState()
+        public virtual void ExitState()
         {
             // return if already exited
             if (ExecutionPhase == IState.ExecutionPhaseEnum.Exited)
-                return false;
+                return;
 
             ChangeExecutionStage(IState.ExecutionPhaseEnum.Exited);
-            return true;
         }
 
         public virtual void HandleInput(float timeInState)

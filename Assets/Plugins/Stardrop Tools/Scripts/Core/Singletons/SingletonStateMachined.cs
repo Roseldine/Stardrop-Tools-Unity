@@ -57,11 +57,11 @@ public abstract class SingletonStateMachined<T> : MonoBehaviour where T : MonoBe
 	public EventState CurrentState { get => eStateMachine.CurrentState; }
 	public virtual EventState GetState(int index) => eStateMachine.GetState(index);
 
-	public CoreEvent SyncEventEnter(int stateIndex)
+	public BaseEvent SyncEventEnter(int stateIndex)
 	=> GetState(stateIndex).OnStateEnter;
-	public CoreEvent SyncEventExit(int stateIndex)
+	public BaseEvent SyncEventExit(int stateIndex)
 		=> GetState(stateIndex).OnStateExit;
-	public CoreEvent SyncEventUpdate(int stateIndex)
+	public BaseEvent SyncEventUpdate(int stateIndex)
 		=> GetState(stateIndex).OnStateUpdate;
 
 	public virtual void ChangeState(int stateIndex) => eStateMachine.ChangeState(stateIndex);

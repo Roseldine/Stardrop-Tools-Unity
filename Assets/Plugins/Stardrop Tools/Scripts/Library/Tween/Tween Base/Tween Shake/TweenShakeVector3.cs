@@ -8,7 +8,7 @@ namespace StardropTools.Tween
     {
         protected Vector3 intensity;
 
-        public TweenShakeVector3(int tweenID, Vector3 targetVector, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector3> updateEvent = null)
+        public TweenShakeVector3(int tweenID, Vector3 targetVector, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Vector3> updateEvent = null)
                                   : base(tweenID, targetVector, targetVector, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             start = targetVector;

@@ -9,16 +9,16 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
         [UnityEngine.Min(0)] [UnityEngine.SerializeField] protected int stateID;
         [UnityEngine.Space]
         [UnityEngine.SerializeField]                      protected float timeInState;
-        [UnityEngine.Min(0)] [UnityEngine.SerializeField] protected float maxTime;
+        [UnityEngine.Min(0)] [UnityEngine.SerializeField] protected float duration;
         [UnityEngine.Space]
-        [UnityEngine.Min(0)] [UnityEngine.SerializeField] protected int nextStateID = -1;
+        [UnityEngine.Min(-1)] [UnityEngine.SerializeField] protected int nextStateID = -1;
 
-        EventStateMachine stateMachine;
-        IState.ExecutionPhaseEnum prevExecutionState;
+        protected EventStateMachine stateMachine;
+        protected IState.ExecutionPhaseEnum prevExecutionState;
 
         public string StateName { get => stateName; set => stateName = value; }
         public int StateID { get => stateID; set => stateID = value; }
-        public float MaxTime { get => maxTime; set => maxTime = value; }
+        public float Duration { get => duration; set => duration = value; }
         public int NextStateID { get => nextStateID; set => nextStateID = value; }
 
         public float TimeInState { get => timeInState; }
@@ -27,13 +27,14 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
         public IState.ExecutionPhaseEnum ExecutionPhase { get; protected set; }
 
 
-        public readonly CoreEvent OnStateInitialize = new CoreEvent();
-        public readonly CoreEvent OnStateEnter = new CoreEvent();
-        public readonly CoreEvent OnStateExit = new CoreEvent();
-        public readonly CoreEvent OnStateInput = new CoreEvent();
-        public readonly CoreEvent OnStateUpdate = new CoreEvent();
-        public readonly CoreEvent OnStatePause = new CoreEvent();
-        public readonly CoreEvent OnStateComplete = new CoreEvent();
+        public readonly BaseEvent OnStateInitialize = new BaseEvent();
+        public readonly BaseEvent OnStateEnter = new BaseEvent();
+        public readonly BaseEvent OnStateExit = new BaseEvent();
+        public readonly BaseEvent OnStateInput = new BaseEvent();
+        public readonly BaseEvent OnStateUpdate = new BaseEvent();
+        public readonly BaseEvent OnStatePause = new BaseEvent();
+        public readonly BaseEvent OnStateComplete = new BaseEvent();
+
 
         #region Constructor
         public EventState() { nextStateID = -1; }
@@ -77,25 +78,23 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
             OnStateInitialize?.Invoke();
         }
 
-        public virtual bool EnterState()
+        public virtual void EnterState()
         {
             // return if already entered
             if (ExecutionPhase == IState.ExecutionPhaseEnum.Entering)
-                return false;
+                return;
 
             ChangeExecutionStage(IState.ExecutionPhaseEnum.Entering);
             timeInState = 0;
-            return true;
         }
 
-        public virtual bool ExitState()
+        public virtual void ExitState()
         {
             // return if already exited
             if (ExecutionPhase == IState.ExecutionPhaseEnum.Exited)
-                return false;
+                return;
 
             ChangeExecutionStage(IState.ExecutionPhaseEnum.Exited);
-            return true;
         }
 
         public virtual void HandleInput()
@@ -114,7 +113,7 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
                 return;
 
             // check if completion time reached
-            if (maxTime > 0 && timeInState > maxTime)
+            if (duration > 0 && timeInState > duration)
             {
                 if (nextStateID >= 0)
                     stateMachine.ChangeState(nextStateID);

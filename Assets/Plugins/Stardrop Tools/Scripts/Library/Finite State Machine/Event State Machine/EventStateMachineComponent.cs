@@ -3,26 +3,28 @@ using UnityEngine;
 
 namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
 {
-    public class EventStateMachineComponent : MonoBehaviour, IStateMachine
+    public class EventStateMachineComponent : BaseComponent, IStateMachine
     {
-        [SerializeField] EventStateMachine stateMachine;
+        [SerializeField] protected EventStateMachine stateMachine;
         public EventStateMachine EventStateMachine { get => stateMachine; set => stateMachine = value; }
 
-        public bool IsInitialized { get; private set; }
         public EventState CurrentState { get => stateMachine.CurrentState; }
         public float TimeInCurrentState { get => stateMachine.CurrentState.TimeInState; }
         public int StateCount { get => stateMachine.StateCount; }
         public EventState GetState(int stateIndex) => stateMachine.GetState(stateIndex);
 
-        public CoreEvent<int> OnStateEnter { get => stateMachine.OnStateEnter; }
-        public CoreEvent<int> OnStateExit { get => stateMachine.OnStateEnter; }
-        public CoreEvent<int> OnStateUpdate { get => stateMachine.OnStateEnter; }
-        public CoreEvent<int> OnStatePause { get => stateMachine.OnStateEnter; }
-        public CoreEvent<int> OnStateResume { get => stateMachine.OnStateEnter; }
+        public BaseEvent<int> OnStateEnter { get => stateMachine.OnStateEnter; }
+        public BaseEvent<int> OnStateExit { get => stateMachine.OnStateEnter; }
+        public BaseEvent<int> OnStateUpdate { get => stateMachine.OnStateEnter; }
+        public BaseEvent<int> OnStatePause { get => stateMachine.OnStateEnter; }
+        public BaseEvent<int> OnStateResume { get => stateMachine.OnStateEnter; }
 
 
-        public void Initialize()
-            => stateMachine.Initialize();
+        public override void Initialize()
+        {
+            base.Initialize();
+            stateMachine.Initialize();
+        }
 
         public void UpdateStateMachine()
             => stateMachine.UpdateStateMachine();

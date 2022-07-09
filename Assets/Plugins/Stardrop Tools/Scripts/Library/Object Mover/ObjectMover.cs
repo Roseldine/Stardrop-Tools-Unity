@@ -6,16 +6,18 @@ namespace StardropTools
 {
     public class ObjectMover : BaseObject
     {
+        public ObjectMoverManager moverManager;
+
         protected override void OnEnable()
         {
             base.OnEnable();
-            ObjectMoverManager.Instance.AddMover(this);
+            moverManager.AddMover(this);
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            ObjectMoverManager.Instance.RemoveMover(this);
+            moverManager.RemoveMover(this);
         }
 
         public void Move(Vector3 direction)

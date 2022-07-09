@@ -7,7 +7,7 @@ namespace StardropTools.Tween
     {
         Material material;
 
-        public TweenMaterialColor(Material material, int tweenID, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Color> updateEvent = null)
+        public TweenMaterialColor(Material material, int tweenID, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Color> updateEvent = null)
             : base(tweenID, targetColor, targetColor, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             start = material.color;

@@ -7,7 +7,7 @@ namespace StardropTools.Tween
     {
         Transform transform;
 
-        public TweenLocalRotation(Transform transform, int tweenID, Quaternion targetQuaternion, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Quaternion> updateEvent = null)
+        public TweenLocalRotation(Transform transform, int tweenID, Quaternion targetQuaternion, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Quaternion> updateEvent = null)
                       : base(tweenID, targetQuaternion, targetQuaternion, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             start = transform.localRotation; // local

@@ -1,6 +1,6 @@
 
 
-namespace StardropTools.FiniteStateMachine.StateMachineSO
+namespace StardropTools.FiniteStateMachine.ScriptableObjectFiniteStateMachine
 {
     public class FiniteStateMachineSO : UnityEngine.MonoBehaviour, IStateMachine
     {
@@ -19,11 +19,11 @@ namespace StardropTools.FiniteStateMachine.StateMachineSO
         public float TimeInCurrentState { get => timeInState; }
         public AbstractStateSO GetState(int stateIndex) => states[stateIndex];
 
-        public readonly CoreEvent<AbstractStateSO> OnStateEnter = new CoreEvent<AbstractStateSO>();
-        public readonly CoreEvent<AbstractStateSO> OnStateExit = new CoreEvent<AbstractStateSO>();
-        public readonly CoreEvent<AbstractStateSO> OnStateUpdate = new CoreEvent<AbstractStateSO>();
-        public readonly CoreEvent<AbstractStateSO> OnStatePause = new CoreEvent<AbstractStateSO>();
-        public readonly CoreEvent<AbstractStateSO> OnStateResume = new CoreEvent<AbstractStateSO>();
+        public readonly BaseEvent<AbstractStateSO> OnStateEnter = new BaseEvent<AbstractStateSO>();
+        public readonly BaseEvent<AbstractStateSO> OnStateExit = new BaseEvent<AbstractStateSO>();
+        public readonly BaseEvent<AbstractStateSO> OnStateUpdate = new BaseEvent<AbstractStateSO>();
+        public readonly BaseEvent<AbstractStateSO> OnStatePause = new BaseEvent<AbstractStateSO>();
+        public readonly BaseEvent<AbstractStateSO> OnStateResume = new BaseEvent<AbstractStateSO>();
 
         public void Initialize()
         {

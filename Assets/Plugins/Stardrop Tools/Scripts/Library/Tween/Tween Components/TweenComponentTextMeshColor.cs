@@ -7,7 +7,7 @@ namespace StardropTools.Tween
         public UnityEngine.Color start = UnityEngine.Color.white;
         public UnityEngine.Color end = UnityEngine.Color.white;
 
-        public CoreEvent<UnityEngine.Color> OnTween = new CoreEvent<UnityEngine.Color>();
+        public BaseEvent<UnityEngine.Color> OnTween = new BaseEvent<UnityEngine.Color>();
 
         public override void InitializeTween()
         {

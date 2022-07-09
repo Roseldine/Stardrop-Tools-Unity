@@ -10,9 +10,9 @@ namespace StardropTools.Tween
         protected Quaternion target;
         protected Quaternion lerped;
 
-        public static CoreEvent<Quaternion> OnUpdate = new CoreEvent<Quaternion>();
+        public static BaseEvent<Quaternion> OnUpdate = new BaseEvent<Quaternion>();
 
-        public TweenQuaternion(int tweenID, Quaternion startVector, Quaternion targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Quaternion> updateEvent = null)
+        public TweenQuaternion(int tweenID, Quaternion startVector, Quaternion targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Quaternion> updateEvent = null)
         {
             start = startVector;
             target = targetVector;

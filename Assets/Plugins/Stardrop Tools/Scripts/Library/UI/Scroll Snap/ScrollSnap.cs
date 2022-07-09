@@ -47,11 +47,11 @@ namespace StardropTools.UI
 
         public System.Guid UniqueID { get => uniqueID; }
 
-        public readonly CoreEvent SwipeToNextPriority = new CoreEvent();
+        public readonly BaseEvent SwipeToNextPriority = new BaseEvent();
 
-        public readonly CoreEvent OnMoveStart = new CoreEvent();
-        public readonly CoreEvent OnMoving = new CoreEvent();
-        public readonly CoreEvent OnMoveComplete = new CoreEvent();
+        public readonly BaseEvent OnMoveStart = new BaseEvent();
+        public readonly BaseEvent OnMoving = new BaseEvent();
+        public readonly BaseEvent OnMoveComplete = new BaseEvent();
 
 
         protected override void Start()

@@ -5,7 +5,7 @@ namespace StardropTools
     public class CoreEventTrigger : CoreEventTriggerBase
     {
 
-        public static readonly CoreEvent OnEvent = new CoreEvent();
+        public static readonly BaseEvent OnEvent = new BaseEvent();
 
 
         public CoreEventTrigger() { }
@@ -29,7 +29,7 @@ namespace StardropTools
     public class CoreEventTrigger<T> : CoreEventTriggerBase
     {
 
-        public static readonly CoreEvent<T> OnEvent = new CoreEvent<T>();
+        public static readonly BaseEvent<T> OnEvent = new BaseEvent<T>();
 
 
         public CoreEventTrigger() { }

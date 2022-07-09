@@ -13,7 +13,7 @@ namespace StardropTools
         protected float targetValue;
         public float Value { get => value; }
 
-        public readonly CoreEvent<float> OnValueChange = new CoreEvent<float>();
+        public readonly BaseEvent<float> OnValueChange = new BaseEvent<float>();
 
         public override void Initialize()
         {

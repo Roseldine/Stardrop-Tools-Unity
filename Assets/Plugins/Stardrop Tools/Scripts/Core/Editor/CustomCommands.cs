@@ -120,10 +120,13 @@ namespace StardropTools.CustomCommands
         }
 
 
+        // % = control
+        // # = shift
+        // & = alt
         // Reset Position
         // =============================================== Reset Position
-        [MenuItem("Custom Commands/Reset Position _s")]
-        static void ResetPosition()
+        [MenuItem("Custom Commands/Reset Pos &s")]
+        static void ResetPos()
         {
             if (Selection.activeTransform != null && _cmdsActive)
             {
@@ -132,12 +135,14 @@ namespace StardropTools.CustomCommands
 
                 foreach (GameObject go in objs)
                 {
+                    // reset RectsTransform
                     if (go.GetComponent<RectTransform>() == true)
                     {
                         Undo.RecordObject(go.transform, "Reset object position");
                         go.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
                     }
 
+                    // reset Transform
                     else
                     {
                         Undo.RecordObject(go.transform, "Reset object position");
@@ -147,10 +152,14 @@ namespace StardropTools.CustomCommands
             }
         }
 
-        // Reset Local Position
-        // =============================================== Reset Local Position
-        [MenuItem("Custom Commands/Reset Local Position _#s")]
-        static void ResetLocalPosition()
+
+        // % = control
+        // # = shift
+        // & = alt
+        // Reset Position
+        // =============================================== Reset Position
+        [MenuItem("Custom Commands/Reset Local Posi #s")]
+        static void ResetLocalPosi()
         {
             if (Selection.activeTransform != null && _cmdsActive)
             {
@@ -159,12 +168,14 @@ namespace StardropTools.CustomCommands
 
                 foreach (GameObject go in objs)
                 {
+                    // reset RectsTransform
                     if (go.GetComponent<RectTransform>() == true)
                     {
                         Undo.RecordObject(go.transform, "Reset object position");
                         go.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
                     }
 
+                    // reset Transform
                     else
                     {
                         Undo.RecordObject(go.transform, "Reset object position");
@@ -174,9 +185,13 @@ namespace StardropTools.CustomCommands
             }
         }
 
-        // Reset Transform
-        // =============================================== Reset Transform
-        [MenuItem("Custom Commands/Reset Rotation &r")]
+
+        // % = control
+        // # = shift
+        // & = alt
+        // Reset Rotation
+        // =============================================== Reset Rotation
+        [MenuItem("Custom Commands/Reset Rotation #r")]
         static void ResetRotation()
         {
             if (Selection.activeTransform != null && _cmdsActive)
@@ -186,15 +201,17 @@ namespace StardropTools.CustomCommands
 
                 foreach (GameObject go in objs)
                 {
+                    // reset RectsTransform
                     if (go.GetComponent<RectTransform>() == true)
                     {
-                        Undo.RecordObject(go.transform, "Reset object local position");
+                        Undo.RecordObject(go.transform, "Reset object Rotation");
                         go.GetComponent<RectTransform>().rotation = Quaternion.identity;
                     }
 
+                    // reset Transform
                     else
                     {
-                        Undo.RecordObject(go.transform, "Reset object local position");
+                        Undo.RecordObject(go.transform, "Reset object Rotation");
                         go.transform.rotation = Quaternion.identity;
                     }
                 }
@@ -202,9 +219,12 @@ namespace StardropTools.CustomCommands
         }
 
 
+        // % = control
+        // # = shift
+        // & = alt
         // Reset Scale
         // =============================================== Reset Scale
-        [MenuItem("Custom Commands/Reset Scale &s")]
+        [MenuItem("Custom Commands/Reset Scale &r")]
         static void ResetScale()
         {
             if (Selection.activeTransform != null && _cmdsActive)
@@ -216,13 +236,13 @@ namespace StardropTools.CustomCommands
                 {
                     if (go.GetComponent<RectTransform>() == true)
                     {
-                        Undo.RecordObject(go.transform, "Reset object local position");
+                        Undo.RecordObject(go.transform, "Reset object local scale");
                         go.GetComponent<RectTransform>().localScale = Vector3.one;
                     }
 
                     else
                     {
-                        Undo.RecordObject(go.transform, "Reset object local position");
+                        Undo.RecordObject(go.transform, "Reset object local scale");
                         go.transform.localScale = Vector3.one;
                     }
                 }
@@ -254,6 +274,9 @@ namespace StardropTools.CustomCommands
                         _objectCount++;
                     }
                 }
+
+                if (_objectCount == 0)
+                    return;
 
                 // Get Active Percent
                 float _enablePercent = _enabled * 100 / _objectCount;
@@ -302,7 +325,7 @@ namespace StardropTools.CustomCommands
 
         // Enable & Disable Colliders
         // =============================================== Enable & Disable Colliders
-        [MenuItem("Custom Commands/Enable or Disable Colliders _c")] // c
+        [MenuItem("Custom Commands/Enable or Disable Colliders #c")] // c
         static void EnableColliders()
         {
             if (Selection.activeTransform != null && _cmdsActive)
@@ -324,6 +347,9 @@ namespace StardropTools.CustomCommands
                         _objectCount++;
                     }
                 }
+
+                if (_objectCount == 0)
+                    return;
 
                 // Get Active Percent
                 float _enablePercent = _enabled * 100 / _objectCount;
@@ -416,51 +442,6 @@ namespace StardropTools.CustomCommands
                 }
 
                 Debug.Log("<color=cyan> Opacity Chain Complete </color>");
-
-                #region Enable & Disable
-                /*
-                // Get Active Percent
-                float _enablePercent = _enabled * 100 / _objectCount;
-
-                // Disable
-                if (_enablePercent >= 50)
-                {
-                    foreach (GameObject go in objs)
-                    {
-                        if (go.GetComponent<UnityEngine.UI.Image>() == true)
-                        {
-                            UnityEngine.UI.Image image = go.GetComponent<UnityEngine.UI.Image>();
-
-                            if (image.enabled == true)
-                            {
-                                Undo.RecordObject(image, "Disabled Collider");
-                                image.enabled = false;
-                            }
-                        }
-                    }
-                }
-
-                    // Enable
-                else
-                {
-                    
-
-                    foreach (GameObject go in objs)
-                    {
-                        if (go.GetComponent<UnityEngine.UI.Image>() == true)
-                        {
-                            UnityEngine.UI.Image image = go.GetComponent<UnityEngine.UI.Image>();
-
-                            if (image.enabled == true)
-                            {
-                                Undo.RecordObject(image, "Enabled Collider");
-                                image.enabled = true;
-                            }
-                        }
-                    }
-                }
-                */
-                #endregion // enable & disable
             }
         }
     }

@@ -7,7 +7,7 @@ namespace StardropTools.Tween
     {
         Transform transform;
 
-        public TweenShakeLocalScale(Transform transform, int tweenID, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector3> updateEvent = null)
+        public TweenShakeLocalScale(Transform transform, int tweenID, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Vector3> updateEvent = null)
                       : base(tweenID, transform.localScale, intensity, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             this.transform = transform;

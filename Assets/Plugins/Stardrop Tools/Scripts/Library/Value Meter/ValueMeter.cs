@@ -13,9 +13,9 @@ namespace StardropTools
 
         public int MeterID { get => meterID; set => meterID = value; }
 
-        public readonly CoreEvent OnReachMin = new CoreEvent();
-        public readonly CoreEvent OnReachMax = new CoreEvent();
-        public readonly CoreEvent OnValueChangeDry = new CoreEvent();
+        public readonly BaseEvent OnReachMin = new BaseEvent();
+        public readonly BaseEvent OnReachMax = new BaseEvent();
+        public readonly BaseEvent OnValueChangeDry = new BaseEvent();
 
         public abstract void Initialize();
         public abstract void ResetValue();

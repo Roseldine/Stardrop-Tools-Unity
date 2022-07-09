@@ -15,10 +15,10 @@ namespace StardropTools.UI
 
         public bool Value { get => value; }
 
-        public readonly CoreEvent OnToggle = new CoreEvent();
-        public readonly CoreEvent OnToggleTrue = new CoreEvent();
-        public readonly CoreEvent OnToggleFalse = new CoreEvent();
-        public readonly CoreEvent<bool> OnToggleBoolValue = new CoreEvent<bool>();
+        public readonly BaseEvent OnToggle = new BaseEvent();
+        public readonly BaseEvent OnToggleTrue = new BaseEvent();
+        public readonly BaseEvent OnToggleFalse = new BaseEvent();
+        public readonly BaseEvent<bool> OnToggleBoolValue = new BaseEvent<bool>();
 
         public override void Initialize()
         {

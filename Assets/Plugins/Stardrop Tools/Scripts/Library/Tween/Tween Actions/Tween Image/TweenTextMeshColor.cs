@@ -7,7 +7,7 @@ namespace StardropTools.Tween
     {
         TMPro.TextMeshProUGUI textMesh;
 
-        public TweenTextMeshColor(TMPro.TextMeshProUGUI textMesh, int tweenID, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Color> updateEvent = null)
+        public TweenTextMeshColor(TMPro.TextMeshProUGUI textMesh, int tweenID, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Color> updateEvent = null)
             : base(tweenID, targetColor, targetColor, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             start = textMesh.color;

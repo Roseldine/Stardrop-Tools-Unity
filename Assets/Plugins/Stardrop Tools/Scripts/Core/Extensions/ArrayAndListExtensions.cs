@@ -138,9 +138,6 @@ public static class ArrayAndListExtensions
     {
         for (int i = 0; i < array.Length; i++)
             listToAdd.AddSafe(array[i]);
-
-        //foreach (T item in array)
-        //    listToAdd.AddSafe(item);
     }
 
     public static T GetRandom<T>(this List<T> list)

@@ -4,14 +4,14 @@ public class LoopManager : Singleton<LoopManager>
 {
     public bool IsInitialized { get; private set; }
 
-    public static readonly CoreEvent OnAwake = new CoreEvent();
-    public static readonly CoreEvent OnStart = new CoreEvent();
-    public static readonly CoreEvent OnUpdate = new CoreEvent();
-    public static readonly CoreEvent OnLateUpdate = new CoreEvent();
-    public static readonly CoreEvent OnFixedUpdate = new CoreEvent();
+    public static readonly BaseEvent OnAwake = new BaseEvent();
+    public static readonly BaseEvent OnStart = new BaseEvent();
+    public static readonly BaseEvent OnUpdate = new BaseEvent();
+    public static readonly BaseEvent OnLateUpdate = new BaseEvent();
+    public static readonly BaseEvent OnFixedUpdate = new BaseEvent();
 
-    public static readonly CoreEvent OnEnabled = new CoreEvent();
-    public static readonly CoreEvent OnDisabled = new CoreEvent();
+    public static readonly BaseEvent OnEnabled = new BaseEvent();
+    public static readonly BaseEvent OnDisabled = new BaseEvent();
     
 
     public void Initialize()

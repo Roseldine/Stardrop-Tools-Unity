@@ -14,9 +14,9 @@ namespace StardropTools.UI
         public UnityEngine.UI.Button Button { get => button; }
 
 
-        public readonly CoreEvent OnClick = new CoreEvent();
-        public readonly CoreEvent<UIButton> OnClickButton = new CoreEvent<UIButton>();
-        public readonly CoreEvent<int> OnClickID = new CoreEvent<int>();
+        public readonly BaseEvent OnClick = new BaseEvent();
+        public readonly BaseEvent<UIButton> OnClickButton = new BaseEvent<UIButton>();
+        public readonly BaseEvent<int> OnClickID = new BaseEvent<int>();
 
         public override void Initialize()
         {

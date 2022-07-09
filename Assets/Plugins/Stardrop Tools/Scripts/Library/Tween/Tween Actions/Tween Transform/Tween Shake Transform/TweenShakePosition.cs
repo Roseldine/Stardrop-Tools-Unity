@@ -8,7 +8,7 @@ namespace StardropTools.Tween
         Transform transform;
         Vector3 endPosition;
 
-        public TweenShakePosition(Transform transform, int tweenID, Vector3 intensity, Vector3 endPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector3> updateEvent = null)
+        public TweenShakePosition(Transform transform, int tweenID, Vector3 intensity, Vector3 endPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Vector3> updateEvent = null)
                       : base(tweenID, transform.position, intensity, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             this.transform = transform;

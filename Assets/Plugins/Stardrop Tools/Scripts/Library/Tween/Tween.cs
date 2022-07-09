@@ -196,43 +196,43 @@ namespace StardropTools.Tween
 
         // VALUES
         #region Values
-        public static TweenBase Float(float startFloat, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<float> eventToUdapte = null)
+        public static TweenBase Float(float startFloat, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<float> eventToUdapte = null)
         {
             TweenBase tween = new TweenFloat(tweenID, startFloat, targetFloat, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase Int(int startInt, int targetInt, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<int> eventToUdapte = null)
+        public static TweenBase Int(int startInt, int targetInt, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<int> eventToUdapte = null)
         {
             TweenBase tween = new TweenInt(tweenID, startInt, targetInt, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase Vector2(Vector2 startVector, Vector2 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector2> eventToUdapte = null)
+        public static TweenBase Vector2(Vector2 startVector, Vector2 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector2> eventToUdapte = null)
         {
             TweenBase tween = new TweenVector2(tweenID, startVector, targetVector, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase Vector3(Vector3 startVector, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase Vector3(Vector3 startVector, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenVector3(tweenID, startVector, targetVector, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase Vector4(Vector4 startVector, Vector4 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector4> eventToUdapte = null)
+        public static TweenBase Vector4(Vector4 startVector, Vector4 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector4> eventToUdapte = null)
         {
             TweenBase tween = new TweenVector4(tweenID, startVector, targetVector, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase Quaternion(Quaternion startVector, Quaternion targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Quaternion> eventToUdapte = null)
+        public static TweenBase Quaternion(Quaternion startVector, Quaternion targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Quaternion> eventToUdapte = null)
         {
             TweenBase tween = new TweenQuaternion(tweenID, startVector, targetVector, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase Color(Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        public static TweenBase Color(Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Color> eventToUdapte = null)
         {
             TweenBase tween = new TweenColor(tweenID, startColor, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
@@ -240,37 +240,37 @@ namespace StardropTools.Tween
 
 
         // Shake Values
-        public static TweenBase ShakeFloat(float targetFloat, float intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<float> eventToUdapte = null)
+        public static TweenBase ShakeFloat(float targetFloat, float intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<float> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeFloat(tweenID, targetFloat, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ShakeInt(int targetFloat, int intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<int> eventToUdapte = null)
+        public static TweenBase ShakeInt(int targetFloat, int intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<int> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeInt(tweenID, targetFloat, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ShakeVector2(Vector2 targetVector, Vector2 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector2> eventToUdapte = null)
+        public static TweenBase ShakeVector2(Vector2 targetVector, Vector2 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector2> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeVector2(tweenID, targetVector, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ShakeVector3(Vector3 targetVector, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase ShakeVector3(Vector3 targetVector, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeVector3(tweenID, targetVector, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ShakeVector4(Vector4 targetVector, Vector4 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector4> eventToUdapte = null)
+        public static TweenBase ShakeVector4(Vector4 targetVector, Vector4 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector4> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeVector4(tweenID, targetVector, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ShakeQuaternion(Quaternion targetVector, Vector4 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Quaternion> eventToUdapte = null)
+        public static TweenBase ShakeQuaternion(Quaternion targetVector, Vector4 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Quaternion> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeQuaternion(tweenID, targetVector, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
@@ -282,13 +282,13 @@ namespace StardropTools.Tween
         #region Transform
 
         // Position
-        public static TweenBase Position(Transform target, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase Position(Transform target, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenPosition(target, tweenID, targetVector, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase Position(Transform target, Vector3 startVector, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase Position(Transform target, Vector3 startVector, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             target.position = startVector;
             TweenBase tween = new TweenPosition(target, tweenID, targetVector, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -296,13 +296,13 @@ namespace StardropTools.Tween
         }
 
         // Local Position
-        public static TweenBase LocalPosition(Transform target, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase LocalPosition(Transform target, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenLocalPosition(target, tweenID, targetVector, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase LocalPosition(Transform target, Vector3 startVector, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase LocalPosition(Transform target, Vector3 startVector, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             target.localPosition = startVector;
             TweenBase tween = new TweenLocalPosition(target, tweenID, targetVector, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -312,13 +312,13 @@ namespace StardropTools.Tween
 
 
         // Rotation
-        public static TweenBase Rotation(Transform target, Quaternion targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Quaternion> eventToUdapte = null)
+        public static TweenBase Rotation(Transform target, Quaternion targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Quaternion> eventToUdapte = null)
         {
             TweenBase tween = new TweenRotation(target, tweenID, targetRotation, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase Rotation(Transform target, Quaternion startQuaternion, Quaternion targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Quaternion> eventToUdapte = null)
+        public static TweenBase Rotation(Transform target, Quaternion startQuaternion, Quaternion targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Quaternion> eventToUdapte = null)
         {
             target.rotation = startQuaternion;
             TweenBase tween = new TweenRotation(target, tweenID, targetRotation, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -326,13 +326,13 @@ namespace StardropTools.Tween
         }
 
         // Local Rotation
-        public static TweenBase LocalRotation(Transform target, Quaternion targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Quaternion> eventToUdapte = null)
+        public static TweenBase LocalRotation(Transform target, Quaternion targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Quaternion> eventToUdapte = null)
         {
             TweenBase tween = new TweenLocalRotation(target, tweenID, targetRotation, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase LocalRotation(Transform target, Quaternion startRotation, Quaternion targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Quaternion> eventToUdapte = null)
+        public static TweenBase LocalRotation(Transform target, Quaternion startRotation, Quaternion targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Quaternion> eventToUdapte = null)
         {
             target.localRotation = startRotation;
             TweenBase tween = new TweenLocalRotation(target, tweenID, targetRotation, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -342,13 +342,13 @@ namespace StardropTools.Tween
 
 
         // Rotation Euler
-        public static TweenBase RotationEuler(Transform target, Vector3 targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase RotationEuler(Transform target, Vector3 targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenRotationEuler(target, tweenID, targetRotation, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase RotationEuler(Transform target, Vector3 startRotation, Vector3 targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase RotationEuler(Transform target, Vector3 startRotation, Vector3 targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             target.eulerAngles = startRotation;
             TweenBase tween = new TweenRotationEuler(target, tweenID, targetRotation, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -356,13 +356,13 @@ namespace StardropTools.Tween
         }
 
         // Local Rotation Euler
-        public static TweenBase LocalRotationEuler(Transform target, Vector3 targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase LocalRotationEuler(Transform target, Vector3 targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenLocalRotationEuler(target, tweenID, targetRotation, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase LocalRotationEuler(Transform target, Vector3 startRotation, Vector3 targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase LocalRotationEuler(Transform target, Vector3 startRotation, Vector3 targetRotation, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             target.localEulerAngles = startRotation;
             TweenBase tween = new TweenLocalRotationEuler(target, tweenID, targetRotation, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -372,13 +372,13 @@ namespace StardropTools.Tween
 
 
         // Local Scale
-        public static TweenBase LocalScale(Transform target, Vector3 targetScale, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase LocalScale(Transform target, Vector3 targetScale, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenLocalScale(target, tweenID, targetScale, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase LocalScale(Transform target, Vector3 startScale, Vector3 targetScale, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase LocalScale(Transform target, Vector3 startScale, Vector3 targetScale, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             target.localScale = startScale;
             TweenBase tween = new TweenLocalScale(target, tweenID, targetScale, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -390,13 +390,13 @@ namespace StardropTools.Tween
         // --------------- \\     Shake Transform     // --------------- //
 
         // Position Shake
-        public static TweenBase ShakePosition(Transform target, Vector3 intensity, Vector3 endPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase ShakePosition(Transform target, Vector3 intensity, Vector3 endPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakePosition(target, tweenID, intensity, endPosition, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ShakeLocalPosition(Transform target, Vector3 intensity, Vector3 endPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase ShakeLocalPosition(Transform target, Vector3 intensity, Vector3 endPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeLocalPosition(target, tweenID, intensity, endPosition, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
@@ -404,25 +404,25 @@ namespace StardropTools.Tween
 
 
         // Rotation
-        public static TweenBase ShakeRotation(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Quaternion> eventToUdapte = null)
+        public static TweenBase ShakeRotation(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Quaternion> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeRotation(target, tweenID, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ShakeLocalRotation(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Quaternion> eventToUdapte = null)
+        public static TweenBase ShakeLocalRotation(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Quaternion> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeLocalRotation(target, tweenID, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ShakeRotationEuler(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase ShakeRotationEuler(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeRotationEuler(target, tweenID, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ShakeLocalRotationEuler(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase ShakeLocalRotationEuler(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeLocalRotationEuler(target, tweenID, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
@@ -430,7 +430,7 @@ namespace StardropTools.Tween
 
 
         // Local Scale
-        public static TweenBase ShakeLocalScale(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector3> eventToUdapte = null)
+        public static TweenBase ShakeLocalScale(Transform target, Vector3 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector3> eventToUdapte = null)
         {
             TweenBase tween = new TweenShakeLocalScale(target, tweenID, intensity, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
@@ -442,13 +442,13 @@ namespace StardropTools.Tween
         #region Rect Transform
 
         // Size Delta
-        public static TweenBase SizeDelta(RectTransform target, Vector2 targetSize, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector2> eventToUdapte = null)
+        public static TweenBase SizeDelta(RectTransform target, Vector2 targetSize, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector2> eventToUdapte = null)
         {
             TweenBase tween = new TweenSizeDelta(target, tweenID, targetSize, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase SizeDelta(RectTransform target, Vector2 startSize, Vector2 targetSize, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector2> eventToUdapte = null)
+        public static TweenBase SizeDelta(RectTransform target, Vector2 startSize, Vector2 targetSize, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector2> eventToUdapte = null)
         {
             target.sizeDelta = startSize;
             TweenBase tween = new TweenSizeDelta(target, tweenID, targetSize, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -458,13 +458,13 @@ namespace StardropTools.Tween
 
 
         // Anchored Position
-        public static TweenBase AnchoredPosition(RectTransform target, Vector2 targetPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector2> eventToUdapte = null)
+        public static TweenBase AnchoredPosition(RectTransform target, Vector2 targetPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector2> eventToUdapte = null)
         {
             TweenBase tween = new TweenAnchoredPosition(target, tweenID, targetPosition, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase AnchoredPosition(RectTransform target, Vector2 startPosition, Vector2 targetPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Vector2> eventToUdapte = null)
+        public static TweenBase AnchoredPosition(RectTransform target, Vector2 startPosition, Vector2 targetPosition, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Vector2> eventToUdapte = null)
         {
             target.anchoredPosition = startPosition;
             TweenBase tween = new TweenAnchoredPosition(target, tweenID, targetPosition, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -477,13 +477,13 @@ namespace StardropTools.Tween
         #region Image
 
         // image color
-        public static TweenBase ImageColor(UnityEngine.UI.Image image, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        public static TweenBase ImageColor(UnityEngine.UI.Image image, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Color> eventToUdapte = null)
         {
             TweenBase tween = new TweenImageColor(image, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ImageColor(UnityEngine.UI.Image image, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        public static TweenBase ImageColor(UnityEngine.UI.Image image, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Color> eventToUdapte = null)
         {
             image.color = startColor;
             TweenBase tween = new TweenImageColor(image, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -493,13 +493,13 @@ namespace StardropTools.Tween
 
 
         // image Pixels per unit multiplier
-        public static TweenBase ImagePixelsPerUnitMultiplier(UnityEngine.UI.Image image, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<float> eventToUdapte = null)
+        public static TweenBase ImagePixelsPerUnitMultiplier(UnityEngine.UI.Image image, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<float> eventToUdapte = null)
         {
             TweenBase tween = new TweenImagePixelsPerUnitMultiplier(image, tweenID, targetFloat, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ImagePixelsPerUnitMultiplier(UnityEngine.UI.Image image, float startFloat, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<float> eventToUdapte = null)
+        public static TweenBase ImagePixelsPerUnitMultiplier(UnityEngine.UI.Image image, float startFloat, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<float> eventToUdapte = null)
         {
             image.pixelsPerUnitMultiplier = startFloat;
             TweenBase tween = new TweenImagePixelsPerUnitMultiplier(image, tweenID, targetFloat, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -508,13 +508,13 @@ namespace StardropTools.Tween
 
 
         // Image Fill Amount
-        public static TweenBase ImageFillAmount(UnityEngine.UI.Image image, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<float> eventToUdapte = null)
+        public static TweenBase ImageFillAmount(UnityEngine.UI.Image image, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<float> eventToUdapte = null)
         {
             TweenBase tween = new TweenImageFillAmount(image, tweenID, targetFloat, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase ImageFillAmount(UnityEngine.UI.Image image, float startFloat, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<float> eventToUdapte = null)
+        public static TweenBase ImageFillAmount(UnityEngine.UI.Image image, float startFloat, float targetFloat, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<float> eventToUdapte = null)
         {
             image.fillAmount = startFloat;
             TweenBase tween = new TweenImageFillAmount(image, tweenID, targetFloat, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -522,13 +522,13 @@ namespace StardropTools.Tween
         }
 
         // Text Mesh color
-        public static TweenBase TextMeshColor(TMPro.TextMeshProUGUI textMesh, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        public static TweenBase TextMeshColor(TMPro.TextMeshProUGUI textMesh, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Color> eventToUdapte = null)
         {
             TweenBase tween = new TweenTextMeshColor(textMesh, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase TextMeshColor(TMPro.TextMeshProUGUI textMesh, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        public static TweenBase TextMeshColor(TMPro.TextMeshProUGUI textMesh, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Color> eventToUdapte = null)
         {
             textMesh.color = startColor;
             TweenBase tween = new TweenTextMeshColor(textMesh, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -537,13 +537,13 @@ namespace StardropTools.Tween
 
         #endregion // image
 
-        public static TweenBase MaterialColor(Material material, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        public static TweenBase MaterialColor(Material material, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Color> eventToUdapte = null)
         {
             TweenBase tween = new TweenMaterialColor(material, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase MaterialColor(Material material, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        public static TweenBase MaterialColor(Material material, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Color> eventToUdapte = null)
         {
             material.color = startColor;
             TweenBase tween = new TweenMaterialColor(material, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
@@ -552,13 +552,13 @@ namespace StardropTools.Tween
 
 
 
-        public static TweenBase SpriteRendererColor(SpriteRenderer renderer, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        public static TweenBase SpriteRendererColor(SpriteRenderer renderer, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Color> eventToUdapte = null)
         {
             TweenBase tween = new TweenSpriteRendererColor(renderer, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);
             return ProcessTween(tween);
         }
 
-        public static TweenBase SpriteRendererColor(SpriteRenderer renderer, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, CoreEvent<Color> eventToUdapte = null)
+        public static TweenBase SpriteRendererColor(SpriteRenderer renderer, Color startColor, Color targetColor, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, int tweenID = -1, BaseEvent<Color> eventToUdapte = null)
         {
             renderer.color = startColor;
             TweenBase tween = new TweenSpriteRendererColor(renderer, tweenID, targetColor, duration, delay, ignoreTimeScale, curve, loop, eventToUdapte);

@@ -7,7 +7,7 @@ namespace StardropTools.Tween
         public float start;
         public float end;
 
-        public CoreEvent<float> OnTween = new CoreEvent<float>();
+        public BaseEvent<float> OnTween = new BaseEvent<float>();
 
         public override void InitializeTween()
         {

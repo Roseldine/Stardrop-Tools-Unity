@@ -29,24 +29,24 @@ namespace StardropTools
         public bool IsInvulnerable { get => isInvulnerable; set => isInvulnerable = value; }
 
 
-        public readonly CoreEvent<int> OnHitPointsChange = new CoreEvent<int>();
+        public readonly BaseEvent<int> OnHitPointsChange = new BaseEvent<int>();
 
-        public readonly CoreEvent OnDamage = new CoreEvent();
-        public readonly CoreEvent<int> OnDamageAmount = new CoreEvent<int>();
-        public readonly CoreEvent<float> OnDamagePercent = new CoreEvent<float>();
+        public readonly BaseEvent OnDamage = new BaseEvent();
+        public readonly BaseEvent<int> OnDamageAmount = new BaseEvent<int>();
+        public readonly BaseEvent<float> OnDamagePercent = new BaseEvent<float>();
 
-        public readonly CoreEvent OnHeal = new CoreEvent();
-        public readonly CoreEvent<int> OnHealAmount = new CoreEvent<int>();
-        public readonly CoreEvent<float> OnHealPercent = new CoreEvent<float>();
+        public readonly BaseEvent OnHeal = new BaseEvent();
+        public readonly BaseEvent<int> OnHealAmount = new BaseEvent<int>();
+        public readonly BaseEvent<float> OnHealPercent = new BaseEvent<float>();
 
-        public readonly CoreEvent OnDeath = new CoreEvent();
+        public readonly BaseEvent OnDeath = new BaseEvent();
 
-        public readonly CoreEvent OnRevive = new CoreEvent();
-        public readonly CoreEvent<int> OnReviveAmount = new CoreEvent<int>();
+        public readonly BaseEvent OnRevive = new BaseEvent();
+        public readonly BaseEvent<int> OnReviveAmount = new BaseEvent<int>();
 
-        public readonly CoreEvent OnInvulnerabilityStart = new CoreEvent();
-        public readonly CoreEvent OnInvulnerabilityUpdate = new CoreEvent();
-        public readonly CoreEvent OnInvulnerabilityComplete = new CoreEvent();
+        public readonly BaseEvent OnInvulnerabilityStart = new BaseEvent();
+        public readonly BaseEvent OnInvulnerabilityUpdate = new BaseEvent();
+        public readonly BaseEvent OnInvulnerabilityComplete = new BaseEvent();
 
         public void Initialize(int maxHitPoints)
         {

@@ -10,9 +10,9 @@ namespace StardropTools.Tween
         public int target;
         public int lerped;
 
-        public static CoreEvent<int> OnUpdate = new CoreEvent<int>();
+        public static BaseEvent<int> OnUpdate = new BaseEvent<int>();
 
-        public TweenInt(int tweenID, int startInt, int targetInt, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<int> updateEvent)
+        public TweenInt(int tweenID, int startInt, int targetInt, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<int> updateEvent)
         {
             start = startInt;
             target = targetInt;

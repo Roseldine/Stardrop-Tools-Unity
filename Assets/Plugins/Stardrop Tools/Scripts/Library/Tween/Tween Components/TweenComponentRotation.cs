@@ -7,7 +7,7 @@ namespace StardropTools.Tween
         public UnityEngine.Quaternion start;
         public UnityEngine.Quaternion end;
 
-        public CoreEvent<UnityEngine.Quaternion> OnTween = new CoreEvent<UnityEngine.Quaternion>();
+        public BaseEvent<UnityEngine.Quaternion> OnTween = new BaseEvent<UnityEngine.Quaternion>();
 
 
         public override void InitializeTween()

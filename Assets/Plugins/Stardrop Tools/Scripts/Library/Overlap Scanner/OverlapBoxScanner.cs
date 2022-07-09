@@ -9,7 +9,7 @@ namespace StardropTools
 
         public Vector3 BoxScale { get => boxScale; set => boxScale = value; }
 
-        public override void Scan()
+        public override void UpdateScan()
             => BoxScan(Position, Rotation);
 
         public void Scan(Vector3 position, Vector3 scale, Quaternion rotation)

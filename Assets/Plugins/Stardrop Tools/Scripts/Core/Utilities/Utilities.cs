@@ -6,6 +6,8 @@ using UnityEngine;
 
 public static class Utilities
 {
+    static Camera camera;
+
     public static List<T> GetItems<T>(Transform parent)
     {
         if (parent != null && parent.childCount > 0)
@@ -92,6 +94,93 @@ public static class Utilities
         }
 
         return reversed;
+    }
+
+    public static List<T> ArrayToList<T>(T[] array)
+    {
+        var list = new List<T>();
+
+        for (int i = 0; i < array.Length; i++)
+            list.Add(array[i]);
+
+        return list;
+    }
+
+    public static List<T> GetComponentsInArray<T>(GameObject[] array)
+    {
+        List<T> components = new List<T>();
+
+        for (int i = 0; i < array.Length; i++)
+            components.Add(array[i].GetComponent<T>());
+
+        return components;
+    }
+
+    public static List<T> GetComponentsInList<T>(List<GameObject> list)
+    {
+        List<T> components = new List<T>();
+
+        for (int i = 0; i < list.Count; i++)
+            components.Add(list[i].GetComponent<T>());
+
+        return components;
+    }
+
+    public static Vector3 ViewportRaycast(LayerMask layerMask)
+    {
+        if (camera == null)
+            camera = Camera.main;
+
+        Ray ray = camera.ViewportPointToRay(new Vector3(.5f, .5f, 0));
+        RaycastHit hit;
+        Physics.Raycast(ray, out hit, 1000, layerMask);
+
+        return hit.point;
+    }
+
+    public static List<Collider> HorizontalEightDirectionRaycast(Vector3 origin, float rayLength, LayerMask mask)
+    {
+        RaycastHit hit;
+        Ray ray = new Ray();
+        ray.origin = origin;
+
+        List<Collider> colliders = new List<Collider>();
+
+        // loop through directions
+        // start at top and go clockwise
+        for (int i = 0; i < 8; i++)
+        {
+            if (i == 0) // top
+                ray.direction = Vector3.forward;
+
+            else if (i == 1) // top Right
+                ray.direction = Vector3.forward + Vector3.right;
+
+            else if (i == 2) // right
+                ray.direction = Vector3.right;
+
+            else if (i == 3) // bottom Right
+                ray.direction = Vector3.back + Vector3.right;
+
+            else if (i == 4) // bottom
+                ray.direction = Vector3.back;
+
+            else if (i == 5) // bottom Left
+                ray.direction = Vector3.back + Vector3.left;
+
+            else if (i == 6) // left
+                ray.direction = Vector3.left;
+
+            else if (i == 7) // top Left
+                ray.direction = Vector3.forward + Vector3.left;
+
+            ray.direction *= rayLength;
+
+            if (Physics.Raycast(ray, out hit, mask) && hit.collider != null)
+                colliders.Add(hit.collider);
+        }
+
+        return colliders;
     }
 
 #if UNITY_EDITOR

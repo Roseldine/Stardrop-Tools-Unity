@@ -65,17 +65,17 @@ public class SingleInputManager : Singleton<SingleInputManager>
     #region Events
 
     // ---------- !! ADD EVENTS FOR VALUES: HORIZONTAL, VERTICAL, INPUTSTART, ETC
-    public static readonly CoreEvent OnInputStart = new CoreEvent();
-    public static readonly CoreEvent OnInputEnd = new CoreEvent();
-    public static readonly CoreEvent OnInput = new CoreEvent();
+    public static readonly BaseEvent OnInputStart = new BaseEvent();
+    public static readonly BaseEvent OnInputEnd = new BaseEvent();
+    public static readonly BaseEvent OnInput = new BaseEvent();
 
-    public static readonly CoreEvent OnInputStartUI = new CoreEvent();
-    public static readonly CoreEvent OnInputEndUI = new CoreEvent();
+    public static readonly BaseEvent OnInputStartUI = new BaseEvent();
+    public static readonly BaseEvent OnInputEndUI = new BaseEvent();
 
-    public static readonly CoreEvent<float> OnInputHorizontal = new CoreEvent<float>();
-    public static readonly CoreEvent<float> OnInputVertical = new CoreEvent<float>();
+    public static readonly BaseEvent<float> OnInputHorizontal = new BaseEvent<float>();
+    public static readonly BaseEvent<float> OnInputVertical = new BaseEvent<float>();
 
-    public static readonly CoreEvent<float> OnInputDistance = new CoreEvent<float>();
+    public static readonly BaseEvent<float> OnInputDistance = new BaseEvent<float>();
     #endregion // events
 
     protected override void Awake()
@@ -232,7 +232,7 @@ public class SingleInputManager : Singleton<SingleInputManager>
 
         if (eventSystem == null)
         {
-            Debug.Log("Missing Event System listener");
+            //Debug.Log("Missing Event System listener");
             return;
         }
 

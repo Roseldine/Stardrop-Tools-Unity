@@ -9,7 +9,7 @@ namespace StardropTools
 
         public float Radius { get => radius; set => radius = value; }
 
-        public override void Scan() => SphereScan(Position);
+        public override void UpdateScan() => SphereScan(Position);
 
         public void SphereScan(Vector3 position)
         {

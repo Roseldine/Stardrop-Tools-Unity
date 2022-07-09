@@ -7,51 +7,65 @@ namespace StardropTools.Pool
     public class PooledObject : BaseObject, IPoolable
     {
         [UnityEngine.Header("Pooled Object")]
-        [UnityEngine.SerializeField] int itemID;
-        [UnityEngine.Space]
-        [UnityEngine.SerializeField] PoolData clusterData;
-        [UnityEngine.SerializeField] PoolData poolData;
+        [UnityEngine.SerializeField] protected PooledObjectPool pool;
+        [UnityEngine.SerializeField] protected int itemID;
 
-        UnityEngine.Coroutine lifetimeCR;
+        protected UnityEngine.Coroutine lifetimeCR;
 
-        public string ClusterName { get => clusterData.name; set => clusterData.name = value; }
-        public int ClusterID { get => clusterData.id; set => clusterData.id = value; }
 
-        public string PoolName { get => poolData.name; set => poolData.name = value; }
-        public int PoolID { get => poolData.id; set => poolData.id = value; }
+        public string ClusterName { get => pool.clusterData.name; set => pool.clusterData.name = value; }
+        public int ClusterID { get => pool.clusterData.id; set => pool.clusterData.id = value; }
+
+        public string PoolName { get => pool.poolData.name; set => pool.poolData.name = value; }
+        public int PoolID { get => pool.poolData.id; set => pool.poolData.id = value; }
+        public int PoolHash { get => pool.GetHashCode(); }
 
         public int ItemID { get => itemID; set => itemID = value; }
 
-        public void Initialize(PoolData clusterData, PoolData poolData, int itemID, bool setActive = false)
+
+        public readonly BaseEvent OnSpawned = new BaseEvent();
+        public readonly BaseEvent OnDespawned = new BaseEvent();
+
+
+        public void Initialize(PooledObjectPool pool, int itemID, bool setActive = false)
         {
-            this.clusterData = clusterData;
-            this.poolData = poolData;
+            this.pool = pool;
             this.itemID = itemID;
 
             SetActive(setActive);
             Initialize();
         }
 
-        public virtual void OnSpawn() { }
+        public virtual void OnSpawn()
+            => OnSpawned?.Invoke();
+
         public virtual void OnDespawn()
         {
             if (lifetimeCR != null)
                 StopCoroutine(lifetimeCR);
+
+            OnDespawned?.Invoke();
         }
 
-        public virtual void LifeTime(GameObjectPool pool, float time)
+        public virtual void Despawn()
+        {
+            OnDespawn();
+            pool.Despawn(this);
+        }
+
+        public virtual void LifeTime(PooledObjectPool pool, float time)
             => lifetimeCR = StartCoroutine(LifetimeCR(pool, time));
 
-        System.Collections.IEnumerator LifetimeCR(GameObjectPool pool, float time)
+        System.Collections.IEnumerator LifetimeCR(PooledObjectPool pool, float time)
         {
             yield return pool.GetWait(time);
             pool.Despawn(this);
         }
 
-        public async void LifeTimeAsync(GameObjectPool pool, float time)
+        public async void LifeTimeAsync(PooledObjectPool pool, float time)
             => await LifetimeSync(pool, time);
 
-        private async Task LifetimeSync(GameObjectPool pool, float time)
+        private async Task LifetimeSync(PooledObjectPool pool, float time)
         {
             int milisenconds = UtilsMath.ConvertToMiliseconds(time);
             await Task.Delay(milisenconds);

@@ -61,7 +61,10 @@ namespace StardropTools.Tween
         }
 
         public void RemoveTween(TweenBase tween)
-            => tweens.RemoveSafe(tween);
+        {
+            if (tweens.Contains(tween))
+                tweens.Remove(tween);
+        }
 
         public void UpdateTweens()
         {

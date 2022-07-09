@@ -216,6 +216,9 @@ public class GridData
 
     Vector3[] CalculateCorners()
     {
+        if (width == 0 || height == 0)
+            return null;
+
         // grid is XY or XZ
         if (space != GridSpace.xyz)
         {

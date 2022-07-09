@@ -16,7 +16,7 @@ namespace StardropTools.Pool
         [SerializeField] bool copyWheightNumbers;
         [SerializeField] bool clearWheights;
         [SerializeField] bool clearEmpty;
-        [SerializeField] GameObjectPool[] pools;
+        [SerializeField] PooledObjectPool[] pools;
 
         bool isInitialized;
 
@@ -87,7 +87,7 @@ namespace StardropTools.Pool
 
         public void DespawnAllPools()
         {
-            foreach (GameObjectPool pool in pools)
+            foreach (PooledObjectPool pool in pools)
                 pool.DespawnAll();
         }
 
@@ -146,7 +146,7 @@ namespace StardropTools.Pool
                 }
 
                 // make a copy of existing pools
-                var list = new System.Collections.Generic.List<GameObjectPool>();
+                var list = new System.Collections.Generic.List<PooledObjectPool>();
                 for (int i = 0; i < pools.Length; i++)
                     list.Add(pools[i]);
                 
@@ -154,7 +154,7 @@ namespace StardropTools.Pool
                 for (int i = 0; i < newPoolObjects.Count; i++)
                 {
                     PoolData poolData = new PoolData(newPoolObjects[i].name, i);
-                    list.Add(new GameObjectPool(clusterData, poolData, newPoolObjects[i], objectsToPoolCapacity, false, null, false));
+                    list.Add(new PooledObjectPool(clusterData, poolData, newPoolObjects[i], objectsToPoolCapacity, false, null, false));
                     //Debug.Log("Pool prefab: " + pools[i].Prefab.name);
                 }
 
@@ -185,7 +185,7 @@ namespace StardropTools.Pool
 
             if (clearEmpty)
             {
-                var poolList = new System.Collections.Generic.List<GameObjectPool>();
+                var poolList = new System.Collections.Generic.List<PooledObjectPool>();
 
                 for (int i = 0; i < pools.Length; i++)
                     if (pools[i].Prefab != null)

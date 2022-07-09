@@ -23,13 +23,13 @@ namespace StardropTools.Tween
         public bool HasStart { get => data.hasStart; set => data.hasStart = value; }
 
 
-        public CoreEvent OnStart { get => tween.OnStart; }
-        public CoreEvent OnComplete { get => tween.OnComplete; }
-        public CoreEvent OnPaused { get => tween.OnPaused; }
-        public CoreEvent OnCanceled { get => tween.OnCanceled; }
+        public BaseEvent OnStart { get => tween.OnTweenStart; }
+        public BaseEvent OnComplete { get => tween.OnTweenComplete; }
+        public BaseEvent OnPaused { get => tween.OnTweenPaused; }
+        public BaseEvent OnCanceled { get => tween.OnTweenCanceled; }
 
-        public CoreEvent OnDelayStart { get => tween.OnDelayStart; }
-        public CoreEvent OnDelayComplete { get => tween.OnDelayComplete; }
+        public BaseEvent OnDelayStart { get => tween.OnDelayStart; }
+        public BaseEvent OnDelayComplete { get => tween.OnDelayComplete; }
 
 
         private void Start()

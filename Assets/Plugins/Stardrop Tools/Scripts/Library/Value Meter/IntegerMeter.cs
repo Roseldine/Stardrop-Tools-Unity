@@ -14,7 +14,7 @@ namespace StardropTools
         protected int targetValue;
         public int Value { get => value; }
 
-        public readonly CoreEvent<int> OnValueChange = new CoreEvent<int>();
+        public readonly BaseEvent<int> OnValueChange = new BaseEvent<int>();
 
         public override void Initialize()
         {

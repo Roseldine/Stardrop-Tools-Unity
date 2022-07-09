@@ -20,11 +20,11 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
         public int StateCount { get { if (states.Exists()) return states.Count; else return 0; } }
         public EventState GetState(int stateIndex) => states[stateIndex];
 
-        public readonly CoreEvent<int> OnStateEnter = new CoreEvent<int>();
-        public readonly CoreEvent<int> OnStateExit = new CoreEvent<int>();
-        public readonly CoreEvent<int> OnStateUpdate = new CoreEvent<int>();
-        public readonly CoreEvent<int> OnStatePause = new CoreEvent<int>();
-        public readonly CoreEvent<int> OnStateResume = new CoreEvent<int>();
+        public readonly BaseEvent<int> OnStateEnter = new BaseEvent<int>();
+        public readonly BaseEvent<int> OnStateExit = new BaseEvent<int>();
+        public readonly BaseEvent<int> OnStateUpdate = new BaseEvent<int>();
+        public readonly BaseEvent<int> OnStatePause = new BaseEvent<int>();
+        public readonly BaseEvent<int> OnStateResume = new BaseEvent<int>();
 
 
         public EventStateMachine() { }
@@ -43,7 +43,7 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
             fsmID = id;
             this.states.AddArrayToList(states);
         }
-        
+
 
 
         public void Initialize()
@@ -51,11 +51,10 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
             if (IsInitialized)
                 return;
 
-            currentState = new EventState();
             InitializeStates();
+            currentState = new EventState(-1);
+            ChangeState(startStateID);
 
-            var state = states[startStateID];
-            currentState = state;
             IsInitialized = true;
         }
 
@@ -99,7 +98,7 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
 
         public void ChangeState(EventState nextState)
         {
-            if (currentState == nextState)
+            if (currentState.StateID == nextState.StateID)
                 return;
 
             if (currentState != null)
@@ -187,7 +186,7 @@ namespace StardropTools.FiniteStateMachine.EventFiniteStateMachine
         public void AddStates(EventState[] states)
         {
             foreach (var state in states)
-                states.Add(state);
+                this.states.Add(state);
 
             UpdateStateIDs();
         }

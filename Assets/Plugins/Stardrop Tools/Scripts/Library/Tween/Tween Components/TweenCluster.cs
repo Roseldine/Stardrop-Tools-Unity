@@ -14,8 +14,8 @@ namespace StardropTools.Tween
 
         float time;
 
-        public readonly CoreEvent OnTweenStart = new CoreEvent();
-        public readonly CoreEvent OnTweenComplete = new CoreEvent();
+        public readonly BaseEvent OnTweenStart = new BaseEvent();
+        public readonly BaseEvent OnTweenComplete = new BaseEvent();
 
         protected override void OnDisable()
         {

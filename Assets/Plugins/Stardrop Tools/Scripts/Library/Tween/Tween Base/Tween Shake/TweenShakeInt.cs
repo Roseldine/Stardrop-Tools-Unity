@@ -8,7 +8,7 @@ namespace StardropTools.Tween
     {
         protected int intensity;
 
-        public TweenShakeInt(int tweenID, int targetInt, int intensity, float duration, float delay, bool ignoreTimeScale, UnityEngine.AnimationCurve curve, Tween.LoopType loop, CoreEvent<int> updateEvent = null)
+        public TweenShakeInt(int tweenID, int targetInt, int intensity, float duration, float delay, bool ignoreTimeScale, UnityEngine.AnimationCurve curve, Tween.LoopType loop, BaseEvent<int> updateEvent = null)
                       : base(tweenID, targetInt, targetInt, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             start = targetInt;

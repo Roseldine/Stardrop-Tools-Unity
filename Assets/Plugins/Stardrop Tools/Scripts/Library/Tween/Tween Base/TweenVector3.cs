@@ -10,9 +10,9 @@ namespace StardropTools.Tween
         public Vector3 target;
         public Vector3 lerped;
 
-        public static CoreEvent<Vector3> OnUpdate = new CoreEvent<Vector3>();
+        public static BaseEvent<Vector3> OnUpdate = new BaseEvent<Vector3>();
 
-        public TweenVector3(int tweenID, Vector3 startVector, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Vector3> updateEvent = null)
+        public TweenVector3(int tweenID, Vector3 startVector, Vector3 targetVector, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Vector3> updateEvent = null)
         {
             start = startVector;
             target = targetVector;

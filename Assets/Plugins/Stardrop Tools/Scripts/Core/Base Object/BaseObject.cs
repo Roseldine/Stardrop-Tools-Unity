@@ -5,12 +5,10 @@ namespace StardropTools
 {
     public class BaseObject : BaseComponent
     {
-        [Header("Initialization")]
         [SerializeField] protected BaseObjectData coreData;
 
         #region Properties
         public bool IsActive { get => coreData.IsActive; set => SetActive(value); }
-        public bool CanUpdate { get => coreData.CanUpdate; set => coreData.SetUpdate(value); }
         public bool CanDebug { get => coreData.Debug; }
         public bool DrawGizmos { get => coreData.DrawGizmos; }
 
@@ -35,13 +33,17 @@ namespace StardropTools
 
 
         // Position
-        public float PosX { get => Position.x; set => Position.SetX(value); }
-        public float PosY { get => Position.y; set => Position.SetY(value); }
-        public float PosZ { get => Position.z; set => Position.SetZ(value); }
+        public float PositionX { get => Position.x; set => SetPositionX(value); }
+        public float PositionY { get => Position.y; set => SetPositionY(value); }
+        public float PositionZ { get => Position.z; set => SetPositionZ(value); }
 
-        public Vector2 PosXY { get => Position.GetXY(); set => Position.SetXY(value.x, value.y); }
-        public Vector2 PosXZ { get => Position.GetXZ(); set => Position.SetXZ(value.x, value.y); }
-        public Vector2 PosYZ { get => Position.GetYZ(); set => Position.SetYZ(value.x, value.y); }
+        public float LocalPositionX { get => LocalPosition.x; set => SetLocalPositionX(value); }
+        public float LocalPositionY { get => LocalPosition.y; set => SetLocalPositionY(value); }
+        public float LocalPositionZ { get => LocalPosition.z; set => SetLocalPositionZ(value); }
+
+        public Vector2 PositionXY { get => Position.GetXY(); set => Position = new Vector3(value.x, value.y, 0); }
+        public Vector2 PositionXZ { get => Position.GetXZ(); set => Position = new Vector3(value.x, 0, value.y); }
+        public Vector2 PositionYZ { get => Position.GetYZ(); set => Position = new Vector3(0, value.x, value.y); }
 
 
         // Rotation
@@ -55,88 +57,36 @@ namespace StardropTools
         public float LocalRotZ { get => LocalRotation.z; }
         public float LocalRotW { get => LocalRotation.w; }
 
-        public float EulerX { get => EulerRotation.x; set => EulerRotation.SetX(value); }
-        public float EulerY { get => EulerRotation.y; set => EulerRotation.SetY(value); }
-        public float EulerZ { get => EulerRotation.z; set => EulerRotation.SetZ(value); }
+        public float EulerX { get => EulerRotation.x; set => SetEulerX(value); }
+        public float EulerY { get => EulerRotation.y; set => SetEulerY(value); }
+        public float EulerZ { get => EulerRotation.z; set => SetEulerZ(value); }
 
-        public float LocalEulerX { get => LocalRotation.x; set => EulerRotation.SetX(value); }
-        public float LocalEulerY { get => LocalRotation.y; set => EulerRotation.SetY(value); }
-        public float LocalEulerZ { get => LocalRotation.z; set => EulerRotation.SetZ(value); }
+        public float LocalEulerX { get => LocalRotation.x; set => SetLocalEulerX(value); }
+        public float LocalEulerY { get => LocalRotation.y; set => SetLocalEulerY(value); }
+        public float LocalEulerZ { get => LocalRotation.z; set => SetLocalEulerZ(value); }
 
 
         // Scale
-        public float ScaleX { get => Scale.x; set => Scale.SetX(value); }
-        public float ScaleY { get => Scale.y; set => Scale.SetY(value); }
-        public float ScaleZ { get => Scale.z; set => Scale.SetZ(value); }
+        public float ScaleX { get => Scale.x; set => SetScaleX(value); }
+        public float ScaleY { get => Scale.y; set => SetScaleY(value); }
+        public float ScaleZ { get => Scale.z; set => SetScaleZ(value); }
         #endregion // properties
 
-
-        #region Print & Debug.log
-        /// <summary>
-        /// substitute to Debug.Log();
-        /// </summary>
-        public static void Print(object message) => Debug.Log(message);
-
-        /// <summary>
-        /// substitute to Debug.LogWarning();
-        /// </summary>
-        public static void PrintWarning(object message) => Debug.LogWarning(message);
-        #endregion // print
-
         #region Events
-        public readonly CoreEvent OnSetParent = new CoreEvent();
-        public readonly CoreEvent OnAddChild = new CoreEvent();
-        public readonly CoreEvent OnRemoveChild = new CoreEvent();
+        
+        public readonly BaseEvent OnSetParent = new BaseEvent();
+        public readonly BaseEvent OnAddChild = new BaseEvent();
+        public readonly BaseEvent OnRemoveChild = new BaseEvent();
 
-        public readonly CoreEvent OnDestroyObject = new CoreEvent();
+        public readonly BaseEvent OnDestroyObject = new BaseEvent();
 
-        public readonly CoreEvent OnActivate = new CoreEvent();
-        public readonly CoreEvent OnDeactivate = new CoreEvent();
+        public readonly BaseEvent OnActivate = new BaseEvent();
+        public readonly BaseEvent OnDeactivate = new BaseEvent();
+
         #endregion // events
 
 
-        protected override void Awake()
-        {
-            DataCheck();
-
-            if (coreData.Initialization == BaseObjectData.InitializationType.awake)
-                Initialize();
-
-            if (coreData.LateInitialization == BaseObjectData.InitializationType.awake)
-                LateInitialize();
-
-            OnAwake?.Invoke();
-        }
-
-        protected override void Start()
-        {
-            DataCheck();
-
-            if (coreData.Initialization == BaseObjectData.InitializationType.start)
-                Initialize();
-
-            if (coreData.LateInitialization == BaseObjectData.InitializationType.start)
-                LateInitialize();
-
-            OnStart?.Invoke();
-        }
-
         public override void Initialize()
-        {
-            if (IsInitialized)
-                return;
-
-            InitialPosition = Transform.position;
-
-            DataCheck();
-            coreData.Initialize();
-            IsInitialized = true;
-
-            OnInitialize?.Invoke();
-        }
-
-
-        public virtual void Initialize(bool canUpdate)
         {
             if (IsInitialized)
             {
@@ -146,8 +96,13 @@ namespace StardropTools
                 return;
             }
 
-            SetCanUpdate(canUpdate);
-            Initialize();
+            InitialPosition = Transform.position;
+
+            DataCheck();
+            coreData.Initialize();
+            IsInitialized = true;
+
+            OnInitialize?.Invoke();
         }
 
         public override void LateInitialize()
@@ -174,43 +129,16 @@ namespace StardropTools
 
         protected bool UpdateCheck()
         {
-            if (IsInitialized == false || CanUpdate == false)
+            if (IsInitialized == false)
             {
                 if (CanDebug && IsInitialized == false)
                     Print(name + " isn't Initialized");
-
-                if (CanDebug && CanUpdate == false)
-                    Print(name + " can't Update");
 
                 return false;
             }
 
             else
                 return true;
-        }
-
-        public virtual void UpdateObject()
-        {
-            if (UpdateCheck() == false)
-                return;
-        }
-
-        public virtual void LateUpdateObject()
-        {
-            if (UpdateCheck() == false)
-                return;
-        }
-
-        public virtual void FixedUpdateObject()
-        {
-            if (UpdateCheck() == false)
-                return;
-        }
-
-        public virtual void HandleInput()
-        {
-            if (UpdateCheck() == false)
-                return;
         }
 
         public virtual void ResetObject()
@@ -223,9 +151,10 @@ namespace StardropTools
 
         protected override void OnEnable()
         {
+            DataCheck();
             EnabledPosition = Transform.position;
 
-            OnEnabled?.Invoke();
+            base.OnEnable();
         }
 
         protected override void OnDisable()
@@ -235,7 +164,7 @@ namespace StardropTools
             UnsubscribeFromEvents();
             UnsubscribeFromEventsOnDisable();
 
-            OnDisabled?.Invoke();
+            base.OnDisable();
         }
 
         protected virtual void OnDestroy()
@@ -290,8 +219,6 @@ namespace StardropTools
                 OnDeactivate?.Invoke();
         }
 
-        public void SetCanUpdate(bool value) => coreData.SetUpdate(value);
-
         public void SetParent(Transform parent)
         {
             if (Transform.parent != parent)
@@ -337,22 +264,23 @@ namespace StardropTools
         public void SetLocalPosition(Vector3 localPosition)
             => LocalPosition = localPosition;
 
-        public void SetPosX(float value)
-            => Position = new Vector3(value, PosY, PosZ);
+        public void SetPositionX(float value)
+            => Position = new Vector3(value, PositionY, PositionZ);
 
-        public void SetPosY(float value)
-            => Position = new Vector3(PosX, value, PosZ);
+        public void SetPositionY(float value)
+            => Position = new Vector3(PositionX, value, PositionZ);
 
-        public void SetPosZ(float value)
-            => Position = new Vector3(PosX, PosY, value);
+        public void SetPositionZ(float value)
+            => Position = new Vector3(PositionX, PositionY, value);
 
-        public void SetLocalPosX(float value)
+
+        public void SetLocalPositionX(float value)
             => LocalPosition = new Vector3(value, LocalPosition.y, LocalPosition.z);
 
-        public void SetLocalPosY(float value)
+        public void SetLocalPositionY(float value)
             => LocalPosition = new Vector3(LocalPosition.x, value, LocalPosition.z);
 
-        public void SetLocalPosZ(float value)
+        public void SetLocalPositionZ(float value)
             => LocalPosition = new Vector3(LocalPosition.x, LocalPosition.y, value);
 
 
@@ -363,17 +291,23 @@ namespace StardropTools
         public void SetLocalRotation(Quaternion localRotation)
             => LocalRotation = localRotation;
 
+
         public void SetEulerRotation(Vector3 rotation)
             => EulerRotation = rotation;
+
         public void SetLocalEulerRotation(Vector3 rotation)
             => LocalEulerRotation = rotation;
 
+
         public void SetEulerX(float x)
             => SetEulerRotation(new Vector3(x, EulerY, EulerZ));
+
         public void SetEulerY(float y)
             => SetEulerRotation(new Vector3(EulerX, y, EulerZ));
+
         public void SetEulerZ(float z)
             => SetEulerRotation(new Vector3(EulerX, EulerY, z));
+
 
         public void SetLocalEulerX(float x)
             => SetLocalEulerRotation(new Vector3(x, EulerY, EulerZ));
@@ -386,6 +320,13 @@ namespace StardropTools
         // scale
         public void SetScale(Vector3 scale)
             => Scale = scale;
+
+        public void SetScaleX(float x)
+            => SetScale(new Vector3(x, ScaleY, ScaleZ));
+        public void SetScaleY(float y)
+            => SetScale(new Vector3(ScaleX, y, ScaleZ));
+        public void SetScaleZ(float z)
+            => SetScale(new Vector3(ScaleX, ScaleY, z));
 
 
         public Vector3 DirectionTo(Vector3 target) => target - Position;

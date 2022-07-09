@@ -7,7 +7,7 @@ namespace StardropTools.Tween
     {
         Transform transform;
 
-        public TweenShakeRotation(Transform transform, int tweenID, Vector4 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, CoreEvent<Quaternion> updateEvent = null)
+        public TweenShakeRotation(Transform transform, int tweenID, Vector4 intensity, float duration, float delay, bool ignoreTimeScale, AnimationCurve curve, Tween.LoopType loop, BaseEvent<Quaternion> updateEvent = null)
                       : base(tweenID, transform.rotation, intensity, duration, delay, ignoreTimeScale, curve, loop, updateEvent = null)
         {
             start = transform.rotation;
